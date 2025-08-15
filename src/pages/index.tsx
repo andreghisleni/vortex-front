@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, Navigate } from '@tanstack/react-router';
 import { auth } from '@/lib/auth';
 
 export const Route = createFileRoute('/')({
@@ -6,7 +6,15 @@ export const Route = createFileRoute('/')({
 });
 
 export function Home() {
-  const { data } = auth.getSession();
+  const { data, isPending } = auth.useSession();
+
+  if (isPending) {
+    return <div>Loading...</div>;
+  }
+
+  if (!data) {
+    return <Navigate replace to="/sign-in" />;
+  }
 
   return (
     <div>
