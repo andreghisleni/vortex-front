@@ -27,7 +27,6 @@ export const Route = createFileRoute('/_auth/sign-up')({
   component: SignUp,
 });
 
-// Validation schema with Zod for the sign-up form
 const signUpSchema = z
   .object({
     name: z.string().min(1, {
