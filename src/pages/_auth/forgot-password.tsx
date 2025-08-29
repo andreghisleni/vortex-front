@@ -57,11 +57,10 @@ function RouteComponent() {
 
     if (error) {
       setAuthError(error.message || 'An unexpected error occurred.');
-      // toast.error is not defined, so we'll log to console
+      toast.error(error.message || 'An unexpected error occurred.');
       return;
     }
 
-    // toast.success is not defined, so we'll log to console
     toast.success('Password reset email sent!');
     // navigate({ to: '/sign-in', search: { email: values.email } });
   }
@@ -69,9 +68,9 @@ function RouteComponent() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Create an account</CardTitle>
+        <CardTitle>Forgot Password</CardTitle>
         <CardDescription>
-          Enter your information to create a new account
+          Enter your email address to receive a password reset link
         </CardDescription>
       </CardHeader>
       <CardContent>
