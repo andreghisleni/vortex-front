@@ -37,7 +37,6 @@ type ForgotPasswordSchema = z.infer<typeof forgotPasswordSchema>;
 
 // Mock Route definition
 function RouteComponent() {
-  const navigate = Route.useNavigate();
   const [authError, setAuthError] = useState<string | null>(null);
 
   // Form setup with React Hook Form
@@ -64,7 +63,7 @@ function RouteComponent() {
 
     // toast.success is not defined, so we'll log to console
     toast.success('Password reset email sent!');
-    navigate({ to: '/sign-in', search: { email: values.email } });
+    // navigate({ to: '/sign-in', search: { email: values.email } });
   }
 
   return (
