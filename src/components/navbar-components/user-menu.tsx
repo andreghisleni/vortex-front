@@ -46,7 +46,7 @@ export default function UserMenu() {
       <DropdownMenuTrigger asChild>
         <Button className="h-auto p-0 hover:bg-transparent" variant="ghost">
           <Avatar>
-            <AvatarImage alt={user.name} src={''} />
+            <AvatarImage alt={user.name} src={user.image || ''} />
             <AvatarFallback className="rounded-lg">{initials}</AvatarFallback>
           </Avatar>
         </Button>

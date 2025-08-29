@@ -1,6 +1,13 @@
-import { createRouter, RouterProvider } from '@tanstack/react-router';
+import { AuthUIProvider } from '@daveyplate/better-auth-ui';
+import {
+  createRouter,
+  Link,
+  RouterProvider,
+  useRouter,
+} from '@tanstack/react-router';
 import { ThemeProvider } from './components/theme-provider';
 import { Toaster } from './components/ui/sonner';
+import { auth } from './lib/auth';
 import { routeTree } from './route-tree.gen';
 
 const router = createRouter({
@@ -17,10 +24,19 @@ declare module '@tanstack/react-router' {
 }
 
 export function App() {
+  const r = useRouter();
+
   return (
     <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-      <RouterProvider router={router} />
-      <Toaster />
+      <AuthUIProvider
+        authClient={auth}
+        Link={({ href, ...props }) => <Link to={href} {...props} />}
+        navigate={(href) => r.navigate({ href })}
+        replace={(href) => r.navigate({ href, replace: true })}
+      >
+        <RouterProvider router={router} />
+        <Toaster />
+      </AuthUIProvider>
     </ThemeProvider>
   );
 }
