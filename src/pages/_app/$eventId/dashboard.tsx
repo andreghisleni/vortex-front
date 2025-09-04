@@ -32,7 +32,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-export const Route = createFileRoute('/_app/dashboard')({
+export const Route = createFileRoute('/_app/$eventId/dashboard')({
   component: DashboardPage,
 });
 

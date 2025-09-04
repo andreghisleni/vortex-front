@@ -54,10 +54,10 @@ export default function UserMenu() {
       <DropdownMenuContent align="end" className="max-w-64">
         <DropdownMenuLabel className="flex min-w-0 flex-col">
           <span className="truncate font-medium text-foreground text-sm">
-            Keith Kennedy
+            {user.name}
           </span>
           <span className="truncate font-normal text-muted-foreground text-xs">
-            k.kennedy@originui.com
+            {user.email}
           </span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />

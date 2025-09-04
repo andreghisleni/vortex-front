@@ -18,6 +18,7 @@ import { Route as AuthForgotPasswordRouteImport } from './pages/_auth/forgot-pas
 import { Route as AppSettingsRouteImport } from './pages/_app/settings'
 import { Route as AppDashboardRouteImport } from './pages/_app/dashboard'
 import { Route as AuthResetPasswordTokenRouteImport } from './pages/_auth/reset-password.$token'
+import { Route as AppEventIdDashboardRouteImport } from './pages/_app/$eventId/dashboard'
 
 const AuthLayoutRoute = AuthLayoutRouteImport.update({
   id: '/_auth',
@@ -62,6 +63,11 @@ const AuthResetPasswordTokenRoute = AuthResetPasswordTokenRouteImport.update({
   path: '/reset-password/$token',
   getParentRoute: () => AuthLayoutRoute,
 } as any)
+const AppEventIdDashboardRoute = AppEventIdDashboardRouteImport.update({
+  id: '/$eventId/dashboard',
+  path: '/$eventId/dashboard',
+  getParentRoute: () => AppLayoutRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -70,6 +76,7 @@ export interface FileRoutesByFullPath {
   '/forgot-password': typeof AuthForgotPasswordRoute
   '/sign-in': typeof AuthSignInRoute
   '/sign-up': typeof AuthSignUpRoute
+  '/$eventId/dashboard': typeof AppEventIdDashboardRoute
   '/reset-password/$token': typeof AuthResetPasswordTokenRoute
 }
 export interface FileRoutesByTo {
@@ -79,6 +86,7 @@ export interface FileRoutesByTo {
   '/forgot-password': typeof AuthForgotPasswordRoute
   '/sign-in': typeof AuthSignInRoute
   '/sign-up': typeof AuthSignUpRoute
+  '/$eventId/dashboard': typeof AppEventIdDashboardRoute
   '/reset-password/$token': typeof AuthResetPasswordTokenRoute
 }
 export interface FileRoutesById {
@@ -91,6 +99,7 @@ export interface FileRoutesById {
   '/_auth/forgot-password': typeof AuthForgotPasswordRoute
   '/_auth/sign-in': typeof AuthSignInRoute
   '/_auth/sign-up': typeof AuthSignUpRoute
+  '/_app/$eventId/dashboard': typeof AppEventIdDashboardRoute
   '/_auth/reset-password/$token': typeof AuthResetPasswordTokenRoute
 }
 export interface FileRouteTypes {
@@ -102,6 +111,7 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/sign-in'
     | '/sign-up'
+    | '/$eventId/dashboard'
     | '/reset-password/$token'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -111,6 +121,7 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/sign-in'
     | '/sign-up'
+    | '/$eventId/dashboard'
     | '/reset-password/$token'
   id:
     | '__root__'
@@ -122,6 +133,7 @@ export interface FileRouteTypes {
     | '/_auth/forgot-password'
     | '/_auth/sign-in'
     | '/_auth/sign-up'
+    | '/_app/$eventId/dashboard'
     | '/_auth/reset-password/$token'
   fileRoutesById: FileRoutesById
 }
@@ -196,17 +208,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthResetPasswordTokenRouteImport
       parentRoute: typeof AuthLayoutRoute
     }
+    '/_app/$eventId/dashboard': {
+      id: '/_app/$eventId/dashboard'
+      path: '/$eventId/dashboard'
+      fullPath: '/$eventId/dashboard'
+      preLoaderRoute: typeof AppEventIdDashboardRouteImport
+      parentRoute: typeof AppLayoutRoute
+    }
   }
 }
 
 interface AppLayoutRouteChildren {
   AppDashboardRoute: typeof AppDashboardRoute
   AppSettingsRoute: typeof AppSettingsRoute
+  AppEventIdDashboardRoute: typeof AppEventIdDashboardRoute
 }
 
 const AppLayoutRouteChildren: AppLayoutRouteChildren = {
   AppDashboardRoute: AppDashboardRoute,
   AppSettingsRoute: AppSettingsRoute,
+  AppEventIdDashboardRoute: AppEventIdDashboardRoute,
 }
 
 const AppLayoutRouteWithChildren = AppLayoutRoute._addFileChildren(

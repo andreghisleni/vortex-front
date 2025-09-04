@@ -15,6 +15,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import { EventSelect } from '../event-select';
 import { MenuLink } from './menu-link';
 
 // Navigation links array to be used in both desktop and mobile menus
@@ -92,6 +93,7 @@ export function Header() {
             >
               <Logo />
             </Link>
+            <EventSelect />
             {/* Navigation menu */}
             <NavigationMenu className="max-md:hidden">
               <NavigationMenuList className="gap-2">
