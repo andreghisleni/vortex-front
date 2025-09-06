@@ -3,6 +3,8 @@ export type { GetAllEventsQueryKey } from "./useGetAllEvents.ts";
 export type { GetAllEventsSuspenseQueryKey } from "./useGetAllEventsSuspense.ts";
 export type { GetEventByIdQueryKey } from "./useGetEventById.ts";
 export type { GetEventByIdSuspenseQueryKey } from "./useGetEventByIdSuspense.ts";
+export type { GetEventDashboardDataByIdQueryKey } from "./useGetEventDashboardDataById.ts";
+export type { GetEventDashboardDataByIdSuspenseQueryKey } from "./useGetEventDashboardDataByIdSuspense.ts";
 export type { GetIndexQueryKey } from "./useGetIndex.ts";
 export type { GetIndexSuspenseQueryKey } from "./useGetIndexSuspense.ts";
 export type { UpdateUserLastEventIdMutationKey } from "./useUpdateUserLastEventId.ts";
@@ -11,6 +13,8 @@ export { getAllEventsQueryKey, getAllEvents, getAllEventsQueryOptions, useGetAll
 export { getAllEventsSuspenseQueryKey, getAllEventsSuspense, getAllEventsSuspenseQueryOptions, useGetAllEventsSuspense } from "./useGetAllEventsSuspense.ts";
 export { getEventByIdQueryKey, getEventById, getEventByIdQueryOptions, useGetEventById } from "./useGetEventById.ts";
 export { getEventByIdSuspenseQueryKey, getEventByIdSuspense, getEventByIdSuspenseQueryOptions, useGetEventByIdSuspense } from "./useGetEventByIdSuspense.ts";
+export { getEventDashboardDataByIdQueryKey, getEventDashboardDataById, getEventDashboardDataByIdQueryOptions, useGetEventDashboardDataById } from "./useGetEventDashboardDataById.ts";
+export { getEventDashboardDataByIdSuspenseQueryKey, getEventDashboardDataByIdSuspense, getEventDashboardDataByIdSuspenseQueryOptions, useGetEventDashboardDataByIdSuspense } from "./useGetEventDashboardDataByIdSuspense.ts";
 export { getIndexQueryKey, getIndex, getIndexQueryOptions, useGetIndex } from "./useGetIndex.ts";
 export { getIndexSuspenseQueryKey, getIndexSuspense, getIndexSuspenseQueryOptions, useGetIndexSuspense } from "./useGetIndexSuspense.ts";
 export { updateUserLastEventIdMutationKey, updateUserLastEventId, useUpdateUserLastEventId } from "./useUpdateUserLastEventId.ts";
