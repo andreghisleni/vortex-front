@@ -1,4 +1,4 @@
-import { Link } from '@tanstack/react-router';
+import { Link, useParams } from '@tanstack/react-router';
 import InfoMenu from '@/components/navbar-components/info-menu';
 import Logo from '@/components/navbar-components/logo';
 import NotificationMenu from '@/components/navbar-components/notification-menu';
@@ -20,13 +20,20 @@ import { MenuLink } from './menu-link';
 
 // Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [
-  { href: '/dashboard', label: 'Home' },
-  { href: '/settings', label: 'Settings' },
-  { href: '/pricing', label: 'Pricing' },
-  { href: '/about', label: 'About' },
+  // { href: '/dashboard', label: 'Home' },
+  // { href: '/settings', label: 'Settings' },
+];
+
+const eventNavigationLinks = [
+  { href: '/dashboard', label: 'Dashboard' },
+  { href: '/members', label: 'Membros' },
 ];
 
 export function Header() {
+  const eventId = useParams({
+    strict: false,
+  }).eventId as string | undefined;
+
   return (
     <header className="border-b px-4 md:px-6">
       <div className="flex h-16 items-center justify-between gap-4">
@@ -81,6 +88,21 @@ export function Header() {
                       </MenuLink>
                     </NavigationMenuItem>
                   ))}
+
+                  {eventId &&
+                    eventNavigationLinks.map((link, index) => (
+                      <NavigationMenuItem
+                        className="w-full"
+                        key={index.toString()}
+                      >
+                        <MenuLink
+                          className="py-1.5"
+                          href={`/${eventId}${link.href}`}
+                        >
+                          {link.label}
+                        </MenuLink>
+                      </NavigationMenuItem>
+                    ))}
                 </NavigationMenuList>
               </NavigationMenu>
             </PopoverContent>
@@ -107,6 +129,18 @@ export function Header() {
                     </MenuLink>
                   </NavigationMenuItem>
                 ))}
+
+                {eventId &&
+                  eventNavigationLinks.map((link, index) => (
+                    <NavigationMenuItem key={index.toString()}>
+                      <MenuLink
+                        className="py-1.5 font-medium text-muted-foreground hover:text-primary"
+                        href={`/${eventId}${link.href}`}
+                      >
+                        {link.label}
+                      </MenuLink>
+                    </NavigationMenuItem>
+                  ))}
               </NavigationMenuList>
             </NavigationMenu>
           </div>
