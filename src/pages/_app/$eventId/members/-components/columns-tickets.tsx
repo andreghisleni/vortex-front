@@ -4,12 +4,12 @@ import type { ColumnDef } from '@tanstack/react-table';
 import { format } from 'date-fns';
 
 import { tdb } from '@/components/TableDataButton';
-import type { GetEventMembers200 } from '@/http/generated';
+import type { GetEventByEventIdMembers200 } from '@/http/generated';
 import { DeleteTicketButton } from './delete-ticket-button';
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type Ticket = GetEventMembers200[0]['tickets'][0];
+export type Ticket = GetEventByEventIdMembers200['data'][0]['tickets'][0];
 
 export const columnsTickets: ColumnDef<Ticket>[] = [
   tdb('number', 'N'),

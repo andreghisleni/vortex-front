@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 
 import { DataTable } from '@/components/data-table';
-import { useGetEventMembers } from '@/http/generated';
+import { useGetEventByEventIdMembers } from '@/http/generated';
 import { columns } from './-components/columns';
 
 // import { MemberForm } from './member-form';
@@ -12,7 +12,7 @@ export const Route = createFileRoute('/_app/$eventId/members/')({
 
 function RouteComponent() {
   const eventId = Route.useParams().eventId;
-  const { data } = useGetEventMembers(eventId);
+  const { data } = useGetEventByEventIdMembers(eventId);
 
   if (!data) {
     return null;
@@ -37,7 +37,7 @@ function RouteComponent() {
           </>
         }
         columns={columns}
-        data={data.map((member) => ({
+        data={data.data.map((member) => ({
           ...member,
           totalTickets: member.tickets.length,
           totalTicketsToDeliver: member.tickets.filter(

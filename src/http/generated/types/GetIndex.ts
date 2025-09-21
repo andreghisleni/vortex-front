@@ -4,11 +4,9 @@
 */
 
 
-export type GetIndex200 = any;
-
-export type GetIndexQueryResponse = GetIndex200;
+export type GetIndexQueryResponse = any;
 
 export type GetIndexQuery = {
-    Response: GetIndex200;
+    Response: any;
     Errors: any;
 };

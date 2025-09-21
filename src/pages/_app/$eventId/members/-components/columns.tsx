@@ -12,14 +12,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import type { GetEventMembers200 } from '@/http/generated';
+import type { GetEventByEventIdMembers200 } from '@/http/generated';
 import { agruparNumbers } from '@/utils/agrupar-numaros';
 import { columnsTickets } from './columns-tickets';
 // import { MemberForm, Session } from './member-form'
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type Member = GetEventMembers200[0] & {
+export type Member = GetEventByEventIdMembers200['data'][0] & {
   totalTickets: number;
   totalTicketsToDeliver: number;
 };
