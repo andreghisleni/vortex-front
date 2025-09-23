@@ -1,10 +1,10 @@
 import { BarChart } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useGetEventDashboardDataById } from '@/http/generated';
+import { useGetEventsByIdDashboard } from '@/http/generated';
 import { Loading } from './loading';
 
 export function TotalPredictedPayedTicket({ eventId }: { eventId: string }) {
-  const { data, isLoading } = useGetEventDashboardDataById(eventId);
+  const { data, isLoading } = useGetEventsByIdDashboard(eventId);
 
   if (isLoading) {
     return <Loading />;

@@ -12,14 +12,17 @@ import {
   CommandList,
   CommandSeparator,
 } from '@/components/ui/command';
-import { updateUserLastEventId, useGetAllEvents } from '@/http/generated';
+import {
+  putUsersUpdateLastEventByEventId,
+  useGetEvents,
+} from '@/http/generated';
 import { EventFormDialog } from './event-form-dialog';
 
 export default function EventSelectScreen() {
   const navigate = useNavigate();
   const [open, setOpen] = useState<boolean>(true);
 
-  const { data } = useGetAllEvents();
+  const { data, isLoading } = useGetEvents();
 
   const value = useParams({
     strict: false,
@@ -30,7 +33,7 @@ export default function EventSelectScreen() {
       return;
     }
 
-    await updateUserLastEventId(v);
+    await putUsersUpdateLastEventByEventId(v);
 
     await navigate({ to: '/$eventId/dashboard', params: { eventId: v } });
   }
@@ -39,7 +42,9 @@ export default function EventSelectScreen() {
     <CommandDialog open={open}>
       <CommandInput placeholder="Find organization" />
       <CommandList>
-        <CommandEmpty>No event found.</CommandEmpty>
+        <CommandEmpty>
+          {isLoading ? 'Loading...' : 'No event found.'}
+        </CommandEmpty>
         <CommandGroup>
           {data?.map((event) => (
             <CommandItem

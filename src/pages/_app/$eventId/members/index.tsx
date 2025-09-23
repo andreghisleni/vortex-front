@@ -1,6 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router';
-
+import { parseAsInteger, useQueryStates } from 'nuqs';
+import { Suspense } from 'react';
 import { DataTable } from '@/components/data-table';
+import { Pagination } from '@/components/pagination';
+import { usePagination } from '@/hooks/use-pagination';
 import { useGetEventByEventIdMembers } from '@/http/generated';
 import { columns } from './-components/columns';
 
@@ -12,7 +15,30 @@ export const Route = createFileRoute('/_app/$eventId/members/')({
 
 function RouteComponent() {
   const eventId = Route.useParams().eventId;
-  const { data } = useGetEventByEventIdMembers(eventId);
+  const [{ pageIndex, pageSize }] = useQueryStates(
+    {
+      // pageIndex é um inteiro, com valor padrão 0
+      pageIndex: parseAsInteger.withDefault(0),
+      // pageSize é uma string, com valor padrão '10' (pode ser parseAsInteger se preferir)
+      pageSize: parseAsInteger.withDefault(10),
+    },
+    {
+      // Atualiza a URL sem rolar a página para o topo
+      shallow: false,
+    }
+  );
+  const { data, isLoading } = useGetEventByEventIdMembers(eventId, {
+    pagination: {
+      page: pageIndex,
+      pageSize,
+    },
+  });
+
+  const { totalPages, total, navigateToPage, setPageSize, showing } =
+    usePagination({
+      total: data?.meta.total,
+      showing: data?.data.length,
+    });
 
   if (!data) {
     return null;
@@ -44,7 +70,28 @@ function RouteComponent() {
             (ticket) => !ticket.deliveredAt
           ).length,
         }))}
+        loading={isLoading}
+        paginationComponent={
+          <Suspense fallback={null}>
+            <Pagination
+              {...{
+                items: total,
+                page: pageIndex,
+                pages: totalPages,
+                limit: pageSize,
+                showing,
+                handleUpdatePage: (p) => {
+                  navigateToPage(p);
+                },
+                handleChangeLimit: (l) => {
+                  setPageSize(`${l}`);
+                },
+              }}
+            />
+          </Suspense>
+        }
       />
+      <pre>{JSON.stringify(data.meta, null, 2)}</pre>
     </div>
   );
 }

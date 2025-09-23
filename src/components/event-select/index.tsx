@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from '@tanstack/react-router';
+import { useLocation, useNavigate, useParams } from '@tanstack/react-router';
 import { CheckIcon, ChevronDownIcon, Loader2 } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
@@ -16,7 +16,10 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { updateUserLastEventId, useGetAllEvents } from '@/http/generated';
+import {
+  putUsersUpdateLastEventByEventId,
+  useGetEvents,
+} from '@/http/generated';
 
 import { cn } from '@/lib/utils';
 import { Skeleton } from '../ui/skeleton';
@@ -27,25 +30,38 @@ export function EventSelect() {
   const navigate = useNavigate();
   const [open, setOpen] = useState<boolean>(false);
 
-  const { data, isLoading } = useGetAllEvents();
+  const { data, isLoading } = useGetEvents();
 
-  const value = useParams({
+  const location = useLocation();
+  const { eventId: currentEventId } = useParams({
     strict: false,
-  }).eventId as string | undefined;
+  });
 
-  async function handleSelect(v?: string) {
-    if (!v) {
+  async function handleSelect(newEventId?: string) {
+    // Não faz nada se o novo ID não existir ou for o mesmo que o atual
+    if (!newEventId || newEventId === currentEventId) {
       return;
     }
 
-    await updateUserLastEventId(v);
+    await putUsersUpdateLastEventByEventId(newEventId);
 
-    await navigate({ to: '/$eventId/dashboard', params: { eventId: v } });
+    if (currentEventId) {
+      // Constrói o novo caminho substituindo o ID antigo pelo novo na URL atual
+      const newPath = location.pathname.replace(currentEventId, newEventId);
+      // Navega para a nova rota mantendo o restante da URL
+      await navigate({ to: newPath });
+    } else {
+      // Caso seja a primeira seleção (sem eventId na URL), vai para o dashboard
+      await navigate({
+        to: '/$eventId/dashboard',
+        params: { eventId: newEventId },
+      });
+    }
   }
 
   return (
     <>
-      {!value && <EventSelectScreen />}
+      {!currentEventId && <EventSelectScreen />}
       <div className="*:not-first:mt-2">
         <Popover onOpenChange={setOpen} open={open}>
           <PopoverTrigger asChild>
@@ -59,10 +75,13 @@ export function EventSelect() {
                 <Skeleton className="h-[20px] w-[100px] rounded-full" />
               ) : (
                 <span
-                  className={cn('truncate', !value && 'text-muted-foreground')}
+                  className={cn(
+                    'truncate',
+                    !currentEventId && 'text-muted-foreground'
+                  )}
                 >
-                  {value
-                    ? data?.find((event) => event.id === value)?.name
+                  {currentEventId
+                    ? data?.find((event) => event.id === currentEventId)?.name
                     : 'Select an event'}
                 </span>
               )}
@@ -99,7 +118,7 @@ export function EventSelect() {
                       value={event.id}
                     >
                       {event.name}
-                      {value === event.id && (
+                      {currentEventId === event.id && (
                         <CheckIcon className="ml-auto" size={16} />
                       )}
                     </CommandItem>
