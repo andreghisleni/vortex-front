@@ -12,17 +12,14 @@ import {
   CommandList,
   CommandSeparator,
 } from '@/components/ui/command';
-import {
-  putUsersUpdateLastEventByEventId,
-  useGetEvents,
-} from '@/http/generated';
+import { updateUserLastEventId, useGetAllEvents } from '@/http/generated';
 import { EventFormDialog } from './event-form-dialog';
 
 export default function EventSelectScreen() {
   const navigate = useNavigate();
   const [open, setOpen] = useState<boolean>(true);
 
-  const { data, isLoading } = useGetEvents();
+  const { data, isLoading } = useGetAllEvents();
 
   const value = useParams({
     strict: false,
@@ -33,7 +30,7 @@ export default function EventSelectScreen() {
       return;
     }
 
-    await putUsersUpdateLastEventByEventId(v);
+    await updateUserLastEventId(v);
 
     await navigate({ to: '/$eventId/dashboard', params: { eventId: v } });
   }

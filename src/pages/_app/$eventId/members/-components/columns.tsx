@@ -3,7 +3,8 @@
 import type { ColumnDef } from '@tanstack/react-table';
 import { format } from 'date-fns';
 import { DataTable } from '@/components/data-table';
-import { tdb } from '@/components/TableDataButton';
+
+import { tdbs } from '@/components/TableDataButton-server';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -12,21 +13,22 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
-import type { GetEventByEventIdMembers200 } from '@/http/generated';
+import type { GetEventMembers200 } from '@/http/generated';
 import { agruparNumbers } from '@/utils/agrupar-numaros';
 import { columnsTickets } from './columns-tickets';
+import { MemberForm } from './member-form';
 // import { MemberForm, Session } from './member-form'
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type Member = GetEventByEventIdMembers200['data'][0] & {
+export type Member = GetEventMembers200['data'][0] & {
   totalTickets: number;
   totalTicketsToDeliver: number;
 };
 
 export const columns: ColumnDef<Member>[] = [
-  tdb('visionId', 'Vision'),
-  tdb('name', 'Nome'),
+  tdbs('visionId', 'Vision'),
+  tdbs('name', 'Nome'),
   // {
   //   accessorKey: 'cleanName',
   //   header: 'Nome',
@@ -34,8 +36,8 @@ export const columns: ColumnDef<Member>[] = [
   //     return <span>{row.original.name}</span>
   //   },
   // },
-  tdb('register', 'Registro'),
-  tdb('session.name', 'Seção'),
+  tdbs('register', 'Registro'),
+  tdbs('session.name', 'Seção'),
   {
     accessorKey: 'createdAt',
     header: 'Criado em',
@@ -62,7 +64,7 @@ export const columns: ColumnDef<Member>[] = [
   //     return numA < numB ? 1 : numA > numB ? -1 : 0
   //   },
   // },
-  tdb('totalTickets', 'N° Tickets'),
+  tdbs('totalTickets', 'N° Tickets'),
   {
     id: 'faixas',
     header: 'Números',
@@ -119,11 +121,7 @@ export const columns: ColumnDef<Member>[] = [
             <Eye />
           </Link>
         </Button> */}
-        {/* <MemberForm
-          refetch={refetch}
-          member={row.original}
-          sessions={sessions}
-        /> */}
+        <MemberForm member={row.original} />
 
         <Dialog>
           <DialogTrigger asChild>

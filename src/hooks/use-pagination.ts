@@ -1,6 +1,6 @@
 // hooks/use-pagination.ts
 
-import { parseAsInteger, parseAsString, useQueryStates } from 'nuqs';
+import { parseAsInteger, useQueryStates } from 'nuqs';
 import { calculateTotalPages } from '@/utils/calculate-total-pages';
 
 export function usePagination({
@@ -14,9 +14,9 @@ export function usePagination({
   const [{ pageIndex, pageSize }, setQuery] = useQueryStates(
     {
       // pageIndex é um inteiro, com valor padrão 0
-      pageIndex: parseAsInteger.withDefault(0),
+      pageIndex: parseAsInteger.withDefault(1),
       // pageSize é uma string, com valor padrão '10' (pode ser parseAsInteger se preferir)
-      pageSize: parseAsString.withDefault('10'),
+      pageSize: parseAsInteger.withDefault(10),
     },
     {
       // Atualiza a URL sem rolar a página para o topo
@@ -30,22 +30,21 @@ export function usePagination({
     setQuery({ pageIndex: p });
   }
 
-  function setPageSize(l: string) {
+  function setPageSize(l: number) {
     // Atualiza o pageSize e reseta o pageIndex para a primeira página
-    setQuery({ pageSize: l, pageIndex: 0 });
+    setQuery({ pageSize: l, pageIndex: 1 });
   }
 
   // 3. Cálculos derivados do estado da URL e das props
   const t = total || 0;
-  // Converte pageSize (string) para número para o cálculo
-  const numericPageSize = Number.parseInt(pageSize, 10);
 
-  const { totalPages, lastPageSize } = calculateTotalPages(t, numericPageSize);
+  const { totalPages, lastPageSize } = calculateTotalPages(t, pageSize);
+
 
   // 4. Retorna tudo o que o componente precisa
   return {
     pageIndex,
-    pageSize: numericPageSize,
+    pageSize,
     navigateToPage,
     setPageSize,
     totalPages,

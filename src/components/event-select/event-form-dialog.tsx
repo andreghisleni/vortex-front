@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import z from 'zod';
-import { getEventsQueryKey, usePostEvents } from '@/http/generated';
+import { getAllEventsQueryKey, useCreateEvent } from '@/http/generated';
 import { Button } from '../ui/button';
 import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog';
 import {
@@ -47,11 +47,11 @@ export function EventFormDialog() {
     },
   });
 
-  const { mutate: postEvent } = usePostEvents({
+  const { mutate: postEvent } = useCreateEvent({
     mutation: {
       onSuccess: async () => {
         await queryClient.invalidateQueries({
-          queryKey: getEventsQueryKey(),
+          queryKey: getAllEventsQueryKey(),
         });
         toast.success('Event created successfully');
         setIsOpen(false);

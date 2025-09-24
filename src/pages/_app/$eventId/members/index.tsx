@@ -1,11 +1,14 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { parseAsInteger, useQueryStates } from 'nuqs';
+import { parseAsInteger, parseAsString, useQueryStates } from 'nuqs';
 import { Suspense } from 'react';
+import z from 'zod';
 import { DataTable } from '@/components/data-table';
+import { FilterBase } from '@/components/filter-base';
 import { Pagination } from '@/components/pagination';
 import { usePagination } from '@/hooks/use-pagination';
-import { useGetEventByEventIdMembers } from '@/http/generated';
+import { useGetAllScoutSessions, useGetEventMembers } from '@/http/generated';
 import { columns } from './-components/columns';
+import { MemberForm } from './-components/member-form';
 
 // import { MemberForm } from './member-form';
 
@@ -15,23 +18,28 @@ export const Route = createFileRoute('/_app/$eventId/members/')({
 
 function RouteComponent() {
   const eventId = Route.useParams().eventId;
-  const [{ pageIndex, pageSize }] = useQueryStates(
-    {
-      // pageIndex é um inteiro, com valor padrão 0
-      pageIndex: parseAsInteger.withDefault(0),
-      // pageSize é uma string, com valor padrão '10' (pode ser parseAsInteger se preferir)
-      pageSize: parseAsInteger.withDefault(10),
-    },
-    {
-      // Atualiza a URL sem rolar a página para o topo
-      shallow: false,
-    }
-  );
-  const { data, isLoading } = useGetEventByEventIdMembers(eventId, {
-    pagination: {
-      page: pageIndex,
-      pageSize,
-    },
+  const [{ pageIndex, pageSize, filter, session, ...rest }] = useQueryStates({
+    // pageIndex é um inteiro, com valor padrão 1
+    pageIndex: parseAsInteger.withDefault(1),
+    // pageSize é uma string, com valor padrão '10' (pode ser parseAsInteger se preferir)
+    pageSize: parseAsInteger.withDefault(10),
+    filter: parseAsString.withDefault(''), // Exemplo de filtro adicional
+    session: parseAsString.withDefault(''), // Exemplo de filtro adicional
+    'ob.visionId': parseAsString.withDefault(''), // Exemplo de ordenação
+    'ob.name': parseAsString.withDefault(''), // Exemplo de ordenação
+    'ob.register': parseAsString.withDefault(''), // Exemplo de ordenação
+    'ob.session.name': parseAsString.withDefault(''), // Exemplo de ordenação
+  });
+  const { data: sessionsData } = useGetAllScoutSessions();
+  const { data, isLoading } = useGetEventMembers(eventId, {
+    'p.page': pageIndex,
+    'p.pageSize': pageSize,
+    'f.filter': filter.length > 0 ? filter : undefined,
+    'f.sessionId': session.length > 0 ? session : undefined,
+    'ob.visionId': rest['ob.visionId'] || undefined,
+    'ob.name': rest['ob.name'] || undefined,
+    'ob.register': rest['ob.register'] || undefined,
+    'ob.session-name': rest['ob.session.name'] || undefined,
   });
 
   const { totalPages, total, navigateToPage, setPageSize, showing } =
@@ -39,10 +47,6 @@ function RouteComponent() {
       total: data?.meta.total,
       showing: data?.data.length,
     });
-
-  if (!data) {
-    return null;
-  }
 
   return (
     <div className="px-8 pt-8">
@@ -56,20 +60,34 @@ function RouteComponent() {
               <Button asChild color="indigo">
                 <Link href="/app/settings/members/export">Exportar</Link>
               </Button> */}
-            {/* <MemberForm
-                refetch={refetch}
-                sessions={sessionsData?.sessions || []}
-              /> */}
+            <MemberForm />
           </>
         }
         columns={columns}
-        data={data.data.map((member) => ({
-          ...member,
-          totalTickets: member.tickets.length,
-          totalTicketsToDeliver: member.tickets.filter(
-            (ticket) => !ticket.deliveredAt
-          ).length,
-        }))}
+        data={
+          data?.data.map((member) => ({
+            ...member,
+            totalTickets: member.tickets.length,
+            totalTicketsToDeliver: member.tickets.filter(
+              (ticket) => !ticket.deliveredAt
+            ).length,
+          })) || []
+        }
+        filterComponent={
+          <FilterBase
+            additionalFieldsSchema={z.object({
+              session: z.string().optional().describe('Sessão'),
+            })}
+            values={{
+              session:
+                sessionsData?.map((s) => ({
+                  label: s.name,
+                  value: s.id,
+                })) || [],
+            }}
+          />
+        }
+        ifJustFilterComponent
         loading={isLoading}
         paginationComponent={
           <Suspense fallback={null}>
@@ -80,18 +98,14 @@ function RouteComponent() {
                 pages: totalPages,
                 limit: pageSize,
                 showing,
-                handleUpdatePage: (p) => {
-                  navigateToPage(p);
-                },
-                handleChangeLimit: (l) => {
-                  setPageSize(`${l}`);
-                },
+                handleUpdatePage: navigateToPage,
+                handleChangeLimit: setPageSize,
               }}
             />
           </Suspense>
         }
       />
-      <pre>{JSON.stringify(data.meta, null, 2)}</pre>
+      <pre>{JSON.stringify(data?.meta, null, 2)}</pre>
     </div>
   );
 }

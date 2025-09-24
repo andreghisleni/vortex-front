@@ -1,11 +1,11 @@
 import { BarChart } from 'lucide-react';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useGetEventsByIdDashboard } from '@/http/generated';
+import { useGetEventDashboardDataById } from '@/http/generated';
 import { Loading } from './loading';
 
 export function TotalMembers({ eventId }: { eventId: string }) {
-  const { data, isLoading } = useGetEventsByIdDashboard(eventId);
+  const { data, isLoading } = useGetEventDashboardDataById(eventId);
 
   if (isLoading) {
     return <Loading />;

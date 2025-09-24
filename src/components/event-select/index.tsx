@@ -16,11 +16,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import {
-  putUsersUpdateLastEventByEventId,
-  useGetEvents,
-} from '@/http/generated';
-
+import { updateUserLastEventId, useGetAllEvents } from '@/http/generated';
 import { cn } from '@/lib/utils';
 import { Skeleton } from '../ui/skeleton';
 import { EventFormDialog } from './event-form-dialog';
@@ -30,7 +26,7 @@ export function EventSelect() {
   const navigate = useNavigate();
   const [open, setOpen] = useState<boolean>(false);
 
-  const { data, isLoading } = useGetEvents();
+  const { data, isLoading } = useGetAllEvents();
 
   const location = useLocation();
   const { eventId: currentEventId } = useParams({
@@ -43,7 +39,7 @@ export function EventSelect() {
       return;
     }
 
-    await putUsersUpdateLastEventByEventId(newEventId);
+    await updateUserLastEventId(newEventId);
 
     if (currentEventId) {
       // Constrói o novo caminho substituindo o ID antigo pelo novo na URL atual

@@ -6,8 +6,8 @@ import { Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import {
-  getEventByEventIdMembersQueryKey,
-  useDeleteEventByEventIdTicketsById,
+  getEventMembersQueryKey,
+  useDeleteEventTicketById,
 } from '@/http/generated';
 
 type IProps = {
@@ -22,11 +22,11 @@ export function DeleteTicketButton({ id, isDelivered }: IProps) {
 
   const queryClient = useQueryClient();
   const { mutateAsync: deleteTicket, isPending: isPendingTicket } =
-    useDeleteEventByEventIdTicketsById({
+    useDeleteEventTicketById({
       mutation: {
         onSuccess: async () => {
           await queryClient.invalidateQueries({
-            queryKey: getEventByEventIdMembersQueryKey(eventId),
+            queryKey: getEventMembersQueryKey(eventId),
           });
 
           toast.success('Ingresso excluído com sucesso');

@@ -33,17 +33,20 @@ export function Pagination({
   handleUpdatePage,
   handleChangeLimit,
 }: PaginationProps) {
+  // Navega para a primeira página (página 1)
   const firstPage = () => {
-    handleUpdatePage(0);
+    handleUpdatePage(1);
   };
 
+  // Navega para a página anterior, com limite em 1
   const previousPage = () => {
-    if (page - 1 < 0) {
+    if (page - 1 < 1) {
       return;
     }
     handleUpdatePage(page - 1);
   };
 
+  // Navega para a próxima página, com limite no total de páginas
   const nextPage = () => {
     if (page + 1 > pages) {
       return;
@@ -51,6 +54,7 @@ export function Pagination({
     handleUpdatePage(page + 1);
   };
 
+  // Navega para a última página
   const lastPage = () => {
     handleUpdatePage(pages);
   };
@@ -82,24 +86,29 @@ export function Pagination({
           </div>
         </div>
 
+        {/* Agora esta exibição está correta sem precisar de "+1" */}
         <span>
           Page {page} of {pages}
         </span>
 
         <div className="space-x-1.5">
-          <Button disabled={page - 1 < 0} onClick={firstPage} size="icon">
+          {/* Desabilita se a página atual já for a primeira (página 1) */}
+          <Button disabled={page === 1} onClick={firstPage} size="icon">
             <ChevronsLeft className="size-4" />
             <span className="sr-only">First page</span>
           </Button>
-          <Button disabled={page - 1 < 0} onClick={previousPage} size="icon">
+          {/* Desabilita se a página atual já for a primeira (página 1) */}
+          <Button disabled={page === 1} onClick={previousPage} size="icon">
             <ChevronLeft className="size-4" />
             <span className="sr-only">Previous page</span>
           </Button>
-          <Button disabled={page + 1 > pages} onClick={nextPage} size="icon">
+          {/* Desabilita se a página atual já for a última */}
+          <Button disabled={page === pages} onClick={nextPage} size="icon">
             <ChevronRight className="size-4" />
             <span className="sr-only">Next page</span>
           </Button>
-          <Button disabled={page + 1 > pages} onClick={lastPage} size="icon">
+          {/* Desabilita se a página atual já for a última */}
+          <Button disabled={page === pages} onClick={lastPage} size="icon">
             <ChevronsRight className="size-4" />
             <span className="sr-only">Last page</span>
           </Button>

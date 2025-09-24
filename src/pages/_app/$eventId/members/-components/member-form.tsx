@@ -1,119 +1,126 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { DialogDescription } from '@radix-ui/react-dialog';
+import { useQueryClient } from '@tanstack/react-query';
+import { useParams } from '@tanstack/react-router';
 import { Loader2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import type z from 'zod';
-
-import { ReactSelect } from '@/components/Select';
+import { toast } from 'sonner';
+import z from 'zod';
+import { generateFormFieldsFromZodSchema } from '@/components/generate-form-fields-from-zod-schema';
 import { Button } from '@/components/ui/button';
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+import { Form } from '@/components/ui/form';
 import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '@/components/ui/sheet';
-import { useToast } from '@/components/ui/use-toast';
-import { trpc } from '@/lib/trpc/react';
-
+  getEventMembersQueryKey,
+  useCreateEventMember,
+  useGetAllScoutSessions,
+  useUpdateEventMemberById,
+} from '@/http/generated';
 import type { Member } from './columns';
+
+const memberCreateSchema = z
+  .object({
+    name: z.string().describe('Nome'),
+    visionId: z.string().describe('Vision').optional(),
+    register: z.string().describe('Registro').optional(),
+    sessionId: z.string().uuid().describe('Seção'),
+  })
+  .describe('Membro');
 
 const formName = memberCreateSchema.description;
 
-export type Session = RouterOutput['getSessions']['sessions'][0];
-
-export function MemberForm({
-  refetch,
-  member,
-  sessions,
-}: {
-  refetch: () => void;
-  member?: Member;
-  sessions: Session[];
-}) {
-  const { toast } = useToast();
+export function MemberForm({ member }: { member?: Member }) {
+  const eventId = useParams({
+    strict: false,
+  }).eventId as string;
   const [isOpen, setIsOpen] = useState(false);
+  const queryClient = useQueryClient();
   const form = useForm<z.infer<typeof memberCreateSchema>>({
     resolver: zodResolver(memberCreateSchema),
     defaultValues: member
       ? {
-          ...(member as any), // eslint-disable-line @typescript-eslint/no-explicit-any
+          // biome-ignore lint/suspicious/noExplicitAny: ignore
+          ...(member as any),
+          sessionId: member.session.id,
         }
       : undefined,
   });
+
+  const { data: sessions, isLoading: isLoadingSessions } =
+    useGetAllScoutSessions();
+
   const values = {
-    sessionId: sessions.map((session) => ({
-      value: session.id,
-      label: session.name,
-    })),
+    sessionId: {
+      values: sessions?.map((session) => ({
+        value: session.id,
+        label: session.name,
+      })),
+      loading: isLoadingSessions,
+    },
   };
 
-  const createMember = trpc.createMember.useMutation({
-    onSuccess: () => {
-      form.reset();
-      setIsOpen(false);
-      refetch();
-
-      toast({
-        title: `${formName} cadastrado com sucesso`,
-      });
-    },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    onError: (error: any) => {
-      console.log(error); // eslint-disable-line no-console
-      toast({
-        title: `Erro ao cadastrar o ${formName}`,
-        description: error.response?.data as string,
-
-        variant: 'destructive',
-      });
-    },
-  });
-
-  const updateMember = trpc.updateMember.useMutation({
-    onSuccess: () => {
-      form.reset();
-      setIsOpen(false);
-      refetch();
-
-      toast({
-        title: `${formName} atualizado com sucesso`,
-      });
-    },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    onError: (error: any) => {
-      console.log(error); // eslint-disable-line no-console
-      toast({
-        title: `Erro ao atualizar o ${formName}`,
-        description: error.response?.data as string,
-
-        variant: 'destructive',
-      });
-    },
-  });
-
-  async function onSubmit(values: z.infer<typeof memberCreateSchema>) {
-    try {
-      if (member) {
-        await updateMember.mutateAsync({
-          id: member.id,
-          ...values,
+  const createMember = useCreateEventMember({
+    mutation: {
+      async onSuccess() {
+        await queryClient.invalidateQueries({
+          queryKey: getEventMembersQueryKey(eventId),
         });
-      } else {
-        await createMember.mutateAsync(values);
-      }
+        form.reset();
+        setIsOpen(false);
+        toast.success(`${formName} criado com sucesso`);
+      },
+      onError(error) {
+        // biome-ignore lint/suspicious/noConsole: <explanation>
+        console.log(error);
+        toast.error(`Erro ao criar o ${formName}`, {
+          description: error.message,
+        });
+      },
+    },
+  });
 
-      console.log('values', values);
-    } catch (error) {} // eslint-disable-line
+  const updateMember = useUpdateEventMemberById({
+    mutation: {
+      async onSuccess() {
+        await queryClient.invalidateQueries({
+          queryKey: getEventMembersQueryKey(eventId),
+        });
+        form.reset();
+        setIsOpen(false);
+        toast.success(`${formName} atualizado com sucesso`);
+      },
+      onError(error) {
+        // biome-ignore lint/suspicious/noConsole: <explanation>
+        console.log(error);
+        toast.error(`Erro ao atualizar o ${formName}`, {
+          description: error.message,
+        });
+      },
+    },
+  });
+
+  async function onSubmit(v: z.infer<typeof memberCreateSchema>) {
+    if (member) {
+      await updateMember.mutateAsync({
+        eventId,
+        id: member.id,
+        data: v,
+      });
+    } else {
+      await createMember.mutateAsync({
+        eventId,
+        data: v,
+      });
+    }
+
+    // console.log('values', v);
   }
 
   useEffect(() => {
@@ -123,188 +130,28 @@ export function MemberForm({
   }, [isOpen, form]);
 
   return (
-    <Sheet onOpenChange={setIsOpen} open={isOpen}>
-      <SheetTrigger asChild>
+    <Dialog onOpenChange={setIsOpen} open={isOpen}>
+      <DialogTrigger asChild>
         <Button variant="outline">{member ? 'Editar' : 'Adicionar'}</Button>
-      </SheetTrigger>
-      <SheetContent>
-        <SheetHeader>
-          <SheetTitle>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>
             {member ? 'Editar' : 'Cadastrar'} {formName}
-          </SheetTitle>
-        </SheetHeader>
+          </DialogTitle>
+          <DialogDescription>
+            {' '}
+            {member ? 'Editar' : 'Cadastrar'} {formName}
+          </DialogDescription>
+        </DialogHeader>
         <Form {...form}>
           <form className="space-y-8" onSubmit={form.handleSubmit(onSubmit)}>
-            {/* <pre>
-              {JSON.stringify(Object.keys(memberCreateSchema.shape), null, 2)}
-            </pre> */}
+            <pre>
+              {/* {JSON.stringify(member, null, 2)} */}
+              {/* {JSON.stringify(Object.keys(memberCreateSchema.shape), null, 2)} */}
+            </pre>
 
-            {Object.keys(memberCreateSchema.shape).map((fieldName) => {
-              const fieldSchema = memberCreateSchema.shape[fieldName];
-              const label = fieldSchema._def.description; // Obtém a descrição do campo
-
-              if (fieldSchema._def.typeName === 'ZodEnum') {
-                const v: { value: string; label: string }[] = values[fieldName];
-
-                return (
-                  <FormField
-                    control={form.control}
-                    key={fieldName}
-                    name={fieldName as keyof typeof memberCreateSchema.shape}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{label}</FormLabel>
-                        <FormControl>
-                          <ReactSelect
-                            closeMenuOnSelect
-                            defaultValue={v.filter(
-                              (value) => value.value === field.value
-                            )}
-                            isDisabled={field.disabled}
-                            onChange={(value: any) => {
-                              // eslint-disable-line
-                              field.onChange(value.value);
-                            }}
-                            options={v}
-                            value={v.filter(
-                              (value) => value.value === field.value
-                            )}
-                          />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                );
-              }
-
-              if (
-                fieldSchema._def.typeName === 'ZodNumber' ||
-                fieldSchema._def.typeName === 'ZodString'
-              ) {
-                const ifUuid = fieldSchema._def.checks?.find(
-                  (c) => c.kind === 'uuid'
-                );
-
-                if (ifUuid) {
-                  const v: { value: string; label: string }[] =
-                    values[fieldName];
-
-                  return (
-                    <FormField
-                      control={form.control}
-                      key={fieldName}
-                      name={fieldName as keyof typeof memberCreateSchema.shape}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>{label}</FormLabel>
-                          <FormControl>
-                            <ReactSelect
-                              closeMenuOnSelect
-                              defaultValue={v.filter(
-                                (value) => value.value === field.value
-                              )}
-                              isDisabled={field.disabled}
-                              onChange={(value: any) => {
-                                // eslint-disable-line
-                                field.onChange(value.value);
-                              }}
-                              options={v}
-                              value={v.filter(
-                                (value) => value.value === field.value
-                              )}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  );
-                }
-
-                return (
-                  <FormField
-                    control={form.control}
-                    key={fieldName}
-                    name={fieldName as keyof typeof memberCreateSchema.shape}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{label}</FormLabel>
-                        <FormControl>
-                          <Input placeholder={label} {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                );
-              }
-
-              if (
-                fieldSchema._def.typeName === 'ZodOptional' &&
-                (fieldSchema._def.innerType._def.typeName === 'ZodNumber' ||
-                  fieldSchema._def.innerType._def.typeName === 'ZodString')
-              ) {
-                const ifUuid = fieldSchema._def.innerType._def.checks?.find(
-                  (c) => c.kind === 'uuid'
-                );
-
-                if (ifUuid) {
-                  const v: { value: string; label: string }[] =
-                    values[fieldName];
-
-                  return (
-                    <FormField
-                      control={form.control}
-                      key={fieldName}
-                      name={fieldName as keyof typeof memberCreateSchema.shape}
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>{label}</FormLabel>
-                          <FormControl>
-                            <ReactSelect
-                              closeMenuOnSelect
-                              defaultValue={v.filter(
-                                (value) => value.value === field.value
-                              )}
-                              isDisabled={field.disabled}
-                              onChange={(value: any) => {
-                                // eslint-disable-line
-                                field.onChange(value.value);
-                              }}
-                              options={v}
-                              value={v.filter(
-                                (value) => value.value === field.value
-                              )}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  );
-                }
-
-                return (
-                  <FormField
-                    control={form.control}
-                    key={fieldName}
-                    name={fieldName as keyof typeof memberCreateSchema.shape}
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>{label}</FormLabel>
-                        <FormControl>
-                          <Input placeholder={label} {...field} />
-                        </FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                );
-              }
-
-              return null;
-            })}
+            {generateFormFieldsFromZodSchema(memberCreateSchema, form, values)}
 
             <Button className="w-full" type="submit">
               {form.formState.isSubmitting ? (
@@ -317,7 +164,7 @@ export function MemberForm({
             </Button>
           </form>
         </Form>
-      </SheetContent>
-    </Sheet>
+      </DialogContent>
+    </Dialog>
   );
 }

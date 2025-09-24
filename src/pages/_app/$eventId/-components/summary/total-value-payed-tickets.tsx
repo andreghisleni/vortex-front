@@ -1,13 +1,13 @@
 import { BarChart } from 'lucide-react';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useGetEventsByIdDashboard } from '@/http/generated';
+import { useGetEventDashboardDataById } from '@/http/generated';
 import { formatToBRL } from '@/utils/formatToBRL';
 import { Loading } from './loading';
 // import { serverClient } from '@/lib/trpc/server'
 
 export function TotalValuePayedTicket({ eventId }: { eventId: string }) {
-  const { data, isLoading } = useGetEventsByIdDashboard(eventId);
+  const { data, isLoading } = useGetEventDashboardDataById(eventId);
 
   if (isLoading) {
     return <Loading />;
