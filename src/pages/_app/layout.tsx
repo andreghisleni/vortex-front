@@ -15,7 +15,7 @@ export const Route = createFileRoute('/_app')({
 
 function RouteComponent() {
   return (
-    <div>
+    <div className="mb-5">
       <Header />
       <Outlet />
     </div>

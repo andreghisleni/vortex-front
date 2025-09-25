@@ -25,13 +25,19 @@ export type GetEventMembersQueryParams = {
     /**
      * @description Page number
      * @default 1
+     * @type number | undefined
     */
-    "p.page"?: (string | number);
+    "p.page"?: number;
     /**
      * @description Page size
      * @default 20
+     * @type number | undefined
     */
-    "p.pageSize"?: (string | number);
+    "p.pageSize"?: number;
+    /**
+     * @description Type of the order
+    */
+    "ob.order"?: (string | string);
     /**
      * @description Type of the order
     */

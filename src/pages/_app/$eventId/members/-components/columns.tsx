@@ -27,6 +27,7 @@ export type Member = GetEventMembers200['data'][0] & {
 };
 
 export const columns: ColumnDef<Member>[] = [
+  tdbs('order', '#'),
   tdbs('visionId', 'Vision'),
   tdbs('name', 'Nome'),
   // {

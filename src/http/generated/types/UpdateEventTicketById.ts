@@ -25,6 +25,60 @@ export type UpdateEventTicketById200 = {
     */
     number: number;
     memberId: (string | null) | null;
+    member: ({
+        /**
+         * @type string, uuid
+        */
+        id: string;
+        /**
+         * @type string, uuid
+        */
+        eventId: string;
+        order: (number | null) | null;
+        visionId: (string | null) | null;
+        /**
+         * @type string
+        */
+        name: string;
+        /**
+         * @type string
+        */
+        cleanName: string;
+        register: (string | null) | null;
+        /**
+         * @type boolean
+        */
+        isAllConfirmedButNotYetFullyPaid: boolean;
+        /**
+         * @type object
+        */
+        session: {
+            /**
+             * @description Unique identifier for the scout session
+             * @type string, uuid
+            */
+            id: string;
+            /**
+             * @description Name of the scout session
+             * @minLength 3
+             * @type string
+            */
+            name: string;
+            /**
+             * @description Type of the scout session
+            */
+            type: (string | string | string | string | string);
+            /**
+             * @description Timestamp when the session was created
+            */
+            createdAt: (string | string | number);
+            /**
+             * @description Timestamp when the session was last updated
+            */
+            updatedAt: (string | string | number);
+        };
+        createdAt: (string | string | number);
+    } | null) | null;
     name: (string | null) | null;
     phone: (string | null) | null;
     description: (string | null) | null;

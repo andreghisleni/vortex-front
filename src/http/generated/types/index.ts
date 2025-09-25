@@ -3,6 +3,7 @@ export type { CreateEventMemberPathParams, CreateEventMember200, CreateEventMemb
 export type { CreateEventPaymentPathParams, CreateEventPayment200, CreateEventPaymentMutationRequest, CreateEventPaymentMutationResponse, CreateEventPaymentMutation } from "./CreateEventPayment.ts";
 export type { CreateEventTicketPathParams, CreateEventTicket200, CreateEventTicketMutationRequest, CreateEventTicketMutationResponse, CreateEventTicketMutation } from "./CreateEventTicket.ts";
 export type { CreateEventTicketRangePathParams, CreateEventTicketRange200, CreateEventTicketRangeMutationRequest, CreateEventTicketRangeMutationResponse, CreateEventTicketRangeMutation } from "./CreateEventTicketRange.ts";
+export type { CreateManyEventMembersPathParams, CreateManyEventMembers201, CreateManyEventMembers400, CreateManyEventMembersMutationRequest, CreateManyEventMembersMutationResponse, CreateManyEventMembersMutation } from "./CreateManyEventMembers.ts";
 export type { CreateScoutSession201, CreateScoutSession400, CreateScoutSessionMutationRequest, CreateScoutSessionMutationResponse, CreateScoutSessionMutation } from "./CreateScoutSession.ts";
 export type { DeleteEventPaymentByIdPathParams, DeleteEventPaymentById204, DeleteEventPaymentById404, DeleteEventPaymentByIdMutationResponse, DeleteEventPaymentByIdMutation } from "./DeleteEventPaymentById.ts";
 export type { DeleteEventTicketByIdPathParams, DeleteEventTicketById204, DeleteEventTicketById404, DeleteEventTicketByIdMutationResponse, DeleteEventTicketByIdMutation } from "./DeleteEventTicketById.ts";

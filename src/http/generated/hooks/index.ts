@@ -3,6 +3,7 @@ export type { CreateEventMemberMutationKey } from "./useCreateEventMember.ts";
 export type { CreateEventPaymentMutationKey } from "./useCreateEventPayment.ts";
 export type { CreateEventTicketMutationKey } from "./useCreateEventTicket.ts";
 export type { CreateEventTicketRangeMutationKey } from "./useCreateEventTicketRange.ts";
+export type { CreateManyEventMembersMutationKey } from "./useCreateManyEventMembers.ts";
 export type { CreateScoutSessionMutationKey } from "./useCreateScoutSession.ts";
 export type { DeleteEventPaymentByIdMutationKey } from "./useDeleteEventPaymentById.ts";
 export type { DeleteEventTicketByIdMutationKey } from "./useDeleteEventTicketById.ts";
@@ -45,6 +46,7 @@ export { createEventMemberMutationKey, createEventMember, useCreateEventMember }
 export { createEventPaymentMutationKey, createEventPayment, useCreateEventPayment } from "./useCreateEventPayment.ts";
 export { createEventTicketMutationKey, createEventTicket, useCreateEventTicket } from "./useCreateEventTicket.ts";
 export { createEventTicketRangeMutationKey, createEventTicketRange, useCreateEventTicketRange } from "./useCreateEventTicketRange.ts";
+export { createManyEventMembersMutationKey, createManyEventMembers, useCreateManyEventMembers } from "./useCreateManyEventMembers.ts";
 export { createScoutSessionMutationKey, createScoutSession, useCreateScoutSession } from "./useCreateScoutSession.ts";
 export { deleteEventPaymentByIdMutationKey, deleteEventPaymentById, useDeleteEventPaymentById } from "./useDeleteEventPaymentById.ts";
 export { deleteEventTicketByIdMutationKey, deleteEventTicketById, useDeleteEventTicketById } from "./useDeleteEventTicketById.ts";

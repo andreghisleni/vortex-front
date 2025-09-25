@@ -1,10 +1,11 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, Link } from '@tanstack/react-router';
 import { parseAsInteger, parseAsString, useQueryStates } from 'nuqs';
 import { Suspense } from 'react';
 import z from 'zod';
 import { DataTable } from '@/components/data-table';
 import { FilterBase } from '@/components/filter-base';
 import { Pagination } from '@/components/pagination';
+import { Button } from '@/components/ui/button';
 import { usePagination } from '@/hooks/use-pagination';
 import { useGetAllScoutSessions, useGetEventMembers } from '@/http/generated';
 import { columns } from './-components/columns';
@@ -25,6 +26,7 @@ function RouteComponent() {
     pageSize: parseAsInteger.withDefault(10),
     filter: parseAsString.withDefault(''), // Exemplo de filtro adicional
     session: parseAsString.withDefault(''), // Exemplo de filtro adicional
+    'ob.order': parseAsString.withDefault(''), // Exemplo de ordenação
     'ob.visionId': parseAsString.withDefault(''), // Exemplo de ordenação
     'ob.name': parseAsString.withDefault(''), // Exemplo de ordenação
     'ob.register': parseAsString.withDefault(''), // Exemplo de ordenação
@@ -36,6 +38,7 @@ function RouteComponent() {
     'p.pageSize': pageSize,
     'f.filter': filter.length > 0 ? filter : undefined,
     'f.sessionId': session.length > 0 ? session : undefined,
+    'ob.order': rest['ob.order'] || undefined,
     'ob.visionId': rest['ob.visionId'] || undefined,
     'ob.name': rest['ob.name'] || undefined,
     'ob.register': rest['ob.register'] || undefined,
@@ -54,12 +57,16 @@ function RouteComponent() {
       <DataTable
         addComponent={
           <>
-            {/* <Button asChild color="emerald">
-                <Link href="/app/settings/members/import">Importar</Link>
-              </Button>
-              <Button asChild color="indigo">
-                <Link href="/app/settings/members/export">Exportar</Link>
-              </Button> */}
+            <Button asChild color="emerald">
+              <Link params={{ eventId }} to="/$eventId/members/import">
+                Importar
+              </Link>
+            </Button>
+            <Button asChild color="indigo">
+              <Link params={{ eventId }} to="/$eventId/members/export">
+                Exportar
+              </Link>
+            </Button>
             <MemberForm />
           </>
         }
@@ -105,7 +112,7 @@ function RouteComponent() {
           </Suspense>
         }
       />
-      <pre>{JSON.stringify(data?.meta, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(data?.meta, null, 2)}</pre> */}
     </div>
   );
 }
