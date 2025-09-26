@@ -11,27 +11,10 @@ export type CreateEventPaymentPathParams = {
     eventId: string;
 };
 
-export type CreateEventPayment200 = {
-    /**
-     * @type string, uuid
-    */
-    id: string;
-    visionId: (string | null) | null;
-    /**
-     * @type number
-    */
-    amount: number;
-    type: (string | string);
-    payedAt: (string | string | number);
-    /**
-     * @type string, uuid
-    */
-    memberId: string;
-    createdAt: (string | string | number);
-    updatedAt: (string | string | number);
-    deletedAt: ((string | string | number) | null) | null;
-    deletedBy: (string | null) | null;
-};
+/**
+ * @description Payment created successfully
+*/
+export type CreateEventPayment201 = any;
 
 export type CreateEventPaymentMutationRequest = {
     /**
@@ -50,10 +33,10 @@ export type CreateEventPaymentMutationRequest = {
     payedAt?: (string | string | number);
 };
 
-export type CreateEventPaymentMutationResponse = CreateEventPayment200;
+export type CreateEventPaymentMutationResponse = CreateEventPayment201;
 
 export type CreateEventPaymentMutation = {
-    Response: CreateEventPayment200;
+    Response: CreateEventPayment201;
     Request: CreateEventPaymentMutationRequest;
     PathParams: CreateEventPaymentPathParams;
     Errors: any;

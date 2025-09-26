@@ -14,7 +14,7 @@ export const createEventPaymentMutationKey = () => [{ url: '/event/:eventId/paym
 export type CreateEventPaymentMutationKey = ReturnType<typeof createEventPaymentMutationKey>
 
 /**
- * @summary Create a new payment
+ * @summary Create a new payment for a specific event
  * {@link /event/:eventId/payments/}
  */
 export async function createEventPayment(eventId: CreateEventPaymentPathParams["eventId"], data: CreateEventPaymentMutationRequest, config: Partial<RequestConfig<CreateEventPaymentMutationRequest>> & { client?: typeof fetch } = {}) {
@@ -27,7 +27,7 @@ export async function createEventPayment(eventId: CreateEventPaymentPathParams["
 }
 
 /**
- * @summary Create a new payment
+ * @summary Create a new payment for a specific event
  * {@link /event/:eventId/payments/}
  */
 export function useCreateEventPayment<TContext>(options: 

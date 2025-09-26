@@ -8,11 +8,11 @@ export type DeleteEventTicketByIdPathParams = {
     /**
      * @type string, uuid
     */
-    id: string;
+    eventId: string;
     /**
      * @type string, uuid
     */
-    eventId: string;
+    id: string;
 };
 
 export type DeleteEventTicketById204 = any;

@@ -4,7 +4,7 @@
 */
 
 import fetch from "@/lib/api";
-import type { CreateEventTicketMutationRequest, CreateEventTicketMutationResponse, CreateEventTicketPathParams } from "../types/CreateEventTicket.ts";
+import type { CreateEventTicketMutationRequest, CreateEventTicketMutationResponse, CreateEventTicketPathParams, CreateEventTicket400 } from "../types/CreateEventTicket.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api";
 import type { UseMutationOptions, QueryClient } from "@tanstack/react-query";
 import { useMutation } from "@tanstack/react-query";
@@ -14,7 +14,7 @@ export const createEventTicketMutationKey = () => [{ url: '/event/:eventId/ticke
 export type CreateEventTicketMutationKey = ReturnType<typeof createEventTicketMutationKey>
 
 /**
- * @summary Create a new ticket
+ * @summary Create a new ticket for a specific event
  * {@link /event/:eventId/tickets/}
  */
 export async function createEventTicket(eventId: CreateEventTicketPathParams["eventId"], data: CreateEventTicketMutationRequest, config: Partial<RequestConfig<CreateEventTicketMutationRequest>> & { client?: typeof fetch } = {}) {
@@ -22,17 +22,17 @@ export async function createEventTicket(eventId: CreateEventTicketPathParams["ev
   
   const requestData = data  
   
-  const res = await request<CreateEventTicketMutationResponse, ResponseErrorConfig<Error>, CreateEventTicketMutationRequest>({ method : "POST", url : `/event/${eventId}/tickets/`, data : requestData, ... requestConfig })  
+  const res = await request<CreateEventTicketMutationResponse, ResponseErrorConfig<CreateEventTicket400>, CreateEventTicketMutationRequest>({ method : "POST", url : `/event/${eventId}/tickets/`, data : requestData, ... requestConfig })  
   return res.data
 }
 
 /**
- * @summary Create a new ticket
+ * @summary Create a new ticket for a specific event
  * {@link /event/:eventId/tickets/}
  */
 export function useCreateEventTicket<TContext>(options: 
 {
-  mutation?: UseMutationOptions<CreateEventTicketMutationResponse, ResponseErrorConfig<Error>, {eventId: CreateEventTicketPathParams["eventId"], data: CreateEventTicketMutationRequest}, TContext> & { client?: QueryClient },
+  mutation?: UseMutationOptions<CreateEventTicketMutationResponse, ResponseErrorConfig<CreateEventTicket400>, {eventId: CreateEventTicketPathParams["eventId"], data: CreateEventTicketMutationRequest}, TContext> & { client?: QueryClient },
   client?: Partial<RequestConfig<CreateEventTicketMutationRequest>> & { client?: typeof fetch },
 }
  = {}) {
@@ -40,7 +40,7 @@ export function useCreateEventTicket<TContext>(options:
   const { client: queryClient, ...mutationOptions } = mutation;
   const mutationKey = mutationOptions.mutationKey ?? createEventTicketMutationKey()
 
-  return useMutation<CreateEventTicketMutationResponse, ResponseErrorConfig<Error>, {eventId: CreateEventTicketPathParams["eventId"], data: CreateEventTicketMutationRequest}, TContext>({
+  return useMutation<CreateEventTicketMutationResponse, ResponseErrorConfig<CreateEventTicket400>, {eventId: CreateEventTicketPathParams["eventId"], data: CreateEventTicketMutationRequest}, TContext>({
     mutationFn: async({ eventId, data }) => {
       return createEventTicket(eventId, data, config)
     },

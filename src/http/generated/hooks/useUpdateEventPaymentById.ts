@@ -14,10 +14,10 @@ export const updateEventPaymentByIdMutationKey = () => [{ url: '/event/:eventId/
 export type UpdateEventPaymentByIdMutationKey = ReturnType<typeof updateEventPaymentByIdMutationKey>
 
 /**
- * @summary Update a payment by ID
+ * @summary Update a payment by ID for a specific event
  * {@link /event/:eventId/payments/:id}
  */
-export async function updateEventPaymentById(id: UpdateEventPaymentByIdPathParams["id"], eventId: UpdateEventPaymentByIdPathParams["eventId"], data?: UpdateEventPaymentByIdMutationRequest, config: Partial<RequestConfig<UpdateEventPaymentByIdMutationRequest>> & { client?: typeof fetch } = {}) {
+export async function updateEventPaymentById(eventId: UpdateEventPaymentByIdPathParams["eventId"], id: UpdateEventPaymentByIdPathParams["id"], data?: UpdateEventPaymentByIdMutationRequest, config: Partial<RequestConfig<UpdateEventPaymentByIdMutationRequest>> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config  
   
   const requestData = data  
@@ -27,12 +27,12 @@ export async function updateEventPaymentById(id: UpdateEventPaymentByIdPathParam
 }
 
 /**
- * @summary Update a payment by ID
+ * @summary Update a payment by ID for a specific event
  * {@link /event/:eventId/payments/:id}
  */
 export function useUpdateEventPaymentById<TContext>(options: 
 {
-  mutation?: UseMutationOptions<UpdateEventPaymentByIdMutationResponse, ResponseErrorConfig<UpdateEventPaymentById404>, {id: UpdateEventPaymentByIdPathParams["id"], eventId: UpdateEventPaymentByIdPathParams["eventId"], data?: UpdateEventPaymentByIdMutationRequest}, TContext> & { client?: QueryClient },
+  mutation?: UseMutationOptions<UpdateEventPaymentByIdMutationResponse, ResponseErrorConfig<UpdateEventPaymentById404>, {eventId: UpdateEventPaymentByIdPathParams["eventId"], id: UpdateEventPaymentByIdPathParams["id"], data?: UpdateEventPaymentByIdMutationRequest}, TContext> & { client?: QueryClient },
   client?: Partial<RequestConfig<UpdateEventPaymentByIdMutationRequest>> & { client?: typeof fetch },
 }
  = {}) {
@@ -40,9 +40,9 @@ export function useUpdateEventPaymentById<TContext>(options:
   const { client: queryClient, ...mutationOptions } = mutation;
   const mutationKey = mutationOptions.mutationKey ?? updateEventPaymentByIdMutationKey()
 
-  return useMutation<UpdateEventPaymentByIdMutationResponse, ResponseErrorConfig<UpdateEventPaymentById404>, {id: UpdateEventPaymentByIdPathParams["id"], eventId: UpdateEventPaymentByIdPathParams["eventId"], data?: UpdateEventPaymentByIdMutationRequest}, TContext>({
-    mutationFn: async({ id, eventId, data }) => {
-      return updateEventPaymentById(id, eventId, data, config)
+  return useMutation<UpdateEventPaymentByIdMutationResponse, ResponseErrorConfig<UpdateEventPaymentById404>, {eventId: UpdateEventPaymentByIdPathParams["eventId"], id: UpdateEventPaymentByIdPathParams["id"], data?: UpdateEventPaymentByIdMutationRequest}, TContext>({
+    mutationFn: async({ eventId, id, data }) => {
+      return updateEventPaymentById(eventId, id, data, config)
     },
     mutationKey,
     ...mutationOptions

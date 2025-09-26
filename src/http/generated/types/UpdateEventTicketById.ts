@@ -8,93 +8,17 @@ export type UpdateEventTicketByIdPathParams = {
     /**
      * @type string, uuid
     */
-    id: string;
+    eventId: string;
     /**
      * @type string, uuid
     */
-    eventId: string;
+    id: string;
 };
 
-export type UpdateEventTicketById200 = {
-    /**
-     * @type string, uuid
-    */
-    id: string;
-    /**
-     * @type number
-    */
-    number: number;
-    memberId: (string | null) | null;
-    member: ({
-        /**
-         * @type string, uuid
-        */
-        id: string;
-        /**
-         * @type string, uuid
-        */
-        eventId: string;
-        order: (number | null) | null;
-        visionId: (string | null) | null;
-        /**
-         * @type string
-        */
-        name: string;
-        /**
-         * @type string
-        */
-        cleanName: string;
-        register: (string | null) | null;
-        /**
-         * @type boolean
-        */
-        isAllConfirmedButNotYetFullyPaid: boolean;
-        /**
-         * @type object
-        */
-        session: {
-            /**
-             * @description Unique identifier for the scout session
-             * @type string, uuid
-            */
-            id: string;
-            /**
-             * @description Name of the scout session
-             * @minLength 3
-             * @type string
-            */
-            name: string;
-            /**
-             * @description Type of the scout session
-            */
-            type: (string | string | string | string | string);
-            /**
-             * @description Timestamp when the session was created
-            */
-            createdAt: (string | string | number);
-            /**
-             * @description Timestamp when the session was last updated
-            */
-            updatedAt: (string | string | number);
-        };
-        createdAt: (string | string | number);
-    } | null) | null;
-    name: (string | null) | null;
-    phone: (string | null) | null;
-    description: (string | null) | null;
-    deliveredAt: ((string | string | number) | null) | null;
-    /**
-     * @type boolean
-    */
-    returned: boolean;
-    createdAt: (string | string | number);
-    created: (string | string);
-    /**
-     * @type string, uuid
-    */
-    eventId: string;
-    ticketRangeId: (string | null) | null;
-};
+/**
+ * @description Ticket updated successfully
+*/
+export type UpdateEventTicketById201 = any;
 
 export type UpdateEventTicketById404 = {
     /**
@@ -105,18 +29,6 @@ export type UpdateEventTicketById404 = {
 };
 
 export type UpdateEventTicketByIdMutationRequest = {
-    /**
-     * @type number | undefined
-    */
-    number?: number;
-    /**
-     * @type string | undefined, uuid
-    */
-    eventId?: string;
-    /**
-     * @type string | undefined, uuid
-    */
-    memberId?: string;
     /**
      * @type string | undefined
     */
@@ -141,10 +53,10 @@ export type UpdateEventTicketByIdMutationRequest = {
     ticketRangeId?: string;
 };
 
-export type UpdateEventTicketByIdMutationResponse = UpdateEventTicketById200;
+export type UpdateEventTicketByIdMutationResponse = UpdateEventTicketById201;
 
 export type UpdateEventTicketByIdMutation = {
-    Response: UpdateEventTicketById200;
+    Response: UpdateEventTicketById201;
     Request: UpdateEventTicketByIdMutationRequest;
     PathParams: UpdateEventTicketByIdPathParams;
     Errors: UpdateEventTicketById404;

@@ -9,38 +9,38 @@ import type { RequestConfig, ResponseErrorConfig } from "@/lib/api";
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from "@tanstack/react-query";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
-export const getEventTicketByIdSuspenseQueryKey = (id: GetEventTicketByIdPathParams["id"], eventId: GetEventTicketByIdPathParams["eventId"]) => [{ url: '/event/:eventId/tickets/:id', params: {eventId:eventId,id:id} }] as const
+export const getEventTicketByIdSuspenseQueryKey = (eventId: GetEventTicketByIdPathParams["eventId"], id: GetEventTicketByIdPathParams["id"]) => [{ url: '/event/:eventId/tickets/:id', params: {eventId:eventId,id:id} }] as const
 
 export type GetEventTicketByIdSuspenseQueryKey = ReturnType<typeof getEventTicketByIdSuspenseQueryKey>
 
 /**
- * @summary Get a ticket by ID
+ * @summary Get a ticket by ID for a specific event
  * {@link /event/:eventId/tickets/:id}
  */
-export async function getEventTicketByIdSuspense(id: GetEventTicketByIdPathParams["id"], eventId: GetEventTicketByIdPathParams["eventId"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+export async function getEventTicketByIdSuspense(eventId: GetEventTicketByIdPathParams["eventId"], id: GetEventTicketByIdPathParams["id"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config  
   
   const res = await request<GetEventTicketByIdQueryResponse, ResponseErrorConfig<GetEventTicketById404>, unknown>({ method : "GET", url : `/event/${eventId}/tickets/${id}`, ... requestConfig })  
   return res.data
 }
 
-export function getEventTicketByIdSuspenseQueryOptions(id: GetEventTicketByIdPathParams["id"], eventId: GetEventTicketByIdPathParams["eventId"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
-  const queryKey = getEventTicketByIdSuspenseQueryKey(id, eventId)
+export function getEventTicketByIdSuspenseQueryOptions(eventId: GetEventTicketByIdPathParams["eventId"], id: GetEventTicketByIdPathParams["id"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const queryKey = getEventTicketByIdSuspenseQueryKey(eventId, id)
   return queryOptions<GetEventTicketByIdQueryResponse, ResponseErrorConfig<GetEventTicketById404>, GetEventTicketByIdQueryResponse, typeof queryKey>({
-   enabled: !!(id&& eventId),
+   enabled: !!(eventId&& id),
    queryKey,
    queryFn: async ({ signal }) => {
       config.signal = signal
-      return getEventTicketByIdSuspense(id, eventId, config)
+      return getEventTicketByIdSuspense(eventId, id, config)
    },
   })
 }
 
 /**
- * @summary Get a ticket by ID
+ * @summary Get a ticket by ID for a specific event
  * {@link /event/:eventId/tickets/:id}
  */
-export function useGetEventTicketByIdSuspense<TData = GetEventTicketByIdQueryResponse, TQueryKey extends QueryKey = GetEventTicketByIdSuspenseQueryKey>(id: GetEventTicketByIdPathParams["id"], eventId: GetEventTicketByIdPathParams["eventId"], options: 
+export function useGetEventTicketByIdSuspense<TData = GetEventTicketByIdQueryResponse, TQueryKey extends QueryKey = GetEventTicketByIdSuspenseQueryKey>(eventId: GetEventTicketByIdPathParams["eventId"], id: GetEventTicketByIdPathParams["id"], options: 
 {
   query?: Partial<UseSuspenseQueryOptions<GetEventTicketByIdQueryResponse, ResponseErrorConfig<GetEventTicketById404>, TData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<RequestConfig> & { client?: typeof fetch }
@@ -48,10 +48,10 @@ export function useGetEventTicketByIdSuspense<TData = GetEventTicketByIdQueryRes
  = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...queryOptions } = queryConfig
-  const queryKey = queryOptions?.queryKey ?? getEventTicketByIdSuspenseQueryKey(id, eventId)
+  const queryKey = queryOptions?.queryKey ?? getEventTicketByIdSuspenseQueryKey(eventId, id)
 
   const query = useSuspenseQuery({
-   ...getEventTicketByIdSuspenseQueryOptions(id, eventId, config),
+   ...getEventTicketByIdSuspenseQueryOptions(eventId, id, config),
    queryKey,
    ...queryOptions
   } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<GetEventTicketById404>> & { queryKey: TQueryKey }

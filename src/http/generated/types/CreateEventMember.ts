@@ -11,89 +11,10 @@ export type CreateEventMemberPathParams = {
     eventId: string;
 };
 
-export type CreateEventMember200 = {
-    /**
-     * @type string, uuid
-    */
-    id: string;
-    /**
-     * @type string, uuid
-    */
-    eventId: string;
-    order: (number | null) | null;
-    visionId: (string | null) | null;
-    /**
-     * @type string
-    */
-    name: string;
-    /**
-     * @type string
-    */
-    cleanName: string;
-    register: (string | null) | null;
-    /**
-     * @type boolean
-    */
-    isAllConfirmedButNotYetFullyPaid: boolean;
-    /**
-     * @type object
-    */
-    session: {
-        /**
-         * @description Unique identifier for the scout session
-         * @type string, uuid
-        */
-        id: string;
-        /**
-         * @description Name of the scout session
-         * @minLength 3
-         * @type string
-        */
-        name: string;
-        /**
-         * @description Type of the scout session
-        */
-        type: (string | string | string | string | string);
-        /**
-         * @description Timestamp when the session was created
-        */
-        createdAt: (string | string | number);
-        /**
-         * @description Timestamp when the session was last updated
-        */
-        updatedAt: (string | string | number);
-    };
-    createdAt: (string | string | number);
-    /**
-     * @type array
-    */
-    tickets: {
-        /**
-         * @type string, uuid
-        */
-        id: string;
-        /**
-         * @type number
-        */
-        number: number;
-        memberId: (string | null) | null;
-        name: (string | null) | null;
-        phone: (string | null) | null;
-        description: (string | null) | null;
-        deliveredAt: ((string | string | number) | null) | null;
-        /**
-         * @type boolean
-        */
-        returned: boolean;
-        createdAt: (string | string | number);
-        created: (string | string);
-        /**
-         * @type string, uuid
-        */
-        eventId: string;
-        ticketRangeId: (string | null) | null;
-    }[];
-};
+/**
+ * @description Member created successfully
+*/
+export type CreateEventMember201 = any;
 
 export type CreateEventMemberMutationRequest = {
     /**
@@ -118,10 +39,10 @@ export type CreateEventMemberMutationRequest = {
     register?: string;
 };
 
-export type CreateEventMemberMutationResponse = CreateEventMember200;
+export type CreateEventMemberMutationResponse = CreateEventMember201;
 
 export type CreateEventMemberMutation = {
-    Response: CreateEventMember200;
+    Response: CreateEventMember201;
     Request: CreateEventMemberMutationRequest;
     PathParams: CreateEventMemberPathParams;
     Errors: any;

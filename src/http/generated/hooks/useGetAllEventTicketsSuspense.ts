@@ -4,43 +4,43 @@
 */
 
 import fetch from "@/lib/api";
-import type { GetAllEventTicketsQueryResponse, GetAllEventTicketsPathParams } from "../types/GetAllEventTickets.ts";
+import type { GetAllEventTicketsQueryResponse, GetAllEventTicketsPathParams, GetAllEventTicketsQueryParams } from "../types/GetAllEventTickets.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api";
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from "@tanstack/react-query";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
-export const getAllEventTicketsSuspenseQueryKey = (eventId: GetAllEventTicketsPathParams["eventId"]) => [{ url: '/event/:eventId/tickets/', params: {eventId:eventId} }] as const
+export const getAllEventTicketsSuspenseQueryKey = (eventId: GetAllEventTicketsPathParams["eventId"], params?: GetAllEventTicketsQueryParams) => [{ url: '/event/:eventId/tickets/', params: {eventId:eventId} }, ...(params ? [params] : [])] as const
 
 export type GetAllEventTicketsSuspenseQueryKey = ReturnType<typeof getAllEventTicketsSuspenseQueryKey>
 
 /**
- * @summary Get all tickets
+ * @summary Get all tickets for a specific event
  * {@link /event/:eventId/tickets/}
  */
-export async function getAllEventTicketsSuspense(eventId: GetAllEventTicketsPathParams["eventId"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+export async function getAllEventTicketsSuspense(eventId: GetAllEventTicketsPathParams["eventId"], params?: GetAllEventTicketsQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config  
   
-  const res = await request<GetAllEventTicketsQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : `/event/${eventId}/tickets/`, ... requestConfig })  
+  const res = await request<GetAllEventTicketsQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : `/event/${eventId}/tickets/`, params, ... requestConfig })  
   return res.data
 }
 
-export function getAllEventTicketsSuspenseQueryOptions(eventId: GetAllEventTicketsPathParams["eventId"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
-  const queryKey = getAllEventTicketsSuspenseQueryKey(eventId)
+export function getAllEventTicketsSuspenseQueryOptions(eventId: GetAllEventTicketsPathParams["eventId"], params?: GetAllEventTicketsQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const queryKey = getAllEventTicketsSuspenseQueryKey(eventId, params)
   return queryOptions<GetAllEventTicketsQueryResponse, ResponseErrorConfig<Error>, GetAllEventTicketsQueryResponse, typeof queryKey>({
    enabled: !!(eventId),
    queryKey,
    queryFn: async ({ signal }) => {
       config.signal = signal
-      return getAllEventTicketsSuspense(eventId, config)
+      return getAllEventTicketsSuspense(eventId, params, config)
    },
   })
 }
 
 /**
- * @summary Get all tickets
+ * @summary Get all tickets for a specific event
  * {@link /event/:eventId/tickets/}
  */
-export function useGetAllEventTicketsSuspense<TData = GetAllEventTicketsQueryResponse, TQueryKey extends QueryKey = GetAllEventTicketsSuspenseQueryKey>(eventId: GetAllEventTicketsPathParams["eventId"], options: 
+export function useGetAllEventTicketsSuspense<TData = GetAllEventTicketsQueryResponse, TQueryKey extends QueryKey = GetAllEventTicketsSuspenseQueryKey>(eventId: GetAllEventTicketsPathParams["eventId"], params?: GetAllEventTicketsQueryParams, options: 
 {
   query?: Partial<UseSuspenseQueryOptions<GetAllEventTicketsQueryResponse, ResponseErrorConfig<Error>, TData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<RequestConfig> & { client?: typeof fetch }
@@ -48,10 +48,10 @@ export function useGetAllEventTicketsSuspense<TData = GetAllEventTicketsQueryRes
  = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...queryOptions } = queryConfig
-  const queryKey = queryOptions?.queryKey ?? getAllEventTicketsSuspenseQueryKey(eventId)
+  const queryKey = queryOptions?.queryKey ?? getAllEventTicketsSuspenseQueryKey(eventId, params)
 
   const query = useSuspenseQuery({
-   ...getAllEventTicketsSuspenseQueryOptions(eventId, config),
+   ...getAllEventTicketsSuspenseQueryOptions(eventId, params, config),
    queryKey,
    ...queryOptions
   } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey }

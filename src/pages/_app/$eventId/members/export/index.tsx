@@ -1,18 +1,15 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { DataTable } from '@/components/data-table';
 import {
-  type GetAllEventTickets200,
-  type GetEventMembers200,
-  useGetAllEventTickets,
-  useGetEventMembers,
+  type GetEventExportData200,
+  useGetEventExportData,
 } from '@/http/generated';
 import { agruparNumbers } from '@/utils/agrupar-numaros';
 import { columns } from './-components/columns';
 import { ExportButton } from './-components/export-button';
 
-export type Member = GetEventMembers200['data'][0];
-
-export type Ticket = GetAllEventTickets200[0];
+export type Member = GetEventExportData200['members'][0];
+export type Ticket = GetEventExportData200['tickets'][0];
 
 export const Route = createFileRoute('/_app/$eventId/members/export/')({
   component: RouteComponent,
@@ -20,22 +17,13 @@ export const Route = createFileRoute('/_app/$eventId/members/export/')({
 
 function RouteComponent() {
   const eventId = Route.useParams().eventId as string;
-  const { data: membersData } = useGetEventMembers(eventId, {
-    'p.pageSize': 1_000_000,
-  });
-  const { data: ticketsData } = useGetAllEventTickets(eventId);
+  const { data } = useGetEventExportData(eventId);
 
-  const members = (membersData?.data || []).filter(
-    (m) => m.tickets.filter((t) => !(t.deliveredAt || t.returned)).length
-  );
+  const members = data?.members || [];
 
-  const tickets = (ticketsData || []).filter(
-    (t) => !(t.deliveredAt || t.returned)
-  );
+  const tickets = data?.tickets || [];
 
-  const ticketsWithCritica = (ticketsData || []).filter(
-    (t) => t.returned && t.deliveredAt
-  );
+  const ticketsWithCritica = data?.ticketsWithCritica || [];
 
   return (
     <div className="px-8 pt-8">
@@ -64,7 +52,7 @@ function RouteComponent() {
             ticketsWithCritica={ticketsWithCritica}
           />
         </div>
-        <div>
+        <div className="flex-1">
           <DataTable
             columns={columns}
             data={members.map((member) => ({
@@ -75,12 +63,6 @@ function RouteComponent() {
               numbers: agruparNumbers(member.tickets.map((t) => t.number)),
               ticketsARetirar: member.tickets.filter(
                 (t) => !(t.deliveredAt || t.returned)
-              ).length,
-              ticketsARetirarCalabresa: member.tickets.filter(
-                (t) => !(t.deliveredAt || t.returned) && t.number <= 1000
-              ).length,
-              ticketsARetirarMista: member.tickets.filter(
-                (t) => !(t.deliveredAt || t.returned) && t.number >= 2000
               ).length,
             }))}
           />

@@ -14,8 +14,6 @@ export type Member = {
   totalTickets: number;
   numbers: string[];
   ticketsARetirar: number;
-  ticketsARetirarCalabresa: number;
-  ticketsARetirarMista: number;
 };
 
 export const columns: ColumnDef<Member>[] = [
@@ -25,6 +23,6 @@ export const columns: ColumnDef<Member>[] = [
   tdb('totalTickets', 'N° Tickets'),
   tdbNew({ name: 'numbers', label: 'Números', dataType: 'array' }),
   tdbNew({ name: 'ticketsARetirar', label: 'A retirar' }),
-  tdb('ticketsARetirarCalabresa', 'A retirar Calabresa'),
-  tdb('ticketsARetirarMista', 'A retirar Mista'),
+  // tdb('ticketsARetirarCalabresa', 'A retirar Calabresa'),
+  // tdb('ticketsARetirarMista', 'A retirar Mista'),
 ];

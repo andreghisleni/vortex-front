@@ -4,43 +4,43 @@
 */
 
 import fetch from "@/lib/api";
-import type { GetAllEventPaymentsQueryResponse, GetAllEventPaymentsPathParams } from "../types/GetAllEventPayments.ts";
+import type { GetAllEventPaymentsQueryResponse, GetAllEventPaymentsPathParams, GetAllEventPaymentsQueryParams } from "../types/GetAllEventPayments.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api";
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from "@tanstack/react-query";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
-export const getAllEventPaymentsQueryKey = (eventId: GetAllEventPaymentsPathParams["eventId"]) => [{ url: '/event/:eventId/payments/', params: {eventId:eventId} }] as const
+export const getAllEventPaymentsQueryKey = (eventId: GetAllEventPaymentsPathParams["eventId"], params?: GetAllEventPaymentsQueryParams) => [{ url: '/event/:eventId/payments/', params: {eventId:eventId} }, ...(params ? [params] : [])] as const
 
 export type GetAllEventPaymentsQueryKey = ReturnType<typeof getAllEventPaymentsQueryKey>
 
 /**
- * @summary Get all active payments
+ * @summary Get all active payments for a specific event
  * {@link /event/:eventId/payments/}
  */
-export async function getAllEventPayments(eventId: GetAllEventPaymentsPathParams["eventId"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+export async function getAllEventPayments(eventId: GetAllEventPaymentsPathParams["eventId"], params?: GetAllEventPaymentsQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config  
   
-  const res = await request<GetAllEventPaymentsQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : `/event/${eventId}/payments/`, ... requestConfig })  
+  const res = await request<GetAllEventPaymentsQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : `/event/${eventId}/payments/`, params, ... requestConfig })  
   return res.data
 }
 
-export function getAllEventPaymentsQueryOptions(eventId: GetAllEventPaymentsPathParams["eventId"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
-  const queryKey = getAllEventPaymentsQueryKey(eventId)
+export function getAllEventPaymentsQueryOptions(eventId: GetAllEventPaymentsPathParams["eventId"], params?: GetAllEventPaymentsQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const queryKey = getAllEventPaymentsQueryKey(eventId, params)
   return queryOptions<GetAllEventPaymentsQueryResponse, ResponseErrorConfig<Error>, GetAllEventPaymentsQueryResponse, typeof queryKey>({
    enabled: !!(eventId),
    queryKey,
    queryFn: async ({ signal }) => {
       config.signal = signal
-      return getAllEventPayments(eventId, config)
+      return getAllEventPayments(eventId, params, config)
    },
   })
 }
 
 /**
- * @summary Get all active payments
+ * @summary Get all active payments for a specific event
  * {@link /event/:eventId/payments/}
  */
-export function useGetAllEventPayments<TData = GetAllEventPaymentsQueryResponse, TQueryData = GetAllEventPaymentsQueryResponse, TQueryKey extends QueryKey = GetAllEventPaymentsQueryKey>(eventId: GetAllEventPaymentsPathParams["eventId"], options: 
+export function useGetAllEventPayments<TData = GetAllEventPaymentsQueryResponse, TQueryData = GetAllEventPaymentsQueryResponse, TQueryKey extends QueryKey = GetAllEventPaymentsQueryKey>(eventId: GetAllEventPaymentsPathParams["eventId"], params?: GetAllEventPaymentsQueryParams, options: 
 {
   query?: Partial<QueryObserverOptions<GetAllEventPaymentsQueryResponse, ResponseErrorConfig<Error>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<RequestConfig> & { client?: typeof fetch }
@@ -48,10 +48,10 @@ export function useGetAllEventPayments<TData = GetAllEventPaymentsQueryResponse,
  = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...queryOptions } = queryConfig
-  const queryKey = queryOptions?.queryKey ?? getAllEventPaymentsQueryKey(eventId)
+  const queryKey = queryOptions?.queryKey ?? getAllEventPaymentsQueryKey(eventId, params)
 
   const query = useQuery({
-   ...getAllEventPaymentsQueryOptions(eventId, config),
+   ...getAllEventPaymentsQueryOptions(eventId, params, config),
    queryKey,
    ...queryOptions
   } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey }

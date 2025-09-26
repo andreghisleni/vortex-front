@@ -8,11 +8,11 @@ export type GetEventTicketByIdPathParams = {
     /**
      * @type string, uuid
     */
-    id: string;
+    eventId: string;
     /**
      * @type string, uuid
     */
-    eventId: string;
+    id: string;
 };
 
 export type GetEventTicketById200 = {

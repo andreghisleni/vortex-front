@@ -14,10 +14,10 @@ export const updateEventTicketByIdMutationKey = () => [{ url: '/event/:eventId/t
 export type UpdateEventTicketByIdMutationKey = ReturnType<typeof updateEventTicketByIdMutationKey>
 
 /**
- * @summary Update a ticket by ID
+ * @summary Update a ticket by ID for a specific event
  * {@link /event/:eventId/tickets/:id}
  */
-export async function updateEventTicketById(id: UpdateEventTicketByIdPathParams["id"], eventId: UpdateEventTicketByIdPathParams["eventId"], data?: UpdateEventTicketByIdMutationRequest, config: Partial<RequestConfig<UpdateEventTicketByIdMutationRequest>> & { client?: typeof fetch } = {}) {
+export async function updateEventTicketById(eventId: UpdateEventTicketByIdPathParams["eventId"], id: UpdateEventTicketByIdPathParams["id"], data?: UpdateEventTicketByIdMutationRequest, config: Partial<RequestConfig<UpdateEventTicketByIdMutationRequest>> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config  
   
   const requestData = data  
@@ -27,12 +27,12 @@ export async function updateEventTicketById(id: UpdateEventTicketByIdPathParams[
 }
 
 /**
- * @summary Update a ticket by ID
+ * @summary Update a ticket by ID for a specific event
  * {@link /event/:eventId/tickets/:id}
  */
 export function useUpdateEventTicketById<TContext>(options: 
 {
-  mutation?: UseMutationOptions<UpdateEventTicketByIdMutationResponse, ResponseErrorConfig<UpdateEventTicketById404>, {id: UpdateEventTicketByIdPathParams["id"], eventId: UpdateEventTicketByIdPathParams["eventId"], data?: UpdateEventTicketByIdMutationRequest}, TContext> & { client?: QueryClient },
+  mutation?: UseMutationOptions<UpdateEventTicketByIdMutationResponse, ResponseErrorConfig<UpdateEventTicketById404>, {eventId: UpdateEventTicketByIdPathParams["eventId"], id: UpdateEventTicketByIdPathParams["id"], data?: UpdateEventTicketByIdMutationRequest}, TContext> & { client?: QueryClient },
   client?: Partial<RequestConfig<UpdateEventTicketByIdMutationRequest>> & { client?: typeof fetch },
 }
  = {}) {
@@ -40,9 +40,9 @@ export function useUpdateEventTicketById<TContext>(options:
   const { client: queryClient, ...mutationOptions } = mutation;
   const mutationKey = mutationOptions.mutationKey ?? updateEventTicketByIdMutationKey()
 
-  return useMutation<UpdateEventTicketByIdMutationResponse, ResponseErrorConfig<UpdateEventTicketById404>, {id: UpdateEventTicketByIdPathParams["id"], eventId: UpdateEventTicketByIdPathParams["eventId"], data?: UpdateEventTicketByIdMutationRequest}, TContext>({
-    mutationFn: async({ id, eventId, data }) => {
-      return updateEventTicketById(id, eventId, data, config)
+  return useMutation<UpdateEventTicketByIdMutationResponse, ResponseErrorConfig<UpdateEventTicketById404>, {eventId: UpdateEventTicketByIdPathParams["eventId"], id: UpdateEventTicketByIdPathParams["id"], data?: UpdateEventTicketByIdMutationRequest}, TContext>({
+    mutationFn: async({ eventId, id, data }) => {
+      return updateEventTicketById(eventId, id, data, config)
     },
     mutationKey,
     ...mutationOptions

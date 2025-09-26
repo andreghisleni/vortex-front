@@ -11,27 +11,17 @@ export type CreateEventTicketRangePathParams = {
     eventId: string;
 };
 
-export type CreateEventTicketRange200 = {
+/**
+ * @description Ticket range created successfully
+*/
+export type CreateEventTicketRange201 = any;
+
+export type CreateEventTicketRange400 = {
     /**
-     * @type string, uuid
+     * @description Error message
+     * @type string
     */
-    id: string;
-    /**
-     * @type number
-    */
-    start: number;
-    /**
-     * @type number
-    */
-    end: number;
-    memberId: (string | null) | null;
-    generatedAt: ((string | string | number) | null) | null;
-    /**
-     * @type string, uuid
-    */
-    eventId: string;
-    createdAt: (string | string | number);
-    deletedAt: ((string | string | number) | null) | null;
+    error: string;
 };
 
 export type CreateEventTicketRangeMutationRequest = {
@@ -44,20 +34,16 @@ export type CreateEventTicketRangeMutationRequest = {
     */
     end: number;
     /**
-     * @type string, uuid
-    */
-    eventId: string;
-    /**
      * @type string | undefined, uuid
     */
     memberId?: string;
 };
 
-export type CreateEventTicketRangeMutationResponse = CreateEventTicketRange200;
+export type CreateEventTicketRangeMutationResponse = CreateEventTicketRange201;
 
 export type CreateEventTicketRangeMutation = {
-    Response: CreateEventTicketRange200;
+    Response: CreateEventTicketRange201;
     Request: CreateEventTicketRangeMutationRequest;
     PathParams: CreateEventTicketRangePathParams;
-    Errors: any;
+    Errors: CreateEventTicketRange400;
 };

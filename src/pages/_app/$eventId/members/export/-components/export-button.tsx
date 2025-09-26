@@ -26,11 +26,11 @@ export function ExportButton({
             { label: 'N° Tickets', value: 'tickets' },
             { label: 'Números', value: 'numbers' },
             { label: 'A retirar', value: 'tickets-a-retirar' },
-            {
-              label: 'A retirar Calabresa',
-              value: 'tickets-a-retirar-calabresa',
-            },
-            { label: 'A retirar Mista', value: 'tickets-a-retirar-mista' },
+            // {
+            //   label: 'A retirar Calabresa',
+            //   value: 'tickets-a-retirar-calabresa',
+            // },
+            // { label: 'A retirar Mista', value: 'tickets-a-retirar-mista' },
           ],
           content: members.map((item) => ({
             visionId: item.visionId,
@@ -43,12 +43,12 @@ export function ExportButton({
             'tickets-a-retirar': item.tickets.filter(
               (t) => !(t.deliveredAt || t.returned)
             ).length,
-            'tickets-a-retirar-calabresa': item.tickets.filter(
-              (t) => !(t.deliveredAt || t.returned) && t.number <= 1000
-            ).length,
-            'tickets-a-retirar-mista': item.tickets.filter(
-              (t) => !(t.deliveredAt || t.returned) && t.number >= 2000
-            ).length,
+            // 'tickets-a-retirar-calabresa': item.tickets.filter(
+            //   (t) => !(t.deliveredAt || t.returned) && t.number <= 1000
+            // ).length,
+            // 'tickets-a-retirar-mista': item.tickets.filter(
+            //   (t) => !(t.deliveredAt || t.returned) && t.number >= 2000
+            // ).length,
           })),
         },
         {

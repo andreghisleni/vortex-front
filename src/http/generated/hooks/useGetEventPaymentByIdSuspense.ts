@@ -9,38 +9,38 @@ import type { RequestConfig, ResponseErrorConfig } from "@/lib/api";
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from "@tanstack/react-query";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
-export const getEventPaymentByIdSuspenseQueryKey = (id: GetEventPaymentByIdPathParams["id"], eventId: GetEventPaymentByIdPathParams["eventId"]) => [{ url: '/event/:eventId/payments/:id', params: {eventId:eventId,id:id} }] as const
+export const getEventPaymentByIdSuspenseQueryKey = (eventId: GetEventPaymentByIdPathParams["eventId"], id: GetEventPaymentByIdPathParams["id"]) => [{ url: '/event/:eventId/payments/:id', params: {eventId:eventId,id:id} }] as const
 
 export type GetEventPaymentByIdSuspenseQueryKey = ReturnType<typeof getEventPaymentByIdSuspenseQueryKey>
 
 /**
- * @summary Get a payment by ID
+ * @summary Get a payment by ID for a specific event
  * {@link /event/:eventId/payments/:id}
  */
-export async function getEventPaymentByIdSuspense(id: GetEventPaymentByIdPathParams["id"], eventId: GetEventPaymentByIdPathParams["eventId"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+export async function getEventPaymentByIdSuspense(eventId: GetEventPaymentByIdPathParams["eventId"], id: GetEventPaymentByIdPathParams["id"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config  
   
   const res = await request<GetEventPaymentByIdQueryResponse, ResponseErrorConfig<GetEventPaymentById404>, unknown>({ method : "GET", url : `/event/${eventId}/payments/${id}`, ... requestConfig })  
   return res.data
 }
 
-export function getEventPaymentByIdSuspenseQueryOptions(id: GetEventPaymentByIdPathParams["id"], eventId: GetEventPaymentByIdPathParams["eventId"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
-  const queryKey = getEventPaymentByIdSuspenseQueryKey(id, eventId)
+export function getEventPaymentByIdSuspenseQueryOptions(eventId: GetEventPaymentByIdPathParams["eventId"], id: GetEventPaymentByIdPathParams["id"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const queryKey = getEventPaymentByIdSuspenseQueryKey(eventId, id)
   return queryOptions<GetEventPaymentByIdQueryResponse, ResponseErrorConfig<GetEventPaymentById404>, GetEventPaymentByIdQueryResponse, typeof queryKey>({
-   enabled: !!(id&& eventId),
+   enabled: !!(eventId&& id),
    queryKey,
    queryFn: async ({ signal }) => {
       config.signal = signal
-      return getEventPaymentByIdSuspense(id, eventId, config)
+      return getEventPaymentByIdSuspense(eventId, id, config)
    },
   })
 }
 
 /**
- * @summary Get a payment by ID
+ * @summary Get a payment by ID for a specific event
  * {@link /event/:eventId/payments/:id}
  */
-export function useGetEventPaymentByIdSuspense<TData = GetEventPaymentByIdQueryResponse, TQueryKey extends QueryKey = GetEventPaymentByIdSuspenseQueryKey>(id: GetEventPaymentByIdPathParams["id"], eventId: GetEventPaymentByIdPathParams["eventId"], options: 
+export function useGetEventPaymentByIdSuspense<TData = GetEventPaymentByIdQueryResponse, TQueryKey extends QueryKey = GetEventPaymentByIdSuspenseQueryKey>(eventId: GetEventPaymentByIdPathParams["eventId"], id: GetEventPaymentByIdPathParams["id"], options: 
 {
   query?: Partial<UseSuspenseQueryOptions<GetEventPaymentByIdQueryResponse, ResponseErrorConfig<GetEventPaymentById404>, TData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<RequestConfig> & { client?: typeof fetch }
@@ -48,10 +48,10 @@ export function useGetEventPaymentByIdSuspense<TData = GetEventPaymentByIdQueryR
  = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...queryOptions } = queryConfig
-  const queryKey = queryOptions?.queryKey ?? getEventPaymentByIdSuspenseQueryKey(id, eventId)
+  const queryKey = queryOptions?.queryKey ?? getEventPaymentByIdSuspenseQueryKey(eventId, id)
 
   const query = useSuspenseQuery({
-   ...getEventPaymentByIdSuspenseQueryOptions(id, eventId, config),
+   ...getEventPaymentByIdSuspenseQueryOptions(eventId, id, config),
    queryKey,
    ...queryOptions
   } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<GetEventPaymentById404>> & { queryKey: TQueryKey }

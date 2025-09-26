@@ -11,32 +11,125 @@ export type GetAllEventPaymentsPathParams = {
     eventId: string;
 };
 
+export type GetAllEventPaymentsQueryParams = {
+    /**
+     * @description Filter by payment visionId, member name, or amount
+     * @type string | undefined
+    */
+    "f.filter"?: string;
+    /**
+     * @description Page number
+     * @default 1
+     * @type number | undefined
+    */
+    "p.page"?: number;
+    /**
+     * @description Page size
+     * @default 20
+     * @type number | undefined
+    */
+    "p.pageSize"?: number;
+    /**
+     * @description Type of the order
+    */
+    "ob.visionId"?: (string | string);
+    /**
+     * @description Type of the order
+    */
+    "ob.amount"?: (string | string);
+    /**
+     * @description Type of the order
+    */
+    "ob.type"?: (string | string);
+    /**
+     * @description Type of the order
+    */
+    "ob.payedAt"?: (string | string);
+    /**
+     * @description Type of the order
+    */
+    "ob.createdAt"?: (string | string);
+};
+
 export type GetAllEventPayments200 = {
     /**
-     * @type string, uuid
+     * @type array
     */
-    id: string;
-    visionId: (string | null) | null;
+    data: {
+        /**
+         * @type string, uuid
+        */
+        id: string;
+        visionId: (string | null) | null;
+        /**
+         * @type number
+        */
+        amount: number;
+        type: (string | string);
+        payedAt: (string | string | number);
+        /**
+         * @type string, uuid
+        */
+        memberId: string;
+        member: ({
+            /**
+             * @type string, uuid
+            */
+            id: string;
+            /**
+             * @type string, uuid
+            */
+            eventId: string;
+            order: (number | null) | null;
+            visionId: (string | null) | null;
+            /**
+             * @type string
+            */
+            name: string;
+            /**
+             * @type string
+            */
+            cleanName: string;
+            register: (string | null) | null;
+            /**
+             * @type boolean
+            */
+            isAllConfirmedButNotYetFullyPaid: boolean;
+            createdAt: (string | string | number);
+        } | null) | null;
+        createdAt: (string | string | number);
+        updatedAt: (string | string | number);
+        deletedAt: ((string | string | number) | null) | null;
+        deletedBy: (string | null) | null;
+    }[];
     /**
-     * @type number
+     * @type object
     */
-    amount: number;
-    type: (string | string);
-    payedAt: (string | string | number);
-    /**
-     * @type string, uuid
-    */
-    memberId: string;
-    createdAt: (string | string | number);
-    updatedAt: (string | string | number);
-    deletedAt: ((string | string | number) | null) | null;
-    deletedBy: (string | null) | null;
-}[];
+    meta: {
+        /**
+         * @type number
+        */
+        total: number;
+        /**
+         * @type number
+        */
+        page: number;
+        /**
+         * @type number
+        */
+        pageSize: number;
+        /**
+         * @type number
+        */
+        totalPages: number;
+    };
+};
 
 export type GetAllEventPaymentsQueryResponse = GetAllEventPayments200;
 
 export type GetAllEventPaymentsQuery = {
     Response: GetAllEventPayments200;
     PathParams: GetAllEventPaymentsPathParams;
+    QueryParams: GetAllEventPaymentsQueryParams;
     Errors: any;
 };

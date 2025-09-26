@@ -14,10 +14,10 @@ export const deleteEventPaymentByIdMutationKey = () => [{ url: '/event/:eventId/
 export type DeleteEventPaymentByIdMutationKey = ReturnType<typeof deleteEventPaymentByIdMutationKey>
 
 /**
- * @summary Soft delete a payment by ID
+ * @summary Soft delete a payment by ID for a specific event
  * {@link /event/:eventId/payments/:id}
  */
-export async function deleteEventPaymentById(id: DeleteEventPaymentByIdPathParams["id"], eventId: DeleteEventPaymentByIdPathParams["eventId"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+export async function deleteEventPaymentById(eventId: DeleteEventPaymentByIdPathParams["eventId"], id: DeleteEventPaymentByIdPathParams["id"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config  
   
   const res = await request<DeleteEventPaymentByIdMutationResponse, ResponseErrorConfig<DeleteEventPaymentById404>, unknown>({ method : "DELETE", url : `/event/${eventId}/payments/${id}`, ... requestConfig })  
@@ -25,12 +25,12 @@ export async function deleteEventPaymentById(id: DeleteEventPaymentByIdPathParam
 }
 
 /**
- * @summary Soft delete a payment by ID
+ * @summary Soft delete a payment by ID for a specific event
  * {@link /event/:eventId/payments/:id}
  */
 export function useDeleteEventPaymentById<TContext>(options: 
 {
-  mutation?: UseMutationOptions<DeleteEventPaymentByIdMutationResponse, ResponseErrorConfig<DeleteEventPaymentById404>, {id: DeleteEventPaymentByIdPathParams["id"], eventId: DeleteEventPaymentByIdPathParams["eventId"]}, TContext> & { client?: QueryClient },
+  mutation?: UseMutationOptions<DeleteEventPaymentByIdMutationResponse, ResponseErrorConfig<DeleteEventPaymentById404>, {eventId: DeleteEventPaymentByIdPathParams["eventId"], id: DeleteEventPaymentByIdPathParams["id"]}, TContext> & { client?: QueryClient },
   client?: Partial<RequestConfig> & { client?: typeof fetch },
 }
  = {}) {
@@ -38,9 +38,9 @@ export function useDeleteEventPaymentById<TContext>(options:
   const { client: queryClient, ...mutationOptions } = mutation;
   const mutationKey = mutationOptions.mutationKey ?? deleteEventPaymentByIdMutationKey()
 
-  return useMutation<DeleteEventPaymentByIdMutationResponse, ResponseErrorConfig<DeleteEventPaymentById404>, {id: DeleteEventPaymentByIdPathParams["id"], eventId: DeleteEventPaymentByIdPathParams["eventId"]}, TContext>({
-    mutationFn: async({ id, eventId }) => {
-      return deleteEventPaymentById(id, eventId, config)
+  return useMutation<DeleteEventPaymentByIdMutationResponse, ResponseErrorConfig<DeleteEventPaymentById404>, {eventId: DeleteEventPaymentByIdPathParams["eventId"], id: DeleteEventPaymentByIdPathParams["id"]}, TContext>({
+    mutationFn: async({ eventId, id }) => {
+      return deleteEventPaymentById(eventId, id, config)
     },
     mutationKey,
     ...mutationOptions

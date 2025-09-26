@@ -14,10 +14,10 @@ export const deleteEventTicketByIdMutationKey = () => [{ url: '/event/:eventId/t
 export type DeleteEventTicketByIdMutationKey = ReturnType<typeof deleteEventTicketByIdMutationKey>
 
 /**
- * @summary Delete a ticket by ID
+ * @summary Delete a ticket by ID for a specific event
  * {@link /event/:eventId/tickets/:id}
  */
-export async function deleteEventTicketById(id: DeleteEventTicketByIdPathParams["id"], eventId: DeleteEventTicketByIdPathParams["eventId"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+export async function deleteEventTicketById(eventId: DeleteEventTicketByIdPathParams["eventId"], id: DeleteEventTicketByIdPathParams["id"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config  
   
   const res = await request<DeleteEventTicketByIdMutationResponse, ResponseErrorConfig<DeleteEventTicketById404>, unknown>({ method : "DELETE", url : `/event/${eventId}/tickets/${id}`, ... requestConfig })  
@@ -25,12 +25,12 @@ export async function deleteEventTicketById(id: DeleteEventTicketByIdPathParams[
 }
 
 /**
- * @summary Delete a ticket by ID
+ * @summary Delete a ticket by ID for a specific event
  * {@link /event/:eventId/tickets/:id}
  */
 export function useDeleteEventTicketById<TContext>(options: 
 {
-  mutation?: UseMutationOptions<DeleteEventTicketByIdMutationResponse, ResponseErrorConfig<DeleteEventTicketById404>, {id: DeleteEventTicketByIdPathParams["id"], eventId: DeleteEventTicketByIdPathParams["eventId"]}, TContext> & { client?: QueryClient },
+  mutation?: UseMutationOptions<DeleteEventTicketByIdMutationResponse, ResponseErrorConfig<DeleteEventTicketById404>, {eventId: DeleteEventTicketByIdPathParams["eventId"], id: DeleteEventTicketByIdPathParams["id"]}, TContext> & { client?: QueryClient },
   client?: Partial<RequestConfig> & { client?: typeof fetch },
 }
  = {}) {
@@ -38,9 +38,9 @@ export function useDeleteEventTicketById<TContext>(options:
   const { client: queryClient, ...mutationOptions } = mutation;
   const mutationKey = mutationOptions.mutationKey ?? deleteEventTicketByIdMutationKey()
 
-  return useMutation<DeleteEventTicketByIdMutationResponse, ResponseErrorConfig<DeleteEventTicketById404>, {id: DeleteEventTicketByIdPathParams["id"], eventId: DeleteEventTicketByIdPathParams["eventId"]}, TContext>({
-    mutationFn: async({ id, eventId }) => {
-      return deleteEventTicketById(id, eventId, config)
+  return useMutation<DeleteEventTicketByIdMutationResponse, ResponseErrorConfig<DeleteEventTicketById404>, {eventId: DeleteEventTicketByIdPathParams["eventId"], id: DeleteEventTicketByIdPathParams["id"]}, TContext>({
+    mutationFn: async({ eventId, id }) => {
+      return deleteEventTicketById(eventId, id, config)
     },
     mutationKey,
     ...mutationOptions

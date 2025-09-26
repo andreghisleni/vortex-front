@@ -11,91 +11,176 @@ export type GetAllEventTicketsPathParams = {
     eventId: string;
 };
 
+export type GetAllEventTicketsQueryParams = {
+    /**
+     * @description Filter by ticket number, name, phone, description, or member name
+     * @type string | undefined
+    */
+    "f.filter"?: string;
+    /**
+     * @description Filter by member ID
+     * @type string | undefined, uuid
+    */
+    "f.memberId"?: string;
+    /**
+     * @description Filter by returned status (true/false)
+     * @type string | undefined
+    */
+    "f.returned"?: string;
+    /**
+     * @description Page number
+     * @default 1
+     * @type number | undefined
+    */
+    "p.page"?: number;
+    /**
+     * @description Page size
+     * @default 20
+     * @type number | undefined
+    */
+    "p.pageSize"?: number;
+    /**
+     * @description Type of the order
+    */
+    "ob.number"?: (string | string);
+    /**
+     * @description Type of the order
+    */
+    "ob.name"?: (string | string);
+    /**
+     * @description Type of the order
+    */
+    "ob.phone"?: (string | string);
+    /**
+     * @description Type of the order
+    */
+    "ob.deliveredAt"?: (string | string);
+    /**
+     * @description Type of the order
+    */
+    "ob.returned"?: (string | string);
+    /**
+     * @description Type of the order
+    */
+    "ob.created"?: (string | string);
+    /**
+     * @description Type of the order
+    */
+    "ob.createdAt"?: (string | string);
+};
+
 export type GetAllEventTickets200 = {
     /**
-     * @type string, uuid
+     * @type array
     */
-    id: string;
-    /**
-     * @type number
-    */
-    number: number;
-    memberId: (string | null) | null;
-    member: ({
+    data: {
         /**
          * @type string, uuid
         */
         id: string;
         /**
-         * @type string, uuid
+         * @type number
         */
-        eventId: string;
-        order: (number | null) | null;
-        visionId: (string | null) | null;
-        /**
-         * @type string
-        */
-        name: string;
-        /**
-         * @type string
-        */
-        cleanName: string;
-        register: (string | null) | null;
-        /**
-         * @type boolean
-        */
-        isAllConfirmedButNotYetFullyPaid: boolean;
-        /**
-         * @type object
-        */
-        session: {
+        number: number;
+        memberId: (string | null) | null;
+        member: ({
             /**
-             * @description Unique identifier for the scout session
              * @type string, uuid
             */
             id: string;
             /**
-             * @description Name of the scout session
-             * @minLength 3
+             * @type string, uuid
+            */
+            eventId: string;
+            order: (number | null) | null;
+            visionId: (string | null) | null;
+            /**
              * @type string
             */
             name: string;
             /**
-             * @description Type of the scout session
+             * @type string
             */
-            type: (string | string | string | string | string);
+            cleanName: string;
+            register: (string | null) | null;
             /**
-             * @description Timestamp when the session was created
+             * @type boolean
             */
+            isAllConfirmedButNotYetFullyPaid: boolean;
+            /**
+             * @type object
+            */
+            session: {
+                /**
+                 * @description Unique identifier for the scout session
+                 * @type string, uuid
+                */
+                id: string;
+                /**
+                 * @description Name of the scout session
+                 * @minLength 3
+                 * @type string
+                */
+                name: string;
+                /**
+                 * @description Type of the scout session
+                */
+                type: (string | string | string | string | string);
+                /**
+                 * @description Timestamp when the session was created
+                */
+                createdAt: (string | string | number);
+                /**
+                 * @description Timestamp when the session was last updated
+                */
+                updatedAt: (string | string | number);
+            };
             createdAt: (string | string | number);
-            /**
-             * @description Timestamp when the session was last updated
-            */
-            updatedAt: (string | string | number);
-        };
+        } | null) | null;
+        name: (string | null) | null;
+        phone: (string | null) | null;
+        description: (string | null) | null;
+        deliveredAt: ((string | string | number) | null) | null;
+        /**
+         * @type boolean
+        */
+        returned: boolean;
         createdAt: (string | string | number);
-    } | null) | null;
-    name: (string | null) | null;
-    phone: (string | null) | null;
-    description: (string | null) | null;
-    deliveredAt: ((string | string | number) | null) | null;
+        created: (string | string);
+        /**
+         * @type string, uuid
+        */
+        eventId: string;
+        ticketRangeId: (string | null) | null;
+    }[];
     /**
-     * @type boolean
+     * @type object
     */
-    returned: boolean;
-    createdAt: (string | string | number);
-    created: (string | string);
-    /**
-     * @type string, uuid
-    */
-    eventId: string;
-    ticketRangeId: (string | null) | null;
-}[];
+    meta: {
+        /**
+         * @type number
+        */
+        total: number;
+        /**
+         * @type number
+        */
+        page: number;
+        /**
+         * @type number
+        */
+        pageSize: number;
+        /**
+         * @type number
+        */
+        totalPages: number;
+    };
+};
 
 export type GetAllEventTicketsQueryResponse = GetAllEventTickets200;
 
 export type GetAllEventTicketsQuery = {
     Response: GetAllEventTickets200;
     PathParams: GetAllEventTicketsPathParams;
+    QueryParams: GetAllEventTicketsQueryParams;
     Errors: any;
 };

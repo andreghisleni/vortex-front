@@ -4,9 +4,9 @@
 */
 
 
-export type GetTicketRangeByIdPathParams = {
+export type GetEventTicketRangeByIdPathParams = {
     /**
-     * @type string
+     * @type string, uuid
     */
     eventId: string;
     /**
@@ -15,7 +15,7 @@ export type GetTicketRangeByIdPathParams = {
     id: string;
 };
 
-export type GetTicketRangeById200 = {
+export type GetEventTicketRangeById200 = {
     /**
      * @type string, uuid
     */
@@ -38,7 +38,7 @@ export type GetTicketRangeById200 = {
     deletedAt: ((string | string | number) | null) | null;
 };
 
-export type GetTicketRangeById404 = {
+export type GetEventTicketRangeById404 = {
     /**
      * @description Error message
      * @type string
@@ -46,10 +46,10 @@ export type GetTicketRangeById404 = {
     error: string;
 };
 
-export type GetTicketRangeByIdQueryResponse = GetTicketRangeById200;
+export type GetEventTicketRangeByIdQueryResponse = GetEventTicketRangeById200;
 
-export type GetTicketRangeByIdQuery = {
-    Response: GetTicketRangeById200;
-    PathParams: GetTicketRangeByIdPathParams;
-    Errors: GetTicketRangeById404;
+export type GetEventTicketRangeByIdQuery = {
+    Response: GetEventTicketRangeById200;
+    PathParams: GetEventTicketRangeByIdPathParams;
+    Errors: GetEventTicketRangeById404;
 };

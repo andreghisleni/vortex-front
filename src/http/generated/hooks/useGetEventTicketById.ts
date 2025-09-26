@@ -9,38 +9,38 @@ import type { RequestConfig, ResponseErrorConfig } from "@/lib/api";
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from "@tanstack/react-query";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
-export const getEventTicketByIdQueryKey = (id: GetEventTicketByIdPathParams["id"], eventId: GetEventTicketByIdPathParams["eventId"]) => [{ url: '/event/:eventId/tickets/:id', params: {eventId:eventId,id:id} }] as const
+export const getEventTicketByIdQueryKey = (eventId: GetEventTicketByIdPathParams["eventId"], id: GetEventTicketByIdPathParams["id"]) => [{ url: '/event/:eventId/tickets/:id', params: {eventId:eventId,id:id} }] as const
 
 export type GetEventTicketByIdQueryKey = ReturnType<typeof getEventTicketByIdQueryKey>
 
 /**
- * @summary Get a ticket by ID
+ * @summary Get a ticket by ID for a specific event
  * {@link /event/:eventId/tickets/:id}
  */
-export async function getEventTicketById(id: GetEventTicketByIdPathParams["id"], eventId: GetEventTicketByIdPathParams["eventId"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+export async function getEventTicketById(eventId: GetEventTicketByIdPathParams["eventId"], id: GetEventTicketByIdPathParams["id"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config  
   
   const res = await request<GetEventTicketByIdQueryResponse, ResponseErrorConfig<GetEventTicketById404>, unknown>({ method : "GET", url : `/event/${eventId}/tickets/${id}`, ... requestConfig })  
   return res.data
 }
 
-export function getEventTicketByIdQueryOptions(id: GetEventTicketByIdPathParams["id"], eventId: GetEventTicketByIdPathParams["eventId"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
-  const queryKey = getEventTicketByIdQueryKey(id, eventId)
+export function getEventTicketByIdQueryOptions(eventId: GetEventTicketByIdPathParams["eventId"], id: GetEventTicketByIdPathParams["id"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const queryKey = getEventTicketByIdQueryKey(eventId, id)
   return queryOptions<GetEventTicketByIdQueryResponse, ResponseErrorConfig<GetEventTicketById404>, GetEventTicketByIdQueryResponse, typeof queryKey>({
-   enabled: !!(id&& eventId),
+   enabled: !!(eventId&& id),
    queryKey,
    queryFn: async ({ signal }) => {
       config.signal = signal
-      return getEventTicketById(id, eventId, config)
+      return getEventTicketById(eventId, id, config)
    },
   })
 }
 
 /**
- * @summary Get a ticket by ID
+ * @summary Get a ticket by ID for a specific event
  * {@link /event/:eventId/tickets/:id}
  */
-export function useGetEventTicketById<TData = GetEventTicketByIdQueryResponse, TQueryData = GetEventTicketByIdQueryResponse, TQueryKey extends QueryKey = GetEventTicketByIdQueryKey>(id: GetEventTicketByIdPathParams["id"], eventId: GetEventTicketByIdPathParams["eventId"], options: 
+export function useGetEventTicketById<TData = GetEventTicketByIdQueryResponse, TQueryData = GetEventTicketByIdQueryResponse, TQueryKey extends QueryKey = GetEventTicketByIdQueryKey>(eventId: GetEventTicketByIdPathParams["eventId"], id: GetEventTicketByIdPathParams["id"], options: 
 {
   query?: Partial<QueryObserverOptions<GetEventTicketByIdQueryResponse, ResponseErrorConfig<GetEventTicketById404>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<RequestConfig> & { client?: typeof fetch }
@@ -48,10 +48,10 @@ export function useGetEventTicketById<TData = GetEventTicketByIdQueryResponse, T
  = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...queryOptions } = queryConfig
-  const queryKey = queryOptions?.queryKey ?? getEventTicketByIdQueryKey(id, eventId)
+  const queryKey = queryOptions?.queryKey ?? getEventTicketByIdQueryKey(eventId, id)
 
   const query = useQuery({
-   ...getEventTicketByIdQueryOptions(id, eventId, config),
+   ...getEventTicketByIdQueryOptions(eventId, id, config),
    queryKey,
    ...queryOptions
   } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<GetEventTicketById404>> & { queryKey: TQueryKey }

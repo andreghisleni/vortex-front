@@ -8,34 +8,17 @@ export type UpdateEventPaymentByIdPathParams = {
     /**
      * @type string, uuid
     */
-    id: string;
+    eventId: string;
     /**
      * @type string, uuid
     */
-    eventId: string;
+    id: string;
 };
 
-export type UpdateEventPaymentById200 = {
-    /**
-     * @type string, uuid
-    */
-    id: string;
-    visionId: (string | null) | null;
-    /**
-     * @type number
-    */
-    amount: number;
-    type: (string | string);
-    payedAt: (string | string | number);
-    /**
-     * @type string, uuid
-    */
-    memberId: string;
-    createdAt: (string | string | number);
-    updatedAt: (string | string | number);
-    deletedAt: ((string | string | number) | null) | null;
-    deletedBy: (string | null) | null;
-};
+/**
+ * @description Payment updated successfully
+*/
+export type UpdateEventPaymentById201 = any;
 
 export type UpdateEventPaymentById404 = {
     /**
@@ -62,10 +45,10 @@ export type UpdateEventPaymentByIdMutationRequest = {
     payedAt?: (string | string | number);
 };
 
-export type UpdateEventPaymentByIdMutationResponse = UpdateEventPaymentById200;
+export type UpdateEventPaymentByIdMutationResponse = UpdateEventPaymentById201;
 
 export type UpdateEventPaymentByIdMutation = {
-    Response: UpdateEventPaymentById200;
+    Response: UpdateEventPaymentById201;
     Request: UpdateEventPaymentByIdMutationRequest;
     PathParams: UpdateEventPaymentByIdPathParams;
     Errors: UpdateEventPaymentById404;

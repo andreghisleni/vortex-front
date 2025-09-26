@@ -8,13 +8,16 @@ export type DeleteEventPaymentByIdPathParams = {
     /**
      * @type string, uuid
     */
-    id: string;
+    eventId: string;
     /**
      * @type string, uuid
     */
-    eventId: string;
+    id: string;
 };
 
+/**
+ * @description Payment deleted successfully
+*/
 export type DeleteEventPaymentById204 = any;
 
 export type DeleteEventPaymentById404 = {

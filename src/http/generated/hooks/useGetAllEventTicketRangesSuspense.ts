@@ -4,43 +4,43 @@
 */
 
 import fetch from "@/lib/api";
-import type { GetAllEventTicketRangesQueryResponse, GetAllEventTicketRangesPathParams } from "../types/GetAllEventTicketRanges.ts";
+import type { GetAllEventTicketRangesQueryResponse, GetAllEventTicketRangesPathParams, GetAllEventTicketRangesQueryParams } from "../types/GetAllEventTicketRanges.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api";
 import type { QueryKey, QueryClient, UseSuspenseQueryOptions, UseSuspenseQueryResult } from "@tanstack/react-query";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 
-export const getAllEventTicketRangesSuspenseQueryKey = (eventId: GetAllEventTicketRangesPathParams["eventId"]) => [{ url: '/event/:eventId/ticket-ranges/', params: {eventId:eventId} }] as const
+export const getAllEventTicketRangesSuspenseQueryKey = (eventId: GetAllEventTicketRangesPathParams["eventId"], params?: GetAllEventTicketRangesQueryParams) => [{ url: '/event/:eventId/ticket-ranges/', params: {eventId:eventId} }, ...(params ? [params] : [])] as const
 
 export type GetAllEventTicketRangesSuspenseQueryKey = ReturnType<typeof getAllEventTicketRangesSuspenseQueryKey>
 
 /**
- * @summary Get all active ticket ranges
+ * @summary Get all active ticket ranges for a specific event
  * {@link /event/:eventId/ticket-ranges/}
  */
-export async function getAllEventTicketRangesSuspense(eventId: GetAllEventTicketRangesPathParams["eventId"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+export async function getAllEventTicketRangesSuspense(eventId: GetAllEventTicketRangesPathParams["eventId"], params?: GetAllEventTicketRangesQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config  
   
-  const res = await request<GetAllEventTicketRangesQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : `/event/${eventId}/ticket-ranges/`, ... requestConfig })  
+  const res = await request<GetAllEventTicketRangesQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : `/event/${eventId}/ticket-ranges/`, params, ... requestConfig })  
   return res.data
 }
 
-export function getAllEventTicketRangesSuspenseQueryOptions(eventId: GetAllEventTicketRangesPathParams["eventId"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
-  const queryKey = getAllEventTicketRangesSuspenseQueryKey(eventId)
+export function getAllEventTicketRangesSuspenseQueryOptions(eventId: GetAllEventTicketRangesPathParams["eventId"], params?: GetAllEventTicketRangesQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const queryKey = getAllEventTicketRangesSuspenseQueryKey(eventId, params)
   return queryOptions<GetAllEventTicketRangesQueryResponse, ResponseErrorConfig<Error>, GetAllEventTicketRangesQueryResponse, typeof queryKey>({
    enabled: !!(eventId),
    queryKey,
    queryFn: async ({ signal }) => {
       config.signal = signal
-      return getAllEventTicketRangesSuspense(eventId, config)
+      return getAllEventTicketRangesSuspense(eventId, params, config)
    },
   })
 }
 
 /**
- * @summary Get all active ticket ranges
+ * @summary Get all active ticket ranges for a specific event
  * {@link /event/:eventId/ticket-ranges/}
  */
-export function useGetAllEventTicketRangesSuspense<TData = GetAllEventTicketRangesQueryResponse, TQueryKey extends QueryKey = GetAllEventTicketRangesSuspenseQueryKey>(eventId: GetAllEventTicketRangesPathParams["eventId"], options: 
+export function useGetAllEventTicketRangesSuspense<TData = GetAllEventTicketRangesQueryResponse, TQueryKey extends QueryKey = GetAllEventTicketRangesSuspenseQueryKey>(eventId: GetAllEventTicketRangesPathParams["eventId"], params?: GetAllEventTicketRangesQueryParams, options: 
 {
   query?: Partial<UseSuspenseQueryOptions<GetAllEventTicketRangesQueryResponse, ResponseErrorConfig<Error>, TData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<RequestConfig> & { client?: typeof fetch }
@@ -48,10 +48,10 @@ export function useGetAllEventTicketRangesSuspense<TData = GetAllEventTicketRang
  = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...queryOptions } = queryConfig
-  const queryKey = queryOptions?.queryKey ?? getAllEventTicketRangesSuspenseQueryKey(eventId)
+  const queryKey = queryOptions?.queryKey ?? getAllEventTicketRangesSuspenseQueryKey(eventId, params)
 
   const query = useSuspenseQuery({
-   ...getAllEventTicketRangesSuspenseQueryOptions(eventId, config),
+   ...getAllEventTicketRangesSuspenseQueryOptions(eventId, params, config),
    queryKey,
    ...queryOptions
   } as unknown as UseSuspenseQueryOptions, queryClient) as UseSuspenseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey }

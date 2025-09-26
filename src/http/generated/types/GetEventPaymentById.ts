@@ -8,11 +8,11 @@ export type GetEventPaymentByIdPathParams = {
     /**
      * @type string, uuid
     */
-    id: string;
+    eventId: string;
     /**
      * @type string, uuid
     */
-    eventId: string;
+    id: string;
 };
 
 export type GetEventPaymentById200 = {

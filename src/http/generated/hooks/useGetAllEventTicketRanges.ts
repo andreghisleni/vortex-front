@@ -4,43 +4,43 @@
 */
 
 import fetch from "@/lib/api";
-import type { GetAllEventTicketRangesQueryResponse, GetAllEventTicketRangesPathParams } from "../types/GetAllEventTicketRanges.ts";
+import type { GetAllEventTicketRangesQueryResponse, GetAllEventTicketRangesPathParams, GetAllEventTicketRangesQueryParams } from "../types/GetAllEventTicketRanges.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api";
 import type { QueryKey, QueryClient, QueryObserverOptions, UseQueryResult } from "@tanstack/react-query";
 import { queryOptions, useQuery } from "@tanstack/react-query";
 
-export const getAllEventTicketRangesQueryKey = (eventId: GetAllEventTicketRangesPathParams["eventId"]) => [{ url: '/event/:eventId/ticket-ranges/', params: {eventId:eventId} }] as const
+export const getAllEventTicketRangesQueryKey = (eventId: GetAllEventTicketRangesPathParams["eventId"], params?: GetAllEventTicketRangesQueryParams) => [{ url: '/event/:eventId/ticket-ranges/', params: {eventId:eventId} }, ...(params ? [params] : [])] as const
 
 export type GetAllEventTicketRangesQueryKey = ReturnType<typeof getAllEventTicketRangesQueryKey>
 
 /**
- * @summary Get all active ticket ranges
+ * @summary Get all active ticket ranges for a specific event
  * {@link /event/:eventId/ticket-ranges/}
  */
-export async function getAllEventTicketRanges(eventId: GetAllEventTicketRangesPathParams["eventId"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+export async function getAllEventTicketRanges(eventId: GetAllEventTicketRangesPathParams["eventId"], params?: GetAllEventTicketRangesQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config  
   
-  const res = await request<GetAllEventTicketRangesQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : `/event/${eventId}/ticket-ranges/`, ... requestConfig })  
+  const res = await request<GetAllEventTicketRangesQueryResponse, ResponseErrorConfig<Error>, unknown>({ method : "GET", url : `/event/${eventId}/ticket-ranges/`, params, ... requestConfig })  
   return res.data
 }
 
-export function getAllEventTicketRangesQueryOptions(eventId: GetAllEventTicketRangesPathParams["eventId"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
-  const queryKey = getAllEventTicketRangesQueryKey(eventId)
+export function getAllEventTicketRangesQueryOptions(eventId: GetAllEventTicketRangesPathParams["eventId"], params?: GetAllEventTicketRangesQueryParams, config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
+  const queryKey = getAllEventTicketRangesQueryKey(eventId, params)
   return queryOptions<GetAllEventTicketRangesQueryResponse, ResponseErrorConfig<Error>, GetAllEventTicketRangesQueryResponse, typeof queryKey>({
    enabled: !!(eventId),
    queryKey,
    queryFn: async ({ signal }) => {
       config.signal = signal
-      return getAllEventTicketRanges(eventId, config)
+      return getAllEventTicketRanges(eventId, params, config)
    },
   })
 }
 
 /**
- * @summary Get all active ticket ranges
+ * @summary Get all active ticket ranges for a specific event
  * {@link /event/:eventId/ticket-ranges/}
  */
-export function useGetAllEventTicketRanges<TData = GetAllEventTicketRangesQueryResponse, TQueryData = GetAllEventTicketRangesQueryResponse, TQueryKey extends QueryKey = GetAllEventTicketRangesQueryKey>(eventId: GetAllEventTicketRangesPathParams["eventId"], options: 
+export function useGetAllEventTicketRanges<TData = GetAllEventTicketRangesQueryResponse, TQueryData = GetAllEventTicketRangesQueryResponse, TQueryKey extends QueryKey = GetAllEventTicketRangesQueryKey>(eventId: GetAllEventTicketRangesPathParams["eventId"], params?: GetAllEventTicketRangesQueryParams, options: 
 {
   query?: Partial<QueryObserverOptions<GetAllEventTicketRangesQueryResponse, ResponseErrorConfig<Error>, TData, TQueryData, TQueryKey>> & { client?: QueryClient },
   client?: Partial<RequestConfig> & { client?: typeof fetch }
@@ -48,10 +48,10 @@ export function useGetAllEventTicketRanges<TData = GetAllEventTicketRangesQueryR
  = {}) {
   const { query: queryConfig = {}, client: config = {} } = options ?? {}
   const { client: queryClient, ...queryOptions } = queryConfig
-  const queryKey = queryOptions?.queryKey ?? getAllEventTicketRangesQueryKey(eventId)
+  const queryKey = queryOptions?.queryKey ?? getAllEventTicketRangesQueryKey(eventId, params)
 
   const query = useQuery({
-   ...getAllEventTicketRangesQueryOptions(eventId, config),
+   ...getAllEventTicketRangesQueryOptions(eventId, params, config),
    queryKey,
    ...queryOptions
   } as unknown as QueryObserverOptions, queryClient) as UseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey }
