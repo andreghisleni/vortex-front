@@ -37,6 +37,7 @@ export type { GetIndexQueryKey } from "./useGetIndex.ts";
 export type { GetIndexSuspenseQueryKey } from "./useGetIndexSuspense.ts";
 export type { GetScoutSessionByIdQueryKey } from "./useGetScoutSessionById.ts";
 export type { GetScoutSessionByIdSuspenseQueryKey } from "./useGetScoutSessionByIdSuspense.ts";
+export type { ToggleReturnedStatusOfEventTicketByIdMutationKey } from "./useToggleReturnedStatusOfEventTicketById.ts";
 export type { UpdateEventMemberByIdMutationKey } from "./useUpdateEventMemberById.ts";
 export type { UpdateEventPaymentByIdMutationKey } from "./useUpdateEventPaymentById.ts";
 export type { UpdateEventTicketByIdMutationKey } from "./useUpdateEventTicketById.ts";
@@ -82,6 +83,7 @@ export { getIndexQueryKey, getIndex, getIndexQueryOptions, useGetIndex } from ".
 export { getIndexSuspenseQueryKey, getIndexSuspense, getIndexSuspenseQueryOptions, useGetIndexSuspense } from "./useGetIndexSuspense.ts";
 export { getScoutSessionByIdQueryKey, getScoutSessionById, getScoutSessionByIdQueryOptions, useGetScoutSessionById } from "./useGetScoutSessionById.ts";
 export { getScoutSessionByIdSuspenseQueryKey, getScoutSessionByIdSuspense, getScoutSessionByIdSuspenseQueryOptions, useGetScoutSessionByIdSuspense } from "./useGetScoutSessionByIdSuspense.ts";
+export { toggleReturnedStatusOfEventTicketByIdMutationKey, toggleReturnedStatusOfEventTicketById, useToggleReturnedStatusOfEventTicketById } from "./useToggleReturnedStatusOfEventTicketById.ts";
 export { updateEventMemberByIdMutationKey, updateEventMemberById, useUpdateEventMemberById } from "./useUpdateEventMemberById.ts";
 export { updateEventPaymentByIdMutationKey, updateEventPaymentById, useUpdateEventPaymentById } from "./useUpdateEventPaymentById.ts";
 export { updateEventTicketByIdMutationKey, updateEventTicketById, useUpdateEventTicketById } from "./useUpdateEventTicketById.ts";

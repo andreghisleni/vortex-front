@@ -17,11 +17,13 @@ import { Route as AuthSignInRouteImport } from './pages/_auth/sign-in'
 import { Route as AuthForgotPasswordRouteImport } from './pages/_auth/forgot-password'
 import { Route as AppSettingsRouteImport } from './pages/_app/settings'
 import { Route as AppDashboardRouteImport } from './pages/_app/dashboard'
+import { Route as AppSessionsIndexRouteImport } from './pages/_app/sessions/index'
 import { Route as AuthResetPasswordTokenRouteImport } from './pages/_auth/reset-password.$token'
 import { Route as AppEventIdDashboardRouteImport } from './pages/_app/$eventId/dashboard'
 import { Route as AppEventIdMembersIndexRouteImport } from './pages/_app/$eventId/members/index'
 import { Route as AppEventIdMembersImportIndexRouteImport } from './pages/_app/$eventId/members/import/index'
 import { Route as AppEventIdMembersExportIndexRouteImport } from './pages/_app/$eventId/members/export/index'
+import { Route as AppEventIdMemberIdIndexRouteImport } from './pages/_app/$eventId/member/$id/index'
 
 const AuthLayoutRoute = AuthLayoutRouteImport.update({
   id: '/_auth',
@@ -61,6 +63,11 @@ const AppDashboardRoute = AppDashboardRouteImport.update({
   path: '/dashboard',
   getParentRoute: () => AppLayoutRoute,
 } as any)
+const AppSessionsIndexRoute = AppSessionsIndexRouteImport.update({
+  id: '/sessions/',
+  path: '/sessions/',
+  getParentRoute: () => AppLayoutRoute,
+} as any)
 const AuthResetPasswordTokenRoute = AuthResetPasswordTokenRouteImport.update({
   id: '/reset-password/$token',
   path: '/reset-password/$token',
@@ -88,6 +95,11 @@ const AppEventIdMembersExportIndexRoute =
     path: '/$eventId/members/export/',
     getParentRoute: () => AppLayoutRoute,
   } as any)
+const AppEventIdMemberIdIndexRoute = AppEventIdMemberIdIndexRouteImport.update({
+  id: '/$eventId/member/$id/',
+  path: '/$eventId/member/$id/',
+  getParentRoute: () => AppLayoutRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -98,7 +110,9 @@ export interface FileRoutesByFullPath {
   '/sign-up': typeof AuthSignUpRoute
   '/$eventId/dashboard': typeof AppEventIdDashboardRoute
   '/reset-password/$token': typeof AuthResetPasswordTokenRoute
+  '/sessions': typeof AppSessionsIndexRoute
   '/$eventId/members': typeof AppEventIdMembersIndexRoute
+  '/$eventId/member/$id': typeof AppEventIdMemberIdIndexRoute
   '/$eventId/members/export': typeof AppEventIdMembersExportIndexRoute
   '/$eventId/members/import': typeof AppEventIdMembersImportIndexRoute
 }
@@ -111,7 +125,9 @@ export interface FileRoutesByTo {
   '/sign-up': typeof AuthSignUpRoute
   '/$eventId/dashboard': typeof AppEventIdDashboardRoute
   '/reset-password/$token': typeof AuthResetPasswordTokenRoute
+  '/sessions': typeof AppSessionsIndexRoute
   '/$eventId/members': typeof AppEventIdMembersIndexRoute
+  '/$eventId/member/$id': typeof AppEventIdMemberIdIndexRoute
   '/$eventId/members/export': typeof AppEventIdMembersExportIndexRoute
   '/$eventId/members/import': typeof AppEventIdMembersImportIndexRoute
 }
@@ -127,7 +143,9 @@ export interface FileRoutesById {
   '/_auth/sign-up': typeof AuthSignUpRoute
   '/_app/$eventId/dashboard': typeof AppEventIdDashboardRoute
   '/_auth/reset-password/$token': typeof AuthResetPasswordTokenRoute
+  '/_app/sessions/': typeof AppSessionsIndexRoute
   '/_app/$eventId/members/': typeof AppEventIdMembersIndexRoute
+  '/_app/$eventId/member/$id/': typeof AppEventIdMemberIdIndexRoute
   '/_app/$eventId/members/export/': typeof AppEventIdMembersExportIndexRoute
   '/_app/$eventId/members/import/': typeof AppEventIdMembersImportIndexRoute
 }
@@ -142,7 +160,9 @@ export interface FileRouteTypes {
     | '/sign-up'
     | '/$eventId/dashboard'
     | '/reset-password/$token'
+    | '/sessions'
     | '/$eventId/members'
+    | '/$eventId/member/$id'
     | '/$eventId/members/export'
     | '/$eventId/members/import'
   fileRoutesByTo: FileRoutesByTo
@@ -155,7 +175,9 @@ export interface FileRouteTypes {
     | '/sign-up'
     | '/$eventId/dashboard'
     | '/reset-password/$token'
+    | '/sessions'
     | '/$eventId/members'
+    | '/$eventId/member/$id'
     | '/$eventId/members/export'
     | '/$eventId/members/import'
   id:
@@ -170,7 +192,9 @@ export interface FileRouteTypes {
     | '/_auth/sign-up'
     | '/_app/$eventId/dashboard'
     | '/_auth/reset-password/$token'
+    | '/_app/sessions/'
     | '/_app/$eventId/members/'
+    | '/_app/$eventId/member/$id/'
     | '/_app/$eventId/members/export/'
     | '/_app/$eventId/members/import/'
   fileRoutesById: FileRoutesById
@@ -239,6 +263,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppDashboardRouteImport
       parentRoute: typeof AppLayoutRoute
     }
+    '/_app/sessions/': {
+      id: '/_app/sessions/'
+      path: '/sessions'
+      fullPath: '/sessions'
+      preLoaderRoute: typeof AppSessionsIndexRouteImport
+      parentRoute: typeof AppLayoutRoute
+    }
     '/_auth/reset-password/$token': {
       id: '/_auth/reset-password/$token'
       path: '/reset-password/$token'
@@ -274,6 +305,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppEventIdMembersExportIndexRouteImport
       parentRoute: typeof AppLayoutRoute
     }
+    '/_app/$eventId/member/$id/': {
+      id: '/_app/$eventId/member/$id/'
+      path: '/$eventId/member/$id'
+      fullPath: '/$eventId/member/$id'
+      preLoaderRoute: typeof AppEventIdMemberIdIndexRouteImport
+      parentRoute: typeof AppLayoutRoute
+    }
   }
 }
 
@@ -281,7 +319,9 @@ interface AppLayoutRouteChildren {
   AppDashboardRoute: typeof AppDashboardRoute
   AppSettingsRoute: typeof AppSettingsRoute
   AppEventIdDashboardRoute: typeof AppEventIdDashboardRoute
+  AppSessionsIndexRoute: typeof AppSessionsIndexRoute
   AppEventIdMembersIndexRoute: typeof AppEventIdMembersIndexRoute
+  AppEventIdMemberIdIndexRoute: typeof AppEventIdMemberIdIndexRoute
   AppEventIdMembersExportIndexRoute: typeof AppEventIdMembersExportIndexRoute
   AppEventIdMembersImportIndexRoute: typeof AppEventIdMembersImportIndexRoute
 }
@@ -290,7 +330,9 @@ const AppLayoutRouteChildren: AppLayoutRouteChildren = {
   AppDashboardRoute: AppDashboardRoute,
   AppSettingsRoute: AppSettingsRoute,
   AppEventIdDashboardRoute: AppEventIdDashboardRoute,
+  AppSessionsIndexRoute: AppSessionsIndexRoute,
   AppEventIdMembersIndexRoute: AppEventIdMembersIndexRoute,
+  AppEventIdMemberIdIndexRoute: AppEventIdMemberIdIndexRoute,
   AppEventIdMembersExportIndexRoute: AppEventIdMembersExportIndexRoute,
   AppEventIdMembersImportIndexRoute: AppEventIdMembersImportIndexRoute,
 }

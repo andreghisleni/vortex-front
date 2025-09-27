@@ -33,6 +33,8 @@ export function EventSelect() {
     strict: false,
   });
 
+  const withoutEventRoute = location.pathname.startsWith('/sessions');
+
   async function handleSelect(newEventId?: string) {
     // Não faz nada se o novo ID não existir ou for o mesmo que o atual
     if (!newEventId || newEventId === currentEventId) {
@@ -57,7 +59,7 @@ export function EventSelect() {
 
   return (
     <>
-      {!currentEventId && <EventSelectScreen />}
+      {!(currentEventId || withoutEventRoute) && <EventSelectScreen />}
       <div className="*:not-first:mt-2">
         <Popover onOpenChange={setOpen} open={open}>
           <PopoverTrigger asChild>

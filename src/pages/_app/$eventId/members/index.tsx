@@ -70,7 +70,7 @@ function RouteComponent() {
             <MemberForm />
           </>
         }
-        columns={columns}
+        columns={columns({ eventId })}
         data={
           data?.data.map((member) => ({
             ...member,

@@ -21,6 +21,7 @@ import { MenuLink } from './menu-link';
 // Navigation links array to be used in both desktop and mobile menus
 const navigationLinks = [
   // { href: '/dashboard', label: 'Home' },
+  { href: '/sessions', label: 'Sessions' },
   // { href: '/settings', label: 'Settings' },
 ];
 

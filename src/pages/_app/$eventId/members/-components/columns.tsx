@@ -1,9 +1,10 @@
 'use client';
 
+import { Link } from '@tanstack/react-router';
 import type { ColumnDef } from '@tanstack/react-table';
 import { format } from 'date-fns';
+import { Eye } from 'lucide-react';
 import { DataTable } from '@/components/data-table';
-
 import { tdbs } from '@/components/TableDataButton-server';
 import { Button } from '@/components/ui/button';
 import {
@@ -26,7 +27,11 @@ export type Member = GetEventMembers200['data'][0] & {
   totalTicketsToDeliver: number;
 };
 
-export const columns: ColumnDef<Member>[] = [
+export const columns = ({
+  eventId,
+}: {
+  eventId: string;
+}): ColumnDef<Member>[] => [
   tdbs('order', '#'),
   tdbs('visionId', 'Vision'),
   tdbs('name', 'Nome'),
@@ -114,14 +119,14 @@ export const columns: ColumnDef<Member>[] = [
     enableHiding: false,
     cell: ({ row }) => (
       <div className="flex items-center gap-2">
-        {/* <Button asChild size="icon" variant="outline">
+        <Button asChild size="icon" variant="outline">
           <Link
-            params={{ id: row.original.id }}
-            to={'/app/settings/member/:id'}
+            params={{ id: row.original.id, eventId }}
+            to={'/$eventId/member/$id'}
           >
             <Eye />
           </Link>
-        </Button> */}
+        </Button>
         <MemberForm member={row.original} />
 
         <Dialog>
