@@ -4,14 +4,14 @@
 */
 
 
-export type GetAllEventTicketsPathParams = {
+export type GetEventTicketsPathParams = {
     /**
      * @type string, uuid
     */
     eventId: string;
 };
 
-export type GetAllEventTicketsQueryParams = {
+export type GetEventTicketsQueryParams = {
     /**
      * @description Filter by ticket number, name, phone, description, or member name
      * @type string | undefined
@@ -46,11 +46,7 @@ export type GetAllEventTicketsQueryParams = {
     /**
      * @description Type of the order
     */
-    "ob.name"?: (string | string);
-    /**
-     * @description Type of the order
-    */
-    "ob.phone"?: (string | string);
+    "ob.member.name"?: (string | string);
     /**
      * @description Type of the order
     */
@@ -62,14 +58,10 @@ export type GetAllEventTicketsQueryParams = {
     /**
      * @description Type of the order
     */
-    "ob.created"?: (string | string);
-    /**
-     * @description Type of the order
-    */
     "ob.createdAt"?: (string | string);
 };
 
-export type GetAllEventTickets200 = {
+export type GetEventTickets200 = {
     /**
      * @type array
     */
@@ -176,11 +168,11 @@ export type GetAllEventTickets200 = {
     };
 };
 
-export type GetAllEventTicketsQueryResponse = GetAllEventTickets200;
+export type GetEventTicketsQueryResponse = GetEventTickets200;
 
-export type GetAllEventTicketsQuery = {
-    Response: GetAllEventTickets200;
-    PathParams: GetAllEventTicketsPathParams;
-    QueryParams: GetAllEventTicketsQueryParams;
+export type GetEventTicketsQuery = {
+    Response: GetEventTickets200;
+    PathParams: GetEventTicketsPathParams;
+    QueryParams: GetEventTicketsQueryParams;
     Errors: any;
 };

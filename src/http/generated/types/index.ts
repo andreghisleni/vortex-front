@@ -10,7 +10,6 @@ export type { DeleteEventTicketByIdPathParams, DeleteEventTicketById204, DeleteE
 export type { GetAllEventPaymentsPathParams, GetAllEventPaymentsQueryParams, GetAllEventPayments200, GetAllEventPaymentsQueryResponse, GetAllEventPaymentsQuery } from "./GetAllEventPayments.ts";
 export type { GetAllEvents200, GetAllEventsQueryResponse, GetAllEventsQuery } from "./GetAllEvents.ts";
 export type { GetAllEventTicketRangesPathParams, GetAllEventTicketRangesQueryParams, GetAllEventTicketRanges200, GetAllEventTicketRangesQueryResponse, GetAllEventTicketRangesQuery } from "./GetAllEventTicketRanges.ts";
-export type { GetAllEventTicketsPathParams, GetAllEventTicketsQueryParams, GetAllEventTickets200, GetAllEventTicketsQueryResponse, GetAllEventTicketsQuery } from "./GetAllEventTickets.ts";
 export type { GetAllScoutSessions200, GetAllScoutSessionsQueryResponse, GetAllScoutSessionsQuery } from "./GetAllScoutSessions.ts";
 export type { GetEventByIdPathParams, GetEventById200, GetEventById404, GetEventByIdQueryResponse, GetEventByIdQuery } from "./GetEventById.ts";
 export type { GetEventDashboardDataByIdPathParams, GetEventDashboardDataById200, GetEventDashboardDataById404, GetEventDashboardDataByIdQueryResponse, GetEventDashboardDataByIdQuery } from "./GetEventDashboardDataById.ts";
@@ -20,6 +19,7 @@ export type { GetEventMembersPathParams, GetEventMembersQueryParams, GetEventMem
 export type { GetEventPaymentByIdPathParams, GetEventPaymentById200, GetEventPaymentById404, GetEventPaymentByIdQueryResponse, GetEventPaymentByIdQuery } from "./GetEventPaymentById.ts";
 export type { GetEventTicketByIdPathParams, GetEventTicketById200, GetEventTicketById404, GetEventTicketByIdQueryResponse, GetEventTicketByIdQuery } from "./GetEventTicketById.ts";
 export type { GetEventTicketRangeByIdPathParams, GetEventTicketRangeById200, GetEventTicketRangeById404, GetEventTicketRangeByIdQueryResponse, GetEventTicketRangeByIdQuery } from "./GetEventTicketRangeById.ts";
+export type { GetEventTicketsPathParams, GetEventTicketsQueryParams, GetEventTickets200, GetEventTicketsQueryResponse, GetEventTicketsQuery } from "./GetEventTickets.ts";
 export type { GetIndex200, GetIndexQueryResponse, GetIndexQuery } from "./GetIndex.ts";
 export type { GetScoutSessionByIdPathParams, GetScoutSessionById200, GetScoutSessionById404, GetScoutSessionByIdQueryResponse, GetScoutSessionByIdQuery } from "./GetScoutSessionById.ts";
 export type { ToggleReturnedStatusOfEventTicketByIdPathParams, ToggleReturnedStatusOfEventTicketById201, ToggleReturnedStatusOfEventTicketById404, ToggleReturnedStatusOfEventTicketByIdMutationResponse, ToggleReturnedStatusOfEventTicketByIdMutation } from "./ToggleReturnedStatusOfEventTicketById.ts";

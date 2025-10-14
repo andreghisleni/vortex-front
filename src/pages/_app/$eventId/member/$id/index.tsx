@@ -24,29 +24,30 @@ function MemberPage() {
       <h2 className="font-bold text-3xl tracking-tight">
         Dados do membro: {data?.visionId} - {data?.name} - {data?.session.name}
       </h2>
-
-      <Card className="flex-1">
-        <CardHeader>
-          <CardTitle>Tickets</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <DataTable columns={ticketsColumns} data={data?.tickets || []} />
-        </CardContent>
-      </Card>
-      <Card className="flex-1">
-        <CardHeader>
-          <CardTitle>Pagamentos</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <PaymentsTable
-            memberId={memberId}
-            payments={data?.payments || []}
-            toReceive={
-              (data?.tickets?.filter((t) => !t.returned).length || 0) * 50
-            }
-          />
-        </CardContent>
-      </Card>
+      <div className="flex w-full gap-4">
+        <Card className="flex-1">
+          <CardHeader>
+            <CardTitle>Tickets</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <DataTable columns={ticketsColumns} data={data?.tickets || []} />
+          </CardContent>
+        </Card>
+        <Card className="flex-1">
+          <CardHeader>
+            <CardTitle>Pagamentos</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <PaymentsTable
+              memberId={memberId}
+              payments={data?.payments || []}
+              toReceive={
+                (data?.tickets?.filter((t) => !t.returned).length || 0) * 50
+              }
+            />
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }

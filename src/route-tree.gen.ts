@@ -20,6 +20,7 @@ import { Route as AppDashboardRouteImport } from './pages/_app/dashboard'
 import { Route as AppSessionsIndexRouteImport } from './pages/_app/sessions/index'
 import { Route as AuthResetPasswordTokenRouteImport } from './pages/_auth/reset-password.$token'
 import { Route as AppEventIdDashboardRouteImport } from './pages/_app/$eventId/dashboard'
+import { Route as AppEventIdTicketsIndexRouteImport } from './pages/_app/$eventId/tickets/index'
 import { Route as AppEventIdMembersIndexRouteImport } from './pages/_app/$eventId/members/index'
 import { Route as AppEventIdMembersImportIndexRouteImport } from './pages/_app/$eventId/members/import/index'
 import { Route as AppEventIdMembersExportIndexRouteImport } from './pages/_app/$eventId/members/export/index'
@@ -78,6 +79,11 @@ const AppEventIdDashboardRoute = AppEventIdDashboardRouteImport.update({
   path: '/$eventId/dashboard',
   getParentRoute: () => AppLayoutRoute,
 } as any)
+const AppEventIdTicketsIndexRoute = AppEventIdTicketsIndexRouteImport.update({
+  id: '/$eventId/tickets/',
+  path: '/$eventId/tickets/',
+  getParentRoute: () => AppLayoutRoute,
+} as any)
 const AppEventIdMembersIndexRoute = AppEventIdMembersIndexRouteImport.update({
   id: '/$eventId/members/',
   path: '/$eventId/members/',
@@ -112,6 +118,7 @@ export interface FileRoutesByFullPath {
   '/reset-password/$token': typeof AuthResetPasswordTokenRoute
   '/sessions': typeof AppSessionsIndexRoute
   '/$eventId/members': typeof AppEventIdMembersIndexRoute
+  '/$eventId/tickets': typeof AppEventIdTicketsIndexRoute
   '/$eventId/member/$id': typeof AppEventIdMemberIdIndexRoute
   '/$eventId/members/export': typeof AppEventIdMembersExportIndexRoute
   '/$eventId/members/import': typeof AppEventIdMembersImportIndexRoute
@@ -127,6 +134,7 @@ export interface FileRoutesByTo {
   '/reset-password/$token': typeof AuthResetPasswordTokenRoute
   '/sessions': typeof AppSessionsIndexRoute
   '/$eventId/members': typeof AppEventIdMembersIndexRoute
+  '/$eventId/tickets': typeof AppEventIdTicketsIndexRoute
   '/$eventId/member/$id': typeof AppEventIdMemberIdIndexRoute
   '/$eventId/members/export': typeof AppEventIdMembersExportIndexRoute
   '/$eventId/members/import': typeof AppEventIdMembersImportIndexRoute
@@ -145,6 +153,7 @@ export interface FileRoutesById {
   '/_auth/reset-password/$token': typeof AuthResetPasswordTokenRoute
   '/_app/sessions/': typeof AppSessionsIndexRoute
   '/_app/$eventId/members/': typeof AppEventIdMembersIndexRoute
+  '/_app/$eventId/tickets/': typeof AppEventIdTicketsIndexRoute
   '/_app/$eventId/member/$id/': typeof AppEventIdMemberIdIndexRoute
   '/_app/$eventId/members/export/': typeof AppEventIdMembersExportIndexRoute
   '/_app/$eventId/members/import/': typeof AppEventIdMembersImportIndexRoute
@@ -162,6 +171,7 @@ export interface FileRouteTypes {
     | '/reset-password/$token'
     | '/sessions'
     | '/$eventId/members'
+    | '/$eventId/tickets'
     | '/$eventId/member/$id'
     | '/$eventId/members/export'
     | '/$eventId/members/import'
@@ -177,6 +187,7 @@ export interface FileRouteTypes {
     | '/reset-password/$token'
     | '/sessions'
     | '/$eventId/members'
+    | '/$eventId/tickets'
     | '/$eventId/member/$id'
     | '/$eventId/members/export'
     | '/$eventId/members/import'
@@ -194,6 +205,7 @@ export interface FileRouteTypes {
     | '/_auth/reset-password/$token'
     | '/_app/sessions/'
     | '/_app/$eventId/members/'
+    | '/_app/$eventId/tickets/'
     | '/_app/$eventId/member/$id/'
     | '/_app/$eventId/members/export/'
     | '/_app/$eventId/members/import/'
@@ -284,6 +296,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppEventIdDashboardRouteImport
       parentRoute: typeof AppLayoutRoute
     }
+    '/_app/$eventId/tickets/': {
+      id: '/_app/$eventId/tickets/'
+      path: '/$eventId/tickets'
+      fullPath: '/$eventId/tickets'
+      preLoaderRoute: typeof AppEventIdTicketsIndexRouteImport
+      parentRoute: typeof AppLayoutRoute
+    }
     '/_app/$eventId/members/': {
       id: '/_app/$eventId/members/'
       path: '/$eventId/members'
@@ -321,6 +340,7 @@ interface AppLayoutRouteChildren {
   AppEventIdDashboardRoute: typeof AppEventIdDashboardRoute
   AppSessionsIndexRoute: typeof AppSessionsIndexRoute
   AppEventIdMembersIndexRoute: typeof AppEventIdMembersIndexRoute
+  AppEventIdTicketsIndexRoute: typeof AppEventIdTicketsIndexRoute
   AppEventIdMemberIdIndexRoute: typeof AppEventIdMemberIdIndexRoute
   AppEventIdMembersExportIndexRoute: typeof AppEventIdMembersExportIndexRoute
   AppEventIdMembersImportIndexRoute: typeof AppEventIdMembersImportIndexRoute
@@ -332,6 +352,7 @@ const AppLayoutRouteChildren: AppLayoutRouteChildren = {
   AppEventIdDashboardRoute: AppEventIdDashboardRoute,
   AppSessionsIndexRoute: AppSessionsIndexRoute,
   AppEventIdMembersIndexRoute: AppEventIdMembersIndexRoute,
+  AppEventIdTicketsIndexRoute: AppEventIdTicketsIndexRoute,
   AppEventIdMemberIdIndexRoute: AppEventIdMemberIdIndexRoute,
   AppEventIdMembersExportIndexRoute: AppEventIdMembersExportIndexRoute,
   AppEventIdMembersImportIndexRoute: AppEventIdMembersImportIndexRoute,

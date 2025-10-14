@@ -28,6 +28,7 @@ const navigationLinks = [
 const eventNavigationLinks = [
   { href: '/dashboard', label: 'Dashboard' },
   { href: '/members', label: 'Membros' },
+  { href: '/tickets', label: 'Tickets' },
 ];
 
 export function Header() {

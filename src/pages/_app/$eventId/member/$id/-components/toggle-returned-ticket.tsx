@@ -3,9 +3,9 @@ import { useParams } from '@tanstack/react-router';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import {
-  getAllEventTicketsQueryKey,
   getEventDashboardDataByIdQueryKey,
   getEventMemberByIdQueryKey,
+  getEventTicketsQueryKey,
   useToggleReturnedStatusOfEventTicketById,
 } from '@/http/generated';
 
@@ -32,7 +32,7 @@ export function ToggleReturnedTicketButton({
           queryKey: getEventMemberByIdQueryKey(eventId, memberId),
         });
         await queryClient.invalidateQueries({
-          queryKey: getAllEventTicketsQueryKey(eventId),
+          queryKey: getEventTicketsQueryKey(eventId),
         });
         await queryClient.invalidateQueries({
           queryKey: getEventDashboardDataByIdQueryKey(eventId),
