@@ -44,6 +44,19 @@ export type CreateManyEventMembersMutationRequest = {
      * @type string
     */
     sessionName: string;
+    /**
+     * @type array | undefined
+    */
+    ticketAllocations?: {
+        /**
+         * @type string, uuid
+        */
+        eventTicketRangeId: string;
+        /**
+         * @type number
+        */
+        quantity: number;
+    }[];
 }[];
 
 export type CreateManyEventMembersMutationResponse = CreateManyEventMembers201;

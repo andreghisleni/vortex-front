@@ -2,7 +2,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 import { useState } from 'react';
 import { toast } from 'sonner';
-// biome-ignore lint/performance/noNamespaceImport: <explanation>
+// biome-ignore lint/performance/noNamespaceImport: XLSX library requires namespace import
 import * as XLSX from 'xlsx';
 import { DataTable } from '@/components/data-table';
 import { Button } from '@/components/ui/button';
@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input';
 import {
   getEventMembersQueryKey,
   useCreateManyEventMembers,
+  useGetEventById,
 } from '@/http/generated';
 import { columns } from './-components/columns';
 
@@ -19,7 +20,7 @@ export type Item = {
   name: string;
   session: string;
   register: string;
-};
+}
 
 export const Route = createFileRoute('/_app/$eventId/members/import/')({
   component: RouteComponent,
@@ -27,10 +28,11 @@ export const Route = createFileRoute('/_app/$eventId/members/import/')({
 
 function RouteComponent() {
   const eventId = Route.useParams().eventId as string;
+  const {data: event} = useGetEventById(eventId);
   const queryClient = useQueryClient();
   const [items, setItems] = useState<Item[]>([]);
 
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  // biome-ignore lint/suspicious/noExplicitAny: file parameter from input element
   const readExcel = (file: any) => {
     const promise = new Promise((resolve, reject) => {
       const fileReader = new FileReader();
@@ -46,6 +48,7 @@ function RouteComponent() {
         const wsname = wb.SheetNames[0];
         const ws = wb.Sheets[wsname];
         const data = XLSX.utils.sheet_to_json(ws);
+        
         resolve(data);
       };
       fileReader.onerror = (error) => {
@@ -58,7 +61,17 @@ function RouteComponent() {
         .map((item, index) => ({
           // 2. Depois adiciona a ordem
           ...item,
+          register: item.register ? String(item.register).replace(' ', '').split('-')[0] : '',
           order: index + 1,
+          ...(!event?.autoGenerateTicketsTotalPerMember &&
+            event?.ticketRanges &&
+            event?.ticketRanges.length > 0 ? 
+            event.ticketRanges.reduce((acc, range) => ({ 
+              // biome-ignore lint/performance/noAccumulatingSpread: <explanation>
+              ...acc,
+              // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+              [range.type]: (item as any)[range.type] || 0
+            }), {}) : {})
         }));
       setItems(itemsComOrdem);
     });
@@ -92,6 +105,34 @@ function RouteComponent() {
         order: item.order,
       })),
     });
+  };
+
+  const exportTemplate = () => {
+    // Dados de exemplo para o template
+    const templateData = [
+      {
+        VISION: '12345',
+        name: 'João Silva',
+        session: 'Escoteiro',
+        register: '67890',
+        ...(!event?.autoGenerateTicketsTotalPerMember &&
+          event?.ticketRanges &&
+          event?.ticketRanges.length > 0 ? 
+          event.ticketRanges.reduce((acc, range) => ({ 
+            // biome-ignore lint/performance/noAccumulatingSpread: <explanation>
+            ...acc,
+            [range.type]: 1 
+          }), {}) : {})
+      }
+    ];
+
+    // Criar planilha
+    const ws = XLSX.utils.json_to_sheet(templateData);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Membros');
+
+    // Baixar arquivo
+    XLSX.writeFile(wb, 'modelo_importacao_membros.xlsx');
   };
 
   return (
@@ -129,7 +170,15 @@ function RouteComponent() {
             </li>
           </ul>
 
-          <Button onClick={handleCreate}>Cadastrar membros</Button>
+          <div className="mt-4 flex gap-2">
+            <Button onClick={handleCreate}>Cadastrar membros</Button>
+            <Button 
+              onClick={exportTemplate}
+              variant="outline" 
+            >
+              Baixar Modelo
+            </Button>
+          </div>
 
           {/* <ShowJson data={items} /> */}
         </div>

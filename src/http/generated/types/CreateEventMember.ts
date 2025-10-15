@@ -37,6 +37,19 @@ export type CreateEventMemberMutationRequest = {
      * @type string | undefined
     */
     register?: string;
+    /**
+     * @type array | undefined
+    */
+    ticketAllocations?: {
+        /**
+         * @type string, uuid
+        */
+        eventTicketRangeId: string;
+        /**
+         * @type number
+        */
+        quantity: number;
+    }[];
 };
 
 export type CreateEventMemberMutationResponse = CreateEventMember201;
