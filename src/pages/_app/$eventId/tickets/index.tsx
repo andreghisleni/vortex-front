@@ -1,11 +1,9 @@
-import { createFileRoute, Link } from '@tanstack/react-router';
+import { createFileRoute } from '@tanstack/react-router';
 import { parseAsInteger, parseAsString, useQueryStates } from 'nuqs';
 import { Suspense } from 'react';
-import z from 'zod';
 import { DataTable } from '@/components/data-table';
 import { FilterBase } from '@/components/filter-base';
 import { Pagination } from '@/components/pagination';
-import { Button } from '@/components/ui/button';
 import { usePagination } from '@/hooks/use-pagination';
 import { useGetEventTickets } from '@/http/generated';
 import { columns } from './-components/columns';
@@ -50,7 +48,7 @@ function RouteComponent() {
 
   return (
     <div className="px-8 pt-8">
-      <h2 className="font-bold text-3xl tracking-tight">Membros {rest['ob.member.name']}</h2>
+      <h2 className="font-bold text-3xl tracking-tight">Tickets</h2>
       <DataTable
         addComponent={
           <>

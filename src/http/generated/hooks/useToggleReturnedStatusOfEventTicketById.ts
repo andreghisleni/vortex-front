@@ -4,7 +4,7 @@
 */
 
 import fetch from "@/lib/api";
-import type { ToggleReturnedStatusOfEventTicketByIdMutationResponse, ToggleReturnedStatusOfEventTicketByIdPathParams, ToggleReturnedStatusOfEventTicketById404 } from "../types/ToggleReturnedStatusOfEventTicketById.ts";
+import type { ToggleReturnedStatusOfEventTicketByIdMutationResponse, ToggleReturnedStatusOfEventTicketByIdPathParams, ToggleReturnedStatusOfEventTicketById403, ToggleReturnedStatusOfEventTicketById404 } from "../types/ToggleReturnedStatusOfEventTicketById.ts";
 import type { RequestConfig, ResponseErrorConfig } from "@/lib/api";
 import type { UseMutationOptions, QueryClient } from "@tanstack/react-query";
 import { useMutation } from "@tanstack/react-query";
@@ -20,7 +20,7 @@ export type ToggleReturnedStatusOfEventTicketByIdMutationKey = ReturnType<typeof
 export async function toggleReturnedStatusOfEventTicketById(eventId: ToggleReturnedStatusOfEventTicketByIdPathParams["eventId"], id: ToggleReturnedStatusOfEventTicketByIdPathParams["id"], config: Partial<RequestConfig> & { client?: typeof fetch } = {}) {
   const { client: request = fetch, ...requestConfig } = config  
   
-  const res = await request<ToggleReturnedStatusOfEventTicketByIdMutationResponse, ResponseErrorConfig<ToggleReturnedStatusOfEventTicketById404>, unknown>({ method : "PUT", url : `/event/${eventId}/tickets/${id}/toggle-returned`, ... requestConfig })  
+  const res = await request<ToggleReturnedStatusOfEventTicketByIdMutationResponse, ResponseErrorConfig<ToggleReturnedStatusOfEventTicketById403 | ToggleReturnedStatusOfEventTicketById404>, unknown>({ method : "PUT", url : `/event/${eventId}/tickets/${id}/toggle-returned`, ... requestConfig })  
   return res.data
 }
 
@@ -30,7 +30,7 @@ export async function toggleReturnedStatusOfEventTicketById(eventId: ToggleRetur
  */
 export function useToggleReturnedStatusOfEventTicketById<TContext>(options: 
 {
-  mutation?: UseMutationOptions<ToggleReturnedStatusOfEventTicketByIdMutationResponse, ResponseErrorConfig<ToggleReturnedStatusOfEventTicketById404>, {eventId: ToggleReturnedStatusOfEventTicketByIdPathParams["eventId"], id: ToggleReturnedStatusOfEventTicketByIdPathParams["id"]}, TContext> & { client?: QueryClient },
+  mutation?: UseMutationOptions<ToggleReturnedStatusOfEventTicketByIdMutationResponse, ResponseErrorConfig<ToggleReturnedStatusOfEventTicketById403 | ToggleReturnedStatusOfEventTicketById404>, {eventId: ToggleReturnedStatusOfEventTicketByIdPathParams["eventId"], id: ToggleReturnedStatusOfEventTicketByIdPathParams["id"]}, TContext> & { client?: QueryClient },
   client?: Partial<RequestConfig> & { client?: typeof fetch },
 }
  = {}) {
@@ -38,7 +38,7 @@ export function useToggleReturnedStatusOfEventTicketById<TContext>(options:
   const { client: queryClient, ...mutationOptions } = mutation;
   const mutationKey = mutationOptions.mutationKey ?? toggleReturnedStatusOfEventTicketByIdMutationKey()
 
-  return useMutation<ToggleReturnedStatusOfEventTicketByIdMutationResponse, ResponseErrorConfig<ToggleReturnedStatusOfEventTicketById404>, {eventId: ToggleReturnedStatusOfEventTicketByIdPathParams["eventId"], id: ToggleReturnedStatusOfEventTicketByIdPathParams["id"]}, TContext>({
+  return useMutation<ToggleReturnedStatusOfEventTicketByIdMutationResponse, ResponseErrorConfig<ToggleReturnedStatusOfEventTicketById403 | ToggleReturnedStatusOfEventTicketById404>, {eventId: ToggleReturnedStatusOfEventTicketByIdPathParams["eventId"], id: ToggleReturnedStatusOfEventTicketByIdPathParams["id"]}, TContext>({
     mutationFn: async({ eventId, id }) => {
       return toggleReturnedStatusOfEventTicketById(eventId, id, config)
     },

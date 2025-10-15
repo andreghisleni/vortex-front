@@ -23,6 +23,12 @@ export type CreateEvent200 = {
     */
     ticketType: (string | string);
     ownerId: (string | null) | null;
+    autoGenerateTicketsTotalPerMember: (number | null) | null;
+    /**
+     * @default false
+     * @type boolean
+    */
+    readOnly: boolean;
     /**
      * @description Timestamp when the event was created
     */
@@ -31,6 +37,27 @@ export type CreateEvent200 = {
      * @description Timestamp when the event was last updated
     */
     updatedAt: (string | string | number);
+    /**
+     * @type array
+    */
+    ticketRanges: {
+        /**
+         * @type string, uuid
+        */
+        id: string;
+        /**
+         * @type number
+        */
+        start: number;
+        /**
+         * @type number
+        */
+        end: number;
+        /**
+         * @type string
+        */
+        type: string;
+    }[];
 };
 
 export type CreateEvent404 = {
@@ -49,10 +76,36 @@ export type CreateEventMutationRequest = {
     name: string;
     description: (string | null) | null;
     /**
+     * @type number | undefined
+    */
+    autoGenerateTicketsTotalPerMember?: number;
+    /**
+     * @type boolean | undefined
+    */
+    readOnly?: boolean;
+    /**
      * @description Type of ticketing system used for the event
      * @default "SINGLE_NUMERATION"
     */
     ticketType: (string | string);
+    /**
+     * @description The ticket ranges for the event
+     * @type array
+    */
+    ticketRanges: {
+        /**
+         * @type number
+        */
+        start: number;
+        /**
+         * @type number
+        */
+        end: number;
+        /**
+         * @type string
+        */
+        type: string;
+    }[];
 };
 
 export type CreateEventMutationResponse = CreateEvent200;

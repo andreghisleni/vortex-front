@@ -1,4 +1,4 @@
-import { useNavigate } from '@tanstack/react-router';
+import { Link, useNavigate, useParams } from '@tanstack/react-router';
 
 import {
   BoltIcon,
@@ -24,6 +24,10 @@ import { auth } from '@/lib/auth';
 import { getNameInitials } from '@/utils/get-name-initials';
 
 export default function UserMenu() {
+  const { eventId } = useParams({
+    strict: false,
+  });
+
   const navigate = useNavigate();
   const { data } = auth.useSession();
   async function handleLogout() {
@@ -62,10 +66,12 @@ export default function UserMenu() {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <BoltIcon aria-hidden="true" className="opacity-60" size={16} />
-            <span>Option 1</span>
-          </DropdownMenuItem>
+          {eventId && (<DropdownMenuItem asChild>
+            <Link params={{ eventId }} to={'/$eventId/event/edit'}>
+              <BoltIcon aria-hidden="true" className="opacity-60" size={16} />
+              <span>Evento</span>
+            </Link>
+          </DropdownMenuItem>)}
           <DropdownMenuItem>
             <Layers2Icon aria-hidden="true" className="opacity-60" size={16} />
             <span>Option 2</span>

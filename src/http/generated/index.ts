@@ -38,6 +38,7 @@ export type { GetIndexSuspenseQueryKey } from "./hooks/useGetIndexSuspense.ts";
 export type { GetScoutSessionByIdQueryKey } from "./hooks/useGetScoutSessionById.ts";
 export type { GetScoutSessionByIdSuspenseQueryKey } from "./hooks/useGetScoutSessionByIdSuspense.ts";
 export type { ToggleReturnedStatusOfEventTicketByIdMutationKey } from "./hooks/useToggleReturnedStatusOfEventTicketById.ts";
+export type { UpdateEventByIdMutationKey } from "./hooks/useUpdateEventById.ts";
 export type { UpdateEventMemberByIdMutationKey } from "./hooks/useUpdateEventMemberById.ts";
 export type { UpdateEventPaymentByIdMutationKey } from "./hooks/useUpdateEventPaymentById.ts";
 export type { UpdateEventTicketByIdMutationKey } from "./hooks/useUpdateEventTicketById.ts";
@@ -68,7 +69,8 @@ export type { GetEventTicketRangeByIdPathParams, GetEventTicketRangeById200, Get
 export type { GetEventTicketsPathParams, GetEventTicketsQueryParams, GetEventTickets200, GetEventTicketsQueryResponse, GetEventTicketsQuery } from "./types/GetEventTickets.ts";
 export type { GetIndex200, GetIndexQueryResponse, GetIndexQuery } from "./types/GetIndex.ts";
 export type { GetScoutSessionByIdPathParams, GetScoutSessionById200, GetScoutSessionById404, GetScoutSessionByIdQueryResponse, GetScoutSessionByIdQuery } from "./types/GetScoutSessionById.ts";
-export type { ToggleReturnedStatusOfEventTicketByIdPathParams, ToggleReturnedStatusOfEventTicketById201, ToggleReturnedStatusOfEventTicketById404, ToggleReturnedStatusOfEventTicketByIdMutationResponse, ToggleReturnedStatusOfEventTicketByIdMutation } from "./types/ToggleReturnedStatusOfEventTicketById.ts";
+export type { ToggleReturnedStatusOfEventTicketByIdPathParams, ToggleReturnedStatusOfEventTicketById201, ToggleReturnedStatusOfEventTicketById403, ToggleReturnedStatusOfEventTicketById404, ToggleReturnedStatusOfEventTicketByIdMutationResponse, ToggleReturnedStatusOfEventTicketByIdMutation } from "./types/ToggleReturnedStatusOfEventTicketById.ts";
+export type { UpdateEventByIdPathParams, UpdateEventById201, UpdateEventById404, UpdateEventByIdMutationRequest, UpdateEventByIdMutationResponse, UpdateEventByIdMutation } from "./types/UpdateEventById.ts";
 export type { UpdateEventMemberByIdPathParams, UpdateEventMemberById200, UpdateEventMemberById404, UpdateEventMemberByIdMutationRequest, UpdateEventMemberByIdMutationResponse, UpdateEventMemberByIdMutation } from "./types/UpdateEventMemberById.ts";
 export type { UpdateEventPaymentByIdPathParams, UpdateEventPaymentById201, UpdateEventPaymentById404, UpdateEventPaymentByIdMutationRequest, UpdateEventPaymentByIdMutationResponse, UpdateEventPaymentByIdMutation } from "./types/UpdateEventPaymentById.ts";
 export type { UpdateEventTicketByIdPathParams, UpdateEventTicketById201, UpdateEventTicketById404, UpdateEventTicketByIdMutationRequest, UpdateEventTicketByIdMutationResponse, UpdateEventTicketByIdMutation } from "./types/UpdateEventTicketById.ts";
@@ -115,6 +117,7 @@ export { getIndexSuspenseQueryKey, getIndexSuspense, getIndexSuspenseQueryOption
 export { getScoutSessionByIdQueryKey, getScoutSessionById, getScoutSessionByIdQueryOptions, useGetScoutSessionById } from "./hooks/useGetScoutSessionById.ts";
 export { getScoutSessionByIdSuspenseQueryKey, getScoutSessionByIdSuspense, getScoutSessionByIdSuspenseQueryOptions, useGetScoutSessionByIdSuspense } from "./hooks/useGetScoutSessionByIdSuspense.ts";
 export { toggleReturnedStatusOfEventTicketByIdMutationKey, toggleReturnedStatusOfEventTicketById, useToggleReturnedStatusOfEventTicketById } from "./hooks/useToggleReturnedStatusOfEventTicketById.ts";
+export { updateEventByIdMutationKey, updateEventById, useUpdateEventById } from "./hooks/useUpdateEventById.ts";
 export { updateEventMemberByIdMutationKey, updateEventMemberById, useUpdateEventMemberById } from "./hooks/useUpdateEventMemberById.ts";
 export { updateEventPaymentByIdMutationKey, updateEventPaymentById, useUpdateEventPaymentById } from "./hooks/useUpdateEventPaymentById.ts";
 export { updateEventTicketByIdMutationKey, updateEventTicketById, useUpdateEventTicketById } from "./hooks/useUpdateEventTicketById.ts";

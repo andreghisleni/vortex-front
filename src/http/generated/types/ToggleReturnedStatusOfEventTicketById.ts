@@ -20,6 +20,14 @@ export type ToggleReturnedStatusOfEventTicketByIdPathParams = {
 */
 export type ToggleReturnedStatusOfEventTicketById201 = any;
 
+export type ToggleReturnedStatusOfEventTicketById403 = {
+    /**
+     * @description Event is read-only
+     * @type string
+    */
+    error: string;
+};
+
 export type ToggleReturnedStatusOfEventTicketById404 = {
     /**
      * @description Error message
@@ -33,5 +41,5 @@ export type ToggleReturnedStatusOfEventTicketByIdMutationResponse = ToggleReturn
 export type ToggleReturnedStatusOfEventTicketByIdMutation = {
     Response: ToggleReturnedStatusOfEventTicketById201;
     PathParams: ToggleReturnedStatusOfEventTicketByIdPathParams;
-    Errors: ToggleReturnedStatusOfEventTicketById404;
+    Errors: ToggleReturnedStatusOfEventTicketById403 | ToggleReturnedStatusOfEventTicketById404;
 };

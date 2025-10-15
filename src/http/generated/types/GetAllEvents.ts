@@ -23,6 +23,12 @@ export type GetAllEvents200 = {
     */
     ticketType: (string | string);
     ownerId: (string | null) | null;
+    autoGenerateTicketsTotalPerMember: (number | null) | null;
+    /**
+     * @default false
+     * @type boolean
+    */
+    readOnly: boolean;
     /**
      * @description Timestamp when the event was created
     */
@@ -31,6 +37,27 @@ export type GetAllEvents200 = {
      * @description Timestamp when the event was last updated
     */
     updatedAt: (string | string | number);
+    /**
+     * @type array
+    */
+    ticketRanges: {
+        /**
+         * @type string, uuid
+        */
+        id: string;
+        /**
+         * @type number
+        */
+        start: number;
+        /**
+         * @type number
+        */
+        end: number;
+        /**
+         * @type string
+        */
+        type: string;
+    }[];
 }[];
 
 export type GetAllEventsQueryResponse = GetAllEvents200;
