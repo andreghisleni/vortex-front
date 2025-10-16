@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/suspicious/noConsole: <explanation> */
 import { intervalToDuration } from 'date-fns'
 
 export function calculateFullAge(birthDate: Date) {

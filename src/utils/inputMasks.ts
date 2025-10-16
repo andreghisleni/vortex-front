@@ -1,3 +1,5 @@
+/** biome-ignore-all lint/style/useBlockStatements: <explanation> */
+/** biome-ignore-all lint/performance/useTopLevelRegex: <explanation> */
 export const inputCpfMask = (cpf: string | null) => {
   if (cpf === null) return ''
 

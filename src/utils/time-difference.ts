@@ -4,7 +4,7 @@ import {
   differenceInMinutes,
 } from 'date-fns'
 
-export function formatTimeDifference(dateString) {
+export function formatTimeDifference(dateString: string) {
   const providedDate = new Date(dateString)
   const now = new Date()
 

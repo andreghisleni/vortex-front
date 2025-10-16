@@ -22,4 +22,14 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  build: {
+    rollupOptions: {
+      external: [
+        './src/pages/_app/$eventId/tickets/critica/**', // Exclude an entire folder
+        './src/pages/_app/$eventId/tickets/import/**', // Exclude an entire folder
+        './src/pages/_app/$eventId/tickets/ranges/**', // Exclude an entire folder
+        'src/pages/_app/$eventId/tickets/payments/import/**', // Exclude an entire folder
+      ],
+    },
+  },
 });

@@ -1,6 +1,6 @@
 const KB = 1024
-const MB = 1048576
-const GB = 1073741824
+const MB = 1_048_576
+const GB = 1_073_741_824
 
 export function formatBytes(bytes: number) {
   if (bytes < KB) {

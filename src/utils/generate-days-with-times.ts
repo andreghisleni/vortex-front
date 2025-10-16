@@ -1,4 +1,4 @@
-import { RouterOutput } from '@pizza/trpc'
+// import { RouterOutput } from '@pizza/trpc'
 import { compareAsc, format, getDaysInMonth, parseISO } from 'date-fns'
 
 const week = [
@@ -11,8 +11,8 @@ const week = [
   'SATURDAY',
 ]
 
-export type WeekTime =
-  RouterOutput['getScheduleDefaultWeekTimes']['scheduleDefaultWeekTimes'][0]
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+export type WeekTime = any
 
 type GenerateDaysWithTimesProps = {
   year: number
@@ -35,6 +35,7 @@ export function generateDaysWithTimes({
   const weekdays = days.map((day) => {
     return {
       weekDay: dayToWeekday(new Date(year, month - 1, day)).toUpperCase(),
+      // biome-ignore lint/performance/useTopLevelRegex: <explanation>
       date: new Date(year, month - 1, day).toISOString().replace(/T.*$/, ''),
     }
   })

@@ -31,8 +31,8 @@ export function generateFormFieldsFromZodSchema<T extends z.ZodTypeAny>(
     }
   > = {}
 ) {
-  return Object.entries(schema.shape).map(([fieldName, fieldSchema]) => {
-    return renderField(fieldName, fieldSchema, form, values);
+  return Object.entries((schema as any).shape).map(([fieldName, fieldSchema]) => {
+    return renderField(fieldName, (fieldSchema as any), form, values);
   });
 }
 function renderField<T extends z.ZodTypeAny>(

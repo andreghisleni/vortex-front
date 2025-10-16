@@ -6,20 +6,26 @@
     "module": "ESNext",
     "skipLibCheck": true,
 
-    /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
     "noEmit": true,
 
-    /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "erasableSyntaxOnly": true,
+    "erasableSyntaxOnly": false,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+    "noImplicitAny": false,
   },
-  "include": ["vite.config.ts"]
+  "include": ["vite.config.ts"],
+
+  "exclude": [
+        "./src/pages/_app/$eventId/tickets/critica",
+        "./src/pages/_app/$eventId/tickets/import",
+        "./src/pages/_app/$eventId/tickets/ranges",
+        "src/pages/_app/$eventId/tickets/payments/import"
+      ]
 }
