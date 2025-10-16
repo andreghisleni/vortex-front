@@ -9,10 +9,17 @@ export function ExportButton({
   members,
   tickets,
   ticketsWithCritica,
+  ticketRanges,
 }: {
   members: Member[];
   tickets: Ticket[];
   ticketsWithCritica: Ticket[];
+  ticketRanges?: {
+    id: string;
+    type: string;
+    start: number;
+    end: number;
+  }[];
 }) {
   function handleExport() {
     xlsx(
@@ -26,11 +33,10 @@ export function ExportButton({
             { label: 'N° Tickets', value: 'tickets' },
             { label: 'Números', value: 'numbers' },
             { label: 'A retirar', value: 'tickets-a-retirar' },
-            // {
-            //   label: 'A retirar Calabresa',
-            //   value: 'tickets-a-retirar-calabresa',
-            // },
-            // { label: 'A retirar Mista', value: 'tickets-a-retirar-mista' },
+            ...ticketRanges?.map((range) => ({
+              label: range.type,
+              value: range.type,
+            })) || [],
           ],
           content: members.map((item) => ({
             visionId: item.visionId,
@@ -49,6 +55,19 @@ export function ExportButton({
             // 'tickets-a-retirar-mista': item.tickets.filter(
             //   (t) => !(t.deliveredAt || t.returned) && t.number >= 2000
             // ).length,
+
+            ...ticketRanges?.reduce((acc, range) => {
+              return {
+                // biome-ignore lint/performance/noAccumulatingSpread: <explanation>
+                ...acc,
+                [range.type]: item.tickets
+                .filter(
+                  (t) =>
+                    t.number >= range.start &&
+                    t.number <= range.end
+                ).map((t) => t.number).join(', '),
+              };
+            }, {}) || {},
           })),
         },
         {

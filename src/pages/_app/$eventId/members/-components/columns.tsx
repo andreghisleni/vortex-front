@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/suspicious/noExplicitAny: <explanation> */
 'use client';
 
 import { Link } from '@tanstack/react-router';
@@ -116,7 +117,7 @@ export const columns = ({
             {ticketRanges.map((range) => {
               return (<span key={range.id}>
                 {allocations.find(
-                  (allocation) => allocation.eventTicketRangeId === range.id
+                  (allocation: any) => allocation.eventTicketRangeId === range.id
                 )?.quantity}
               </span>)
             })}
