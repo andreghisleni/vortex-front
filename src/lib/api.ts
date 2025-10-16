@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: 'https://api.vortex.andreg.com.br',
   timeout: 10_000,
   withCredentials: true, // Importante para enviar cookies junto com as requisições
 });
