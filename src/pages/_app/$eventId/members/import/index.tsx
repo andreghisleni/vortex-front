@@ -28,7 +28,7 @@ export const Route = createFileRoute('/_app/$eventId/members/import/')({
 
 function RouteComponent() {
   const eventId = Route.useParams().eventId as string;
-  const {data: event} = useGetEventById(eventId);
+  const { data: event } = useGetEventById(eventId);
   const queryClient = useQueryClient();
   const [items, setItems] = useState<Item[]>([]);
 
@@ -48,7 +48,7 @@ function RouteComponent() {
         const wsname = wb.SheetNames[0];
         const ws = wb.Sheets[wsname];
         const data = XLSX.utils.sheet_to_json(ws);
-        
+
         resolve(data);
       };
       fileReader.onerror = (error) => {
@@ -65,8 +65,8 @@ function RouteComponent() {
           order: index + 1,
           ...(!event?.autoGenerateTicketsTotalPerMember &&
             event?.ticketRanges &&
-            event?.ticketRanges.length > 0 ? 
-            event.ticketRanges.reduce((acc, range) => ({ 
+            event?.ticketRanges.length > 0 ?
+            event.ticketRanges.reduce((acc, range) => ({
               // biome-ignore lint/performance/noAccumulatingSpread: <explanation>
               ...acc,
               // biome-ignore lint/suspicious/noExplicitAny: <explanation>
@@ -103,6 +103,14 @@ function RouteComponent() {
         register: String(item.register),
         visionId: String(item.VISION),
         order: item.order,
+        ticketAllocations: !event?.autoGenerateTicketsTotalPerMember &&
+          event?.ticketRanges &&
+          event?.ticketRanges.length > 0 ?
+          event.ticketRanges.map(range => ({
+            eventTicketRangeId: range.id,
+            // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+            quantity: (item as any)[range.type] || 0
+          })) : [],
       })),
     });
   };
@@ -117,11 +125,11 @@ function RouteComponent() {
         register: '67890',
         ...(!event?.autoGenerateTicketsTotalPerMember &&
           event?.ticketRanges &&
-          event?.ticketRanges.length > 0 ? 
-          event.ticketRanges.reduce((acc, range) => ({ 
+          event?.ticketRanges.length > 0 ?
+          event.ticketRanges.reduce((acc, range) => ({
             // biome-ignore lint/performance/noAccumulatingSpread: <explanation>
             ...acc,
-            [range.type]: 1 
+            [range.type]: 1
           }), {}) : {})
       }
     ];
@@ -172,9 +180,9 @@ function RouteComponent() {
 
           <div className="mt-4 flex gap-2">
             <Button onClick={handleCreate}>Cadastrar membros</Button>
-            <Button 
+            <Button
               onClick={exportTemplate}
-              variant="outline" 
+              variant="outline"
             >
               Baixar Modelo
             </Button>
@@ -184,7 +192,12 @@ function RouteComponent() {
         </div>
 
         <div className="flex-1">
-          <DataTable columns={columns} data={items} />
+          <DataTable columns={columns({
+            extra: !event?.autoGenerateTicketsTotalPerMember &&
+              event?.ticketRanges &&
+              event?.ticketRanges.length > 0 ?
+              event.ticketRanges.map(range => range.type) : []
+          })} data={items} />
         </div>
       </div>
     </div>

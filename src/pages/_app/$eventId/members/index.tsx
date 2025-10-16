@@ -7,8 +7,13 @@ import { FilterBase } from '@/components/filter-base';
 import { Pagination } from '@/components/pagination';
 import { Button } from '@/components/ui/button';
 import { usePagination } from '@/hooks/use-pagination';
-import { useGetAllScoutSessions, useGetEventMembers } from '@/http/generated';
+import {
+  useGetAllScoutSessions,
+  useGetEventById,
+  useGetEventMembers,
+} from '@/http/generated';
 import { columns } from './-components/columns';
+import { ConnectTicketsToMembersButton } from './-components/connect-tickets-to-members-button';
 import { MemberForm } from './-components/member-form';
 
 // import { MemberForm } from './member-form';
@@ -19,6 +24,7 @@ export const Route = createFileRoute('/_app/$eventId/members/')({
 
 function RouteComponent() {
   const eventId = Route.useParams().eventId;
+  const { data: event } = useGetEventById(eventId);
   const [{ pageIndex, pageSize, filter, session, ...rest }] = useQueryStates({
     // pageIndex é um inteiro, com valor padrão 1
     pageIndex: parseAsInteger.withDefault(1),
@@ -68,9 +74,15 @@ function RouteComponent() {
               </Link>
             </Button>
             <MemberForm />
+            <ConnectTicketsToMembersButton eventId={eventId} />
           </>
         }
-        columns={columns({ eventId })}
+        columns={columns({
+          eventId,
+          ticketRanges: event?.autoGenerateTicketsTotalPerMember
+            ? undefined
+            : event?.ticketRanges || [],
+        })}
         data={
           data?.data.map((member) => ({
             ...member,

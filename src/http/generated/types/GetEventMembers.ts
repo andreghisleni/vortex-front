@@ -150,6 +150,23 @@ export type GetEventMembers200 = {
             eventId: string;
             ticketRangeId: (string | null) | null;
         }[];
+        /**
+         * @type array
+        */
+        ticketAllocations: {
+            /**
+             * @type string, uuid
+            */
+            id: string;
+            /**
+             * @type string, uuid
+            */
+            eventTicketRangeId: string;
+            /**
+             * @type number
+            */
+            quantity: number;
+        }[];
     }[];
     /**
      * @type object

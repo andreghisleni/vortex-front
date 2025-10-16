@@ -7,6 +7,7 @@ export type { CreateManyEventMembersMutationKey } from "./hooks/useCreateManyEve
 export type { CreateScoutSessionMutationKey } from "./hooks/useCreateScoutSession.ts";
 export type { DeleteEventPaymentByIdMutationKey } from "./hooks/useDeleteEventPaymentById.ts";
 export type { DeleteEventTicketByIdMutationKey } from "./hooks/useDeleteEventTicketById.ts";
+export type { GenerateEventTicketsMutationKey } from "./hooks/useGenerateEventTickets.ts";
 export type { GetAllEventPaymentsQueryKey } from "./hooks/useGetAllEventPayments.ts";
 export type { GetAllEventPaymentsSuspenseQueryKey } from "./hooks/useGetAllEventPaymentsSuspense.ts";
 export type { GetAllEventsQueryKey } from "./hooks/useGetAllEvents.ts";
@@ -54,6 +55,7 @@ export type { CreateManyEventMembersPathParams, CreateManyEventMembers201, Creat
 export type { CreateScoutSession201, CreateScoutSession400, CreateScoutSessionMutationRequest, CreateScoutSessionMutationResponse, CreateScoutSessionMutation } from "./types/CreateScoutSession.ts";
 export type { DeleteEventPaymentByIdPathParams, DeleteEventPaymentById204, DeleteEventPaymentById404, DeleteEventPaymentByIdMutationResponse, DeleteEventPaymentByIdMutation } from "./types/DeleteEventPaymentById.ts";
 export type { DeleteEventTicketByIdPathParams, DeleteEventTicketById204, DeleteEventTicketById404, DeleteEventTicketByIdMutationResponse, DeleteEventTicketByIdMutation } from "./types/DeleteEventTicketById.ts";
+export type { GenerateEventTicketsPathParams, GenerateEventTickets200, GenerateEventTickets201, GenerateEventTickets400, GenerateEventTickets403, GenerateEventTickets404, GenerateEventTicketsMutationResponse, GenerateEventTicketsMutation } from "./types/GenerateEventTickets.ts";
 export type { GetAllEventPaymentsPathParams, GetAllEventPaymentsQueryParams, GetAllEventPayments200, GetAllEventPaymentsQueryResponse, GetAllEventPaymentsQuery } from "./types/GetAllEventPayments.ts";
 export type { GetAllEvents200, GetAllEventsQueryResponse, GetAllEventsQuery } from "./types/GetAllEvents.ts";
 export type { GetAllEventTicketRangesPathParams, GetAllEventTicketRangesQueryParams, GetAllEventTicketRanges200, GetAllEventTicketRangesQueryResponse, GetAllEventTicketRangesQuery } from "./types/GetAllEventTicketRanges.ts";
@@ -86,6 +88,7 @@ export { createManyEventMembersMutationKey, createManyEventMembers, useCreateMan
 export { createScoutSessionMutationKey, createScoutSession, useCreateScoutSession } from "./hooks/useCreateScoutSession.ts";
 export { deleteEventPaymentByIdMutationKey, deleteEventPaymentById, useDeleteEventPaymentById } from "./hooks/useDeleteEventPaymentById.ts";
 export { deleteEventTicketByIdMutationKey, deleteEventTicketById, useDeleteEventTicketById } from "./hooks/useDeleteEventTicketById.ts";
+export { generateEventTicketsMutationKey, generateEventTickets, useGenerateEventTickets } from "./hooks/useGenerateEventTickets.ts";
 export { getAllEventPaymentsQueryKey, getAllEventPayments, getAllEventPaymentsQueryOptions, useGetAllEventPayments } from "./hooks/useGetAllEventPayments.ts";
 export { getAllEventPaymentsSuspenseQueryKey, getAllEventPaymentsSuspense, getAllEventPaymentsSuspenseQueryOptions, useGetAllEventPaymentsSuspense } from "./hooks/useGetAllEventPaymentsSuspense.ts";
 export { getAllEventsQueryKey, getAllEvents, getAllEventsQueryOptions, useGetAllEvents } from "./hooks/useGetAllEvents.ts";

@@ -7,6 +7,7 @@ export type { CreateManyEventMembersMutationKey } from "./useCreateManyEventMemb
 export type { CreateScoutSessionMutationKey } from "./useCreateScoutSession.ts";
 export type { DeleteEventPaymentByIdMutationKey } from "./useDeleteEventPaymentById.ts";
 export type { DeleteEventTicketByIdMutationKey } from "./useDeleteEventTicketById.ts";
+export type { GenerateEventTicketsMutationKey } from "./useGenerateEventTickets.ts";
 export type { GetAllEventPaymentsQueryKey } from "./useGetAllEventPayments.ts";
 export type { GetAllEventPaymentsSuspenseQueryKey } from "./useGetAllEventPaymentsSuspense.ts";
 export type { GetAllEventsQueryKey } from "./useGetAllEvents.ts";
@@ -54,6 +55,7 @@ export { createManyEventMembersMutationKey, createManyEventMembers, useCreateMan
 export { createScoutSessionMutationKey, createScoutSession, useCreateScoutSession } from "./useCreateScoutSession.ts";
 export { deleteEventPaymentByIdMutationKey, deleteEventPaymentById, useDeleteEventPaymentById } from "./useDeleteEventPaymentById.ts";
 export { deleteEventTicketByIdMutationKey, deleteEventTicketById, useDeleteEventTicketById } from "./useDeleteEventTicketById.ts";
+export { generateEventTicketsMutationKey, generateEventTickets, useGenerateEventTickets } from "./useGenerateEventTickets.ts";
 export { getAllEventPaymentsQueryKey, getAllEventPayments, getAllEventPaymentsQueryOptions, useGetAllEventPayments } from "./useGetAllEventPayments.ts";
 export { getAllEventPaymentsSuspenseQueryKey, getAllEventPaymentsSuspense, getAllEventPaymentsSuspenseQueryOptions, useGetAllEventPaymentsSuspense } from "./useGetAllEventPaymentsSuspense.ts";
 export { getAllEventsQueryKey, getAllEvents, getAllEventsQueryOptions, useGetAllEvents } from "./useGetAllEvents.ts";
