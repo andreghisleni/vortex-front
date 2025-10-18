@@ -7,7 +7,7 @@ export default defineConfig(() => {
   return {
     root: '.',
     input: {
-      path: 'https://api.vortex.andreg.com.br/docs/json',
+      path: 'http://localhost:3000/docs/json',
     },
     output: {
       clean: true,

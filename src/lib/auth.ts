@@ -3,5 +3,5 @@ import { createAuthClient } from 'better-auth/react';
 
 export const auth = createAuthClient({
   plugins: [adminClient()],
-  baseURL: 'https://api.vortex.andreg.com.br/auth/api',
+  baseURL: (import.meta.env.VITE_API_URL as string).concat('/auth/api'),
 });

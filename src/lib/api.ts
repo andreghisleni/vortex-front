@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: 'https://api.vortex.andreg.com.br',
+  baseURL: import.meta.env.VITE_API_URL as string,
   timeout: 10_000,
   withCredentials: true, // Importante para enviar cookies junto com as requisições
 });
