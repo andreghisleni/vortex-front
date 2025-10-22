@@ -25,14 +25,6 @@ function MemberPage() {
     return acc + (event?.ticketRanges.find((range) => range.id === ticket.ticketRangeId)?.cost || 0);
   }, 0) || 0;
 
-  const totalPayedWithPix = data?.payments.filter((payment) => payment.type === 'PIX').reduce((acc, payment) => {
-    return acc + (payment.amount || 0);
-  }, 0) || 0;
-  const totalPayedWithCash = data?.payments.filter((payment) => payment.type === 'CASH').reduce((acc, payment) => {
-    return acc + (payment.amount || 0);
-  }, 0) || 0;
-  const totalPayed = totalPayedWithPix + totalPayedWithCash;
-
   return (
     <div className="px-8 pt-8">
       <h2 className="font-bold text-3xl tracking-tight">
