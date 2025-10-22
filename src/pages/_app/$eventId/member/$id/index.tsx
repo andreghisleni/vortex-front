@@ -21,7 +21,7 @@ function MemberPage() {
     return <div>Loading...</div>;
   }
 
-  const totalAmount = data?.tickets.reduce((acc, ticket) => {
+  const totalAmount = data?.tickets.filter((ticket) => !ticket.returned).reduce((acc, ticket) => {
     return acc + (event?.ticketRanges.find((range) => range.id === ticket.ticketRangeId)?.cost || 0);
   }, 0) || 0;
 

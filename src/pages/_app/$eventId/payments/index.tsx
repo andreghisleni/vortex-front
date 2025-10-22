@@ -81,7 +81,7 @@ function RouteComponent() {
         })}
         data={
           data?.data.map((member) => {
-            const totalAmount = member.tickets.reduce((acc, ticket) => {
+            const totalAmount = member.tickets.filter((ticket) => !ticket.returned).reduce((acc, ticket) => {
               return acc + (event?.ticketRanges.find((range) => range.id === ticket.ticketRangeId)?.cost || 0);
             }, 0);
 
