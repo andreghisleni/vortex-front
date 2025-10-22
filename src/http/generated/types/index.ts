@@ -1,3 +1,4 @@
+export type { AssignTicketPathParams, AssignTicket200, AssignTicket400, AssignTicket403, AssignTicket404, AssignTicketMutationRequest, AssignTicketMutationResponse, AssignTicketMutation } from "./AssignTicket.ts";
 export type { CreateEvent200, CreateEvent404, CreateEventMutationRequest, CreateEventMutationResponse, CreateEventMutation } from "./CreateEvent.ts";
 export type { CreateEventMemberPathParams, CreateEventMember201, CreateEventMemberMutationRequest, CreateEventMemberMutationResponse, CreateEventMemberMutation } from "./CreateEventMember.ts";
 export type { CreateEventPaymentPathParams, CreateEventPayment201, CreateEventPaymentMutationRequest, CreateEventPaymentMutationResponse, CreateEventPaymentMutation } from "./CreateEventPayment.ts";
@@ -24,6 +25,7 @@ export type { GetEventTicketsPathParams, GetEventTicketsQueryParams, GetEventTic
 export type { GetIndex200, GetIndexQueryResponse, GetIndexQuery } from "./GetIndex.ts";
 export type { GetScoutSessionByIdPathParams, GetScoutSessionById200, GetScoutSessionById404, GetScoutSessionByIdQueryResponse, GetScoutSessionByIdQuery } from "./GetScoutSessionById.ts";
 export type { ToggleReturnedStatusOfEventTicketByIdPathParams, ToggleReturnedStatusOfEventTicketById201, ToggleReturnedStatusOfEventTicketById403, ToggleReturnedStatusOfEventTicketById404, ToggleReturnedStatusOfEventTicketByIdMutationResponse, ToggleReturnedStatusOfEventTicketByIdMutation } from "./ToggleReturnedStatusOfEventTicketById.ts";
+export type { UnassignTicketPathParams, UnassignTicket200, UnassignTicket400, UnassignTicket403, UnassignTicket404, UnassignTicketMutationResponse, UnassignTicketMutation } from "./UnassignTicket.ts";
 export type { UpdateEventByIdPathParams, UpdateEventById201, UpdateEventById404, UpdateEventByIdMutationRequest, UpdateEventByIdMutationResponse, UpdateEventByIdMutation } from "./UpdateEventById.ts";
 export type { UpdateEventMemberByIdPathParams, UpdateEventMemberById200, UpdateEventMemberById404, UpdateEventMemberByIdMutationRequest, UpdateEventMemberByIdMutationResponse, UpdateEventMemberByIdMutation } from "./UpdateEventMemberById.ts";
 export type { UpdateEventPaymentByIdPathParams, UpdateEventPaymentById201, UpdateEventPaymentById404, UpdateEventPaymentByIdMutationRequest, UpdateEventPaymentByIdMutationResponse, UpdateEventPaymentByIdMutation } from "./UpdateEventPaymentById.ts";

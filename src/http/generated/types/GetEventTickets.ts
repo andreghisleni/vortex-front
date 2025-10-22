@@ -17,11 +17,11 @@ export type GetEventTicketsQueryParams = {
      * @type string | undefined
     */
     "f.filter"?: string;
+    "f.memberId"?: (string | null) | null;
     /**
-     * @description Filter by member ID
-     * @type string | undefined, uuid
+     * @description Filter has no member ID
     */
-    "f.memberId"?: string;
+    "f.noMemberId"?: (boolean | string);
     /**
      * @description Filter by returned status (true/false)
      * @type string | undefined
@@ -30,15 +30,13 @@ export type GetEventTicketsQueryParams = {
     /**
      * @description Page number
      * @default 1
-     * @type number | undefined
     */
-    "p.page"?: number;
+    "p.page"?: (string | number);
     /**
      * @description Page size
      * @default 20
-     * @type number | undefined
     */
-    "p.pageSize"?: number;
+    "p.pageSize"?: (string | number);
     /**
      * @description Type of the order
     */

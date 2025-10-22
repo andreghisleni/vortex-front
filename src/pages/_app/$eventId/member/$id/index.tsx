@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { DataTable } from '@/components/data-table';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useGetEventMemberById } from '@/http/generated';
+import { AttachTicketToMemberDialog } from './-components/attach-ticket-to-member-dialog';
 import { PaymentsTable } from './-components/payment-table';
 import { ticketsColumns } from './-components/tickets-columns';
 
@@ -30,7 +31,16 @@ function MemberPage() {
             <CardTitle>Tickets</CardTitle>
           </CardHeader>
           <CardContent>
-            <DataTable columns={ticketsColumns} data={data?.tickets || []} />
+            <DataTable
+              addComponent={
+                <AttachTicketToMemberDialog
+                  eventId={eventId}
+                  memberId={memberId}
+                />
+              }
+              columns={ticketsColumns}
+              data={data?.tickets || []}
+            />
           </CardContent>
         </Card>
         <Card className="flex-1">
