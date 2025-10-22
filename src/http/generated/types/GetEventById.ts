@@ -64,6 +64,7 @@ export type GetEventById200 = {
          * @type string
         */
         type: string;
+        cost: (number | null) | null;
     }[];
 };
 

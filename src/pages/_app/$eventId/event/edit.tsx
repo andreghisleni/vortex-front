@@ -255,6 +255,12 @@ function RouteComponent() {
                               {r.start} — {r.end}
                             </div>
                           </div>
+                          <div>
+                            <div className="text-muted-foreground text-sm">
+                              Custo
+                            </div>
+                            <div className="font-medium">{r.cost}</div>
+                          </div>
                         </div>
                       </CardContent>
                     </Card>

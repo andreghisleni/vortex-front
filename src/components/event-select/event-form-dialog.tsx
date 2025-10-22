@@ -39,6 +39,7 @@ const formSchema = z.object({
           start: z.coerce.number().int().min(1, 'Start must be at least 1'),
           end: z.coerce.number().int().min(1, 'End must be at least 1'),
           type: z.string().min(1, 'Type is required'),
+          cost: z.coerce.number().min(0),
         })
         .refine((v) => v.end >= v.start, {
           path: ['end'],
@@ -68,6 +69,7 @@ export function EventFormDialog() {
           start: 1,
           end: 1000,
           type: 'General',
+          cost: 50,
         },
       ],
       // valores padrão para os novos campos
@@ -248,7 +250,7 @@ export function EventFormDialog() {
                 <h3 className="font-medium">Ticket Ranges</h3>
                 {ticketType === 'MULTIPLE_NUMERATIONS' && (
                   <Button
-                    onClick={() => append({ start: 1, end: 100, type: '' })}
+                    onClick={() => append({ start: 1, end: 100, type: '', cost: 50 })}
                     size="sm"
                     type="button"
                     variant="outline"
@@ -277,7 +279,7 @@ export function EventFormDialog() {
                       )}
                     </div>
 
-                    <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+                    <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
                       <FormField
                         control={form.control}
                         name={`ticketRanges.${index}.type`}
@@ -315,6 +317,19 @@ export function EventFormDialog() {
                             <FormLabel>End</FormLabel>
                             <FormControl>
                               <Input min={1} type="number" {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      <FormField
+                        control={form.control}
+                        name={`ticketRanges.${index}.cost`}
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Custo</FormLabel>
+                            <FormControl>
+                              <Input min={0} type="number" {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>

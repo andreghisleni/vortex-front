@@ -1,21 +1,19 @@
-
-import { Suspense } from "react";
-
-import { DataTable } from "@/components/data-table";
-import { columns } from "./-components/columns";
+import { createFileRoute } from '@tanstack/react-router';
+import { parseAsInteger, parseAsString, useQueryStates } from 'nuqs';
+import { Suspense } from 'react';
+import z from 'zod';
+import { DataTable } from '@/components/data-table';
+import { FilterBase } from '@/components/filter-base';
+import { Pagination } from '@/components/pagination';
+import { usePagination } from '@/hooks/use-pagination';
 import {
   useGetAllScoutSessions,
   useGetEventById,
   useGetEventMembers,
-} from "@/http/generated";
-import { createFileRoute } from "@tanstack/react-router";
-import { parseAsInteger, parseAsString, useQueryStates } from "nuqs";
-import { usePagination } from "@/hooks/use-pagination";
-import { FilterBase } from "@/components/filter-base";
-import z from "zod";
-import { Pagination } from "@/components/pagination";
+} from '@/http/generated';
+import { columns } from './-components/columns';
 
-export const Route = createFileRoute("/_app/$eventId/payments/")({
+export const Route = createFileRoute('/_app/$eventId/payments/')({
   component: RouteComponent,
 });
 
@@ -27,25 +25,25 @@ function RouteComponent() {
     pageIndex: parseAsInteger.withDefault(1),
     // pageSize é uma string, com valor padrão '10' (pode ser parseAsInteger se preferir)
     pageSize: parseAsInteger.withDefault(10),
-    filter: parseAsString.withDefault(""), // Exemplo de filtro adicional
-    session: parseAsString.withDefault(""), // Exemplo de filtro adicional
-    "ob.order": parseAsString.withDefault(""), // Exemplo de ordenação
-    "ob.visionId": parseAsString.withDefault(""), // Exemplo de ordenação
-    "ob.name": parseAsString.withDefault(""), // Exemplo de ordenação
-    "ob.register": parseAsString.withDefault(""), // Exemplo de ordenação
-    "ob.session.name": parseAsString.withDefault(""), // Exemplo de ordenação
+    filter: parseAsString.withDefault(''), // Exemplo de filtro adicional
+    session: parseAsString.withDefault(''), // Exemplo de filtro adicional
+    'ob.order': parseAsString.withDefault(''), // Exemplo de ordenação
+    'ob.visionId': parseAsString.withDefault(''), // Exemplo de ordenação
+    'ob.name': parseAsString.withDefault(''), // Exemplo de ordenação
+    'ob.register': parseAsString.withDefault(''), // Exemplo de ordenação
+    'ob.session.name': parseAsString.withDefault(''), // Exemplo de ordenação
   });
   const { data: sessionsData } = useGetAllScoutSessions();
   const { data, isLoading } = useGetEventMembers(eventId, {
-    "p.page": pageIndex,
-    "p.pageSize": pageSize,
-    "f.filter": filter.length > 0 ? filter : undefined,
-    "f.sessionId": session.length > 0 ? session : undefined,
-    "ob.order": rest["ob.order"] || undefined,
-    "ob.visionId": rest["ob.visionId"] || undefined,
-    "ob.name": rest["ob.name"] || undefined,
-    "ob.register": rest["ob.register"] || undefined,
-    "ob.session-name": rest["ob.session.name"] || undefined,
+    'p.page': pageIndex,
+    'p.pageSize': pageSize,
+    'f.filter': filter.length > 0 ? filter : undefined,
+    'f.sessionId': session.length > 0 ? session : undefined,
+    'ob.order': rest['ob.order'] || undefined,
+    'ob.visionId': rest['ob.visionId'] || undefined,
+    'ob.name': rest['ob.name'] || undefined,
+    'ob.register': rest['ob.register'] || undefined,
+    'ob.session-name': rest['ob.session.name'] || undefined,
   });
 
   const { totalPages, total, navigateToPage, setPageSize, showing } =
@@ -82,18 +80,43 @@ function RouteComponent() {
             : event?.ticketRanges || [],
         })}
         data={
-          data?.data.map((member) => ({
-            ...member,
-            totalTickets: member.tickets.length,
-            totalTicketsToDeliver: member.tickets.filter(
-              (ticket) => !ticket.deliveredAt
-            ).length,
-          })) || []
+          data?.data.map((member) => {
+            const totalAmount = member.tickets.reduce((acc, ticket) => {
+              return acc + (event?.ticketRanges.find((range) => range.id === ticket.ticketRangeId)?.cost || 0);
+            }, 0);
+
+            const totalPayedWithPix = member.payments.filter((payment) => payment.type === 'PIX').reduce((acc, payment) => {
+              return acc + (payment.amount || 0);
+            }, 0);
+            const totalPayedWithCash = member.payments.filter((payment) => payment.type === 'CASH').reduce((acc, payment) => {
+              return acc + (payment.amount || 0);
+            }, 0);
+            const totalPayed = totalPayedWithPix + totalPayedWithCash;
+            return {
+              ...member,
+              totalTickets: member.tickets.length,
+              totalTicketsToDeliver: member.tickets.filter(
+                (ticket) => !ticket.deliveredAt
+              ).length,
+              totalReturned: member.tickets.filter((ticket) => ticket.returned)
+                .length,
+
+              totalAmount,
+
+              totalPayedWithPix,
+
+              totalPayedWithCash,
+
+              totalPayed,
+
+              total: totalPayed - totalAmount,
+            }
+          }) || []
         }
         filterComponent={
           <FilterBase
             additionalFieldsSchema={z.object({
-              session: z.string().optional().describe("Sessão"),
+              session: z.string().optional().describe('Sessão'),
             })}
             values={{
               session:

@@ -12,6 +12,8 @@ import {
   getAllEventPaymentsQueryKey,
   getEventDashboardDataByIdQueryKey,
   getEventMemberByIdQueryKey,
+  getEventMembersQueryKey,
+  getEventTicketsQueryKey,
   useDeleteEventPaymentById,
 } from '@/http/generated';
 
@@ -38,6 +40,12 @@ export function DeletePaymentButton({
         });
         await queryClient.invalidateQueries({
           queryKey: getEventDashboardDataByIdQueryKey(eventId),
+        });
+        await queryClient.invalidateQueries({
+          queryKey: getEventMembersQueryKey(eventId),
+        });
+        await queryClient.invalidateQueries({
+          queryKey: getEventTicketsQueryKey(eventId),
         });
 
         toast.success('Pagamento deletado com sucesso');

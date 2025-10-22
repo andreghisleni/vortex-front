@@ -167,6 +167,30 @@ export type GetEventMembers200 = {
             */
             quantity: number;
         }[];
+        /**
+         * @type array
+        */
+        payments: {
+            /**
+             * @type string, uuid
+            */
+            id: string;
+            visionId: (string | null) | null;
+            /**
+             * @type number
+            */
+            amount: number;
+            type: (string | string);
+            payedAt: (string | string | number);
+            /**
+             * @type string, uuid
+            */
+            memberId: string;
+            createdAt: (string | string | number);
+            updatedAt: (string | string | number);
+            deletedAt: ((string | string | number) | null) | null;
+            deletedBy: (string | null) | null;
+        }[];
     }[];
     /**
      * @type object

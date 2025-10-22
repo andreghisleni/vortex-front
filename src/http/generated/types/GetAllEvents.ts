@@ -57,6 +57,7 @@ export type GetAllEvents200 = {
          * @type string
         */
         type: string;
+        cost: (number | null) | null;
     }[];
 }[];
 

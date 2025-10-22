@@ -57,6 +57,7 @@ export type CreateEvent200 = {
          * @type string
         */
         type: string;
+        cost: (number | null) | null;
     }[];
 };
 
@@ -105,6 +106,11 @@ export type CreateEventMutationRequest = {
          * @type string
         */
         type: string;
+        /**
+         * @description Cost of tickets in this range
+         * @type number
+        */
+        cost: number;
     }[];
 };
 
