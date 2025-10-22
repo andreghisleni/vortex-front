@@ -22,7 +22,7 @@ import {
 } from '@/http/generated';
 import { cn } from '@/lib/utils';
 import { formatToBRL } from '@/utils/formatToBRL';
-import { TicketPaymentForm } from '../../../tickets/payments/-components/ticket-payment-form';
+import { TicketPaymentForm } from '../../../payments/-components/ticket-payment-form';
 import { EditablePaymentRow, type PaymentFormData } from './EditablePaymentRow';
 
 type PaymentsTableProps = {

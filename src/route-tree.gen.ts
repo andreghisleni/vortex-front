@@ -21,6 +21,7 @@ import { Route as AppSessionsIndexRouteImport } from './pages/_app/sessions/inde
 import { Route as AuthResetPasswordTokenRouteImport } from './pages/_auth/reset-password.$token'
 import { Route as AppEventIdDashboardRouteImport } from './pages/_app/$eventId/dashboard'
 import { Route as AppEventIdTicketsIndexRouteImport } from './pages/_app/$eventId/tickets/index'
+import { Route as AppEventIdPaymentsIndexRouteImport } from './pages/_app/$eventId/payments/index'
 import { Route as AppEventIdMembersIndexRouteImport } from './pages/_app/$eventId/members/index'
 import { Route as AppEventIdEventEditRouteImport } from './pages/_app/$eventId/event/edit'
 import { Route as AppEventIdMembersImportIndexRouteImport } from './pages/_app/$eventId/members/import/index'
@@ -85,6 +86,11 @@ const AppEventIdTicketsIndexRoute = AppEventIdTicketsIndexRouteImport.update({
   path: '/$eventId/tickets/',
   getParentRoute: () => AppLayoutRoute,
 } as any)
+const AppEventIdPaymentsIndexRoute = AppEventIdPaymentsIndexRouteImport.update({
+  id: '/$eventId/payments/',
+  path: '/$eventId/payments/',
+  getParentRoute: () => AppLayoutRoute,
+} as any)
 const AppEventIdMembersIndexRoute = AppEventIdMembersIndexRouteImport.update({
   id: '/$eventId/members/',
   path: '/$eventId/members/',
@@ -125,6 +131,7 @@ export interface FileRoutesByFullPath {
   '/sessions': typeof AppSessionsIndexRoute
   '/$eventId/event/edit': typeof AppEventIdEventEditRoute
   '/$eventId/members': typeof AppEventIdMembersIndexRoute
+  '/$eventId/payments': typeof AppEventIdPaymentsIndexRoute
   '/$eventId/tickets': typeof AppEventIdTicketsIndexRoute
   '/$eventId/member/$id': typeof AppEventIdMemberIdIndexRoute
   '/$eventId/members/export': typeof AppEventIdMembersExportIndexRoute
@@ -142,6 +149,7 @@ export interface FileRoutesByTo {
   '/sessions': typeof AppSessionsIndexRoute
   '/$eventId/event/edit': typeof AppEventIdEventEditRoute
   '/$eventId/members': typeof AppEventIdMembersIndexRoute
+  '/$eventId/payments': typeof AppEventIdPaymentsIndexRoute
   '/$eventId/tickets': typeof AppEventIdTicketsIndexRoute
   '/$eventId/member/$id': typeof AppEventIdMemberIdIndexRoute
   '/$eventId/members/export': typeof AppEventIdMembersExportIndexRoute
@@ -162,6 +170,7 @@ export interface FileRoutesById {
   '/_app/sessions/': typeof AppSessionsIndexRoute
   '/_app/$eventId/event/edit': typeof AppEventIdEventEditRoute
   '/_app/$eventId/members/': typeof AppEventIdMembersIndexRoute
+  '/_app/$eventId/payments/': typeof AppEventIdPaymentsIndexRoute
   '/_app/$eventId/tickets/': typeof AppEventIdTicketsIndexRoute
   '/_app/$eventId/member/$id/': typeof AppEventIdMemberIdIndexRoute
   '/_app/$eventId/members/export/': typeof AppEventIdMembersExportIndexRoute
@@ -181,6 +190,7 @@ export interface FileRouteTypes {
     | '/sessions'
     | '/$eventId/event/edit'
     | '/$eventId/members'
+    | '/$eventId/payments'
     | '/$eventId/tickets'
     | '/$eventId/member/$id'
     | '/$eventId/members/export'
@@ -198,6 +208,7 @@ export interface FileRouteTypes {
     | '/sessions'
     | '/$eventId/event/edit'
     | '/$eventId/members'
+    | '/$eventId/payments'
     | '/$eventId/tickets'
     | '/$eventId/member/$id'
     | '/$eventId/members/export'
@@ -217,6 +228,7 @@ export interface FileRouteTypes {
     | '/_app/sessions/'
     | '/_app/$eventId/event/edit'
     | '/_app/$eventId/members/'
+    | '/_app/$eventId/payments/'
     | '/_app/$eventId/tickets/'
     | '/_app/$eventId/member/$id/'
     | '/_app/$eventId/members/export/'
@@ -315,6 +327,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppEventIdTicketsIndexRouteImport
       parentRoute: typeof AppLayoutRoute
     }
+    '/_app/$eventId/payments/': {
+      id: '/_app/$eventId/payments/'
+      path: '/$eventId/payments'
+      fullPath: '/$eventId/payments'
+      preLoaderRoute: typeof AppEventIdPaymentsIndexRouteImport
+      parentRoute: typeof AppLayoutRoute
+    }
     '/_app/$eventId/members/': {
       id: '/_app/$eventId/members/'
       path: '/$eventId/members'
@@ -360,6 +379,7 @@ interface AppLayoutRouteChildren {
   AppSessionsIndexRoute: typeof AppSessionsIndexRoute
   AppEventIdEventEditRoute: typeof AppEventIdEventEditRoute
   AppEventIdMembersIndexRoute: typeof AppEventIdMembersIndexRoute
+  AppEventIdPaymentsIndexRoute: typeof AppEventIdPaymentsIndexRoute
   AppEventIdTicketsIndexRoute: typeof AppEventIdTicketsIndexRoute
   AppEventIdMemberIdIndexRoute: typeof AppEventIdMemberIdIndexRoute
   AppEventIdMembersExportIndexRoute: typeof AppEventIdMembersExportIndexRoute
@@ -373,6 +393,7 @@ const AppLayoutRouteChildren: AppLayoutRouteChildren = {
   AppSessionsIndexRoute: AppSessionsIndexRoute,
   AppEventIdEventEditRoute: AppEventIdEventEditRoute,
   AppEventIdMembersIndexRoute: AppEventIdMembersIndexRoute,
+  AppEventIdPaymentsIndexRoute: AppEventIdPaymentsIndexRoute,
   AppEventIdTicketsIndexRoute: AppEventIdTicketsIndexRoute,
   AppEventIdMemberIdIndexRoute: AppEventIdMemberIdIndexRoute,
   AppEventIdMembersExportIndexRoute: AppEventIdMembersExportIndexRoute,

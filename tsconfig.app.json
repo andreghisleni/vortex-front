@@ -38,6 +38,6 @@
         "./src/pages/_app/$eventId/tickets/critica",
         "./src/pages/_app/$eventId/tickets/import",
         "./src/pages/_app/$eventId/tickets/ranges",
-        "src/pages/_app/$eventId/tickets/payments/import"
+        "src/pages/_app/$eventId/payments/import"
       ]
 }
