@@ -38,7 +38,7 @@ function MemberPage() {
                   memberId={memberId}
                 />
               }
-              columns={ticketsColumns}
+              columns={ticketsColumns({ memberId })}
               data={data?.tickets || []}
             />
           </CardContent>

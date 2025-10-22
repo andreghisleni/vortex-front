@@ -176,7 +176,7 @@ export const columns = ({
                 <DialogTitle>Tickets: {row.original.name}</DialogTitle>
               </DialogHeader>
               <DataTable
-                columns={columnsTickets}
+                columns={columnsTickets({ memberId: row.original.id })}
                 data={row.original.tickets}
                 initialColumnVisibility={{ cleanName: false }}
               />

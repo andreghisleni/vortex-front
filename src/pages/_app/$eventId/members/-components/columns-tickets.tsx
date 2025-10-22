@@ -5,13 +5,13 @@ import { format } from 'date-fns';
 
 import { tdb } from '@/components/TableDataButton';
 import type { GetEventMembers200 } from '@/http/generated';
-import { DeleteTicketButton } from './delete-ticket-button';
+import { UnassignTicketButton } from './unassign-ticket-button';
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 export type Ticket = GetEventMembers200['data'][0]['tickets'][0];
 
-export const columnsTickets: ColumnDef<Ticket>[] = [
+export const columnsTickets = ({memberId}: {memberId: string}): ColumnDef<Ticket>[] => [
   tdb('number', 'N'),
   tdb('member.name', 'Name'),
   {
@@ -67,9 +67,10 @@ export const columnsTickets: ColumnDef<Ticket>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex flex-row space-x-2">
-          <DeleteTicketButton
+          <UnassignTicketButton
             id={row.original.id}
             isDelivered={!!row.original.deliveredAt}
+            memberId={memberId}
           />
         </div>
       );
