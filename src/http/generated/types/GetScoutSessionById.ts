@@ -37,6 +37,9 @@ export type GetScoutSessionById200 = {
     updatedAt: (string | string | number);
 };
 
+/**
+ * @description Scout session not found
+*/
 export type GetScoutSessionById404 = {
     /**
      * @type string

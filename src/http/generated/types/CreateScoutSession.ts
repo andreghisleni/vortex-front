@@ -30,6 +30,9 @@ export type CreateScoutSession201 = {
     updatedAt: (string | string | number);
 };
 
+/**
+ * @description Invalid input data
+*/
 export type CreateScoutSession400 = {
     /**
      * @type string

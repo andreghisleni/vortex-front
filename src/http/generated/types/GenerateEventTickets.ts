@@ -11,6 +11,9 @@ export type GenerateEventTicketsPathParams = {
     eventId: string;
 };
 
+/**
+ * @description No unassigned tickets available
+*/
 export type GenerateEventTickets200 = {
     /**
      * @type string
@@ -18,6 +21,9 @@ export type GenerateEventTickets200 = {
     message: string;
 };
 
+/**
+ * @description Tickets generated and assigned successfully
+*/
 export type GenerateEventTickets201 = {
     /**
      * @type number
@@ -25,6 +31,9 @@ export type GenerateEventTickets201 = {
     assigned: number;
 };
 
+/**
+ * @description Bad request - missing ranges or members
+*/
 export type GenerateEventTickets400 = {
     /**
      * @type string
@@ -32,6 +41,9 @@ export type GenerateEventTickets400 = {
     error: string;
 };
 
+/**
+ * @description Event is read-only
+*/
 export type GenerateEventTickets403 = {
     /**
      * @type string
@@ -39,6 +51,9 @@ export type GenerateEventTickets403 = {
     error: string;
 };
 
+/**
+ * @description Event not found
+*/
 export type GenerateEventTickets404 = {
     /**
      * @type string

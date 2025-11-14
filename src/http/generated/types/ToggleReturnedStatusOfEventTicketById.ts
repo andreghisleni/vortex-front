@@ -20,6 +20,9 @@ export type ToggleReturnedStatusOfEventTicketByIdPathParams = {
 */
 export type ToggleReturnedStatusOfEventTicketById201 = any;
 
+/**
+ * @description Event is read-only
+*/
 export type ToggleReturnedStatusOfEventTicketById403 = {
     /**
      * @description Event is read-only
@@ -28,6 +31,9 @@ export type ToggleReturnedStatusOfEventTicketById403 = {
     error: string;
 };
 
+/**
+ * @description Ticket not found
+*/
 export type ToggleReturnedStatusOfEventTicketById404 = {
     /**
      * @description Error message

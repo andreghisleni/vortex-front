@@ -11,8 +11,14 @@ export type UpdateEventByIdPathParams = {
     id: string;
 };
 
+/**
+ * @description Event updated successfully
+*/
 export type UpdateEventById201 = any;
 
+/**
+ * @description Event not found
+*/
 export type UpdateEventById404 = {
     /**
      * @type string

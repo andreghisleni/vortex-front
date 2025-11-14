@@ -123,6 +123,9 @@ export type GetEventMemberById200 = {
     }[];
 };
 
+/**
+ * @description Member not found
+*/
 export type GetEventMemberById404 = {
     /**
      * @description Error message

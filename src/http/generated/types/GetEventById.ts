@@ -64,9 +64,13 @@ export type GetEventById200 = {
          * @type string
         */
         type: string;
+        cost: (number | null) | null;
     }[];
 };
 
+/**
+ * @description Event not found
+*/
 export type GetEventById404 = {
     /**
      * @type string

@@ -11,6 +11,9 @@ export type GetEventDashboardDataByIdPathParams = {
     id: string;
 };
 
+/**
+ * @description Event dashboard data
+*/
 export type GetEventDashboardDataById200 = {
     /**
      * @type number
@@ -94,6 +97,9 @@ export type GetEventDashboardDataById200 = {
     totalNumbersToGenerate: number;
 };
 
+/**
+ * @description Event not found
+*/
 export type GetEventDashboardDataById404 = {
     /**
      * @type string

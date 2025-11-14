@@ -37,6 +37,9 @@ export type UpdateScoutSessionById200 = {
     updatedAt: (string | string | number);
 };
 
+/**
+ * @description Invalid input data
+*/
 export type UpdateScoutSessionById400 = {
     /**
      * @type string
@@ -44,6 +47,9 @@ export type UpdateScoutSessionById400 = {
     error: string;
 };
 
+/**
+ * @description Scout session not found
+*/
 export type UpdateScoutSessionById404 = {
     /**
      * @type string

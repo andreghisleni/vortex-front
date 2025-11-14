@@ -4,6 +4,9 @@
 */
 
 
+/**
+ * @description List of all events
+*/
 export type GetAllEvents200 = {
     /**
      * @description Unique identifier for the event
@@ -57,6 +60,7 @@ export type GetAllEvents200 = {
          * @type string
         */
         type: string;
+        cost: (number | null) | null;
     }[];
 }[];
 

@@ -57,9 +57,13 @@ export type CreateEvent200 = {
          * @type string
         */
         type: string;
+        cost: (number | null) | null;
     }[];
 };
 
+/**
+ * @description Creation failed
+*/
 export type CreateEvent404 = {
     /**
      * @type string
@@ -105,6 +109,11 @@ export type CreateEventMutationRequest = {
          * @type string
         */
         type: string;
+        /**
+         * @description Cost of tickets in this range
+         * @type number
+        */
+        cost: number;
     }[];
 };
 

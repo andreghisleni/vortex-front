@@ -4,6 +4,9 @@
 */
 
 
+/**
+ * @description List of all scout sessions
+*/
 export type GetAllScoutSessions200 = {
     /**
      * @description Unique identifier for the scout session

@@ -35,10 +35,10 @@ export type { GetEventTicketRangeByIdQueryKey } from "./hooks/useGetEventTicketR
 export type { GetEventTicketRangeByIdSuspenseQueryKey } from "./hooks/useGetEventTicketRangeByIdSuspense.ts";
 export type { GetEventTicketsQueryKey } from "./hooks/useGetEventTickets.ts";
 export type { GetEventTicketsSuspenseQueryKey } from "./hooks/useGetEventTicketsSuspense.ts";
-export type { GetIndexQueryKey } from "./hooks/useGetIndex.ts";
-export type { GetIndexSuspenseQueryKey } from "./hooks/useGetIndexSuspense.ts";
 export type { GetScoutSessionByIdQueryKey } from "./hooks/useGetScoutSessionById.ts";
 export type { GetScoutSessionByIdSuspenseQueryKey } from "./hooks/useGetScoutSessionByIdSuspense.ts";
+export type { HealthCheckQueryKey } from "./hooks/useHealthCheck.ts";
+export type { HealthCheckSuspenseQueryKey } from "./hooks/useHealthCheckSuspense.ts";
 export type { ToggleReturnedStatusOfEventTicketByIdMutationKey } from "./hooks/useToggleReturnedStatusOfEventTicketById.ts";
 export type { UnassignTicketMutationKey } from "./hooks/useUnassignTicket.ts";
 export type { UpdateEventByIdMutationKey } from "./hooks/useUpdateEventById.ts";
@@ -72,8 +72,8 @@ export type { GetEventPaymentByIdPathParams, GetEventPaymentById200, GetEventPay
 export type { GetEventTicketByIdPathParams, GetEventTicketById200, GetEventTicketById404, GetEventTicketByIdQueryResponse, GetEventTicketByIdQuery } from "./types/GetEventTicketById.ts";
 export type { GetEventTicketRangeByIdPathParams, GetEventTicketRangeById200, GetEventTicketRangeById404, GetEventTicketRangeByIdQueryResponse, GetEventTicketRangeByIdQuery } from "./types/GetEventTicketRangeById.ts";
 export type { GetEventTicketsPathParams, GetEventTicketsQueryParams, GetEventTickets200, GetEventTicketsQueryResponse, GetEventTicketsQuery } from "./types/GetEventTickets.ts";
-export type { GetIndex200, GetIndexQueryResponse, GetIndexQuery } from "./types/GetIndex.ts";
 export type { GetScoutSessionByIdPathParams, GetScoutSessionById200, GetScoutSessionById404, GetScoutSessionByIdQueryResponse, GetScoutSessionByIdQuery } from "./types/GetScoutSessionById.ts";
+export type { HealthCheck200, HealthCheckQueryResponse, HealthCheckQuery } from "./types/HealthCheck.ts";
 export type { ToggleReturnedStatusOfEventTicketByIdPathParams, ToggleReturnedStatusOfEventTicketById201, ToggleReturnedStatusOfEventTicketById403, ToggleReturnedStatusOfEventTicketById404, ToggleReturnedStatusOfEventTicketByIdMutationResponse, ToggleReturnedStatusOfEventTicketByIdMutation } from "./types/ToggleReturnedStatusOfEventTicketById.ts";
 export type { UnassignTicketPathParams, UnassignTicket200, UnassignTicket400, UnassignTicket403, UnassignTicket404, UnassignTicketMutationResponse, UnassignTicketMutation } from "./types/UnassignTicket.ts";
 export type { UpdateEventByIdPathParams, UpdateEventById201, UpdateEventById404, UpdateEventByIdMutationRequest, UpdateEventByIdMutationResponse, UpdateEventByIdMutation } from "./types/UpdateEventById.ts";
@@ -120,10 +120,10 @@ export { getEventTicketRangeByIdQueryKey, getEventTicketRangeById, getEventTicke
 export { getEventTicketRangeByIdSuspenseQueryKey, getEventTicketRangeByIdSuspense, getEventTicketRangeByIdSuspenseQueryOptions, useGetEventTicketRangeByIdSuspense } from "./hooks/useGetEventTicketRangeByIdSuspense.ts";
 export { getEventTicketsQueryKey, getEventTickets, getEventTicketsQueryOptions, useGetEventTickets } from "./hooks/useGetEventTickets.ts";
 export { getEventTicketsSuspenseQueryKey, getEventTicketsSuspense, getEventTicketsSuspenseQueryOptions, useGetEventTicketsSuspense } from "./hooks/useGetEventTicketsSuspense.ts";
-export { getIndexQueryKey, getIndex, getIndexQueryOptions, useGetIndex } from "./hooks/useGetIndex.ts";
-export { getIndexSuspenseQueryKey, getIndexSuspense, getIndexSuspenseQueryOptions, useGetIndexSuspense } from "./hooks/useGetIndexSuspense.ts";
 export { getScoutSessionByIdQueryKey, getScoutSessionById, getScoutSessionByIdQueryOptions, useGetScoutSessionById } from "./hooks/useGetScoutSessionById.ts";
 export { getScoutSessionByIdSuspenseQueryKey, getScoutSessionByIdSuspense, getScoutSessionByIdSuspenseQueryOptions, useGetScoutSessionByIdSuspense } from "./hooks/useGetScoutSessionByIdSuspense.ts";
+export { healthCheckQueryKey, healthCheck, healthCheckQueryOptions, useHealthCheck } from "./hooks/useHealthCheck.ts";
+export { healthCheckSuspenseQueryKey, healthCheckSuspense, healthCheckSuspenseQueryOptions, useHealthCheckSuspense } from "./hooks/useHealthCheckSuspense.ts";
 export { toggleReturnedStatusOfEventTicketByIdMutationKey, toggleReturnedStatusOfEventTicketById, useToggleReturnedStatusOfEventTicketById } from "./hooks/useToggleReturnedStatusOfEventTicketById.ts";
 export { unassignTicketMutationKey, unassignTicket, useUnassignTicket } from "./hooks/useUnassignTicket.ts";
 export { updateEventByIdMutationKey, updateEventById, useUpdateEventById } from "./hooks/useUpdateEventById.ts";

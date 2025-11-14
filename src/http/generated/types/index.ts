@@ -22,8 +22,8 @@ export type { GetEventPaymentByIdPathParams, GetEventPaymentById200, GetEventPay
 export type { GetEventTicketByIdPathParams, GetEventTicketById200, GetEventTicketById404, GetEventTicketByIdQueryResponse, GetEventTicketByIdQuery } from "./GetEventTicketById.ts";
 export type { GetEventTicketRangeByIdPathParams, GetEventTicketRangeById200, GetEventTicketRangeById404, GetEventTicketRangeByIdQueryResponse, GetEventTicketRangeByIdQuery } from "./GetEventTicketRangeById.ts";
 export type { GetEventTicketsPathParams, GetEventTicketsQueryParams, GetEventTickets200, GetEventTicketsQueryResponse, GetEventTicketsQuery } from "./GetEventTickets.ts";
-export type { GetIndex200, GetIndexQueryResponse, GetIndexQuery } from "./GetIndex.ts";
 export type { GetScoutSessionByIdPathParams, GetScoutSessionById200, GetScoutSessionById404, GetScoutSessionByIdQueryResponse, GetScoutSessionByIdQuery } from "./GetScoutSessionById.ts";
+export type { HealthCheck200, HealthCheckQueryResponse, HealthCheckQuery } from "./HealthCheck.ts";
 export type { ToggleReturnedStatusOfEventTicketByIdPathParams, ToggleReturnedStatusOfEventTicketById201, ToggleReturnedStatusOfEventTicketById403, ToggleReturnedStatusOfEventTicketById404, ToggleReturnedStatusOfEventTicketByIdMutationResponse, ToggleReturnedStatusOfEventTicketByIdMutation } from "./ToggleReturnedStatusOfEventTicketById.ts";
 export type { UnassignTicketPathParams, UnassignTicket200, UnassignTicket400, UnassignTicket403, UnassignTicket404, UnassignTicketMutationResponse, UnassignTicketMutation } from "./UnassignTicket.ts";
 export type { UpdateEventByIdPathParams, UpdateEventById201, UpdateEventById404, UpdateEventByIdMutationRequest, UpdateEventByIdMutationResponse, UpdateEventByIdMutation } from "./UpdateEventById.ts";
