@@ -11,6 +11,9 @@ export type UpdateScoutSessionByIdPathParams = {
     id: string;
 };
 
+/**
+ * @description Scout session details
+*/
 export type UpdateScoutSessionById200 = {
     /**
      * @description Unique identifier for the scout session
@@ -37,15 +40,23 @@ export type UpdateScoutSessionById200 = {
     updatedAt: (string | string | number);
 };
 
+/**
+ * @description Invalid input data
+*/
 export type UpdateScoutSessionById400 = {
     /**
+     * @description Error message
      * @type string
     */
     error: string;
 };
 
+/**
+ * @description Scout session not found
+*/
 export type UpdateScoutSessionById404 = {
     /**
+     * @description Error message
      * @type string
     */
     error: string;

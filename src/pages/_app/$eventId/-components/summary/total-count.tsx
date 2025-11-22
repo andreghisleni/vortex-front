@@ -1,11 +1,11 @@
 import { BarChart } from 'lucide-react';
-import { unstable_noStore } from 'next/cache';
+// import { unstable_noStore } from 'next/cache';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 // import { serverClient } from '@/lib/trpc/server'
 
 export function TotalCount() {
-  unstable_noStore();
+  // unstable_noStore();
 
   const amountOverall = 1000;
   const amountLastMonth = 100;

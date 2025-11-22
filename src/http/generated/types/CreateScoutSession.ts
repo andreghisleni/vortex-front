@@ -4,6 +4,9 @@
 */
 
 
+/**
+ * @description Scout session details
+*/
 export type CreateScoutSession201 = {
     /**
      * @description Unique identifier for the scout session
@@ -30,6 +33,9 @@ export type CreateScoutSession201 = {
     updatedAt: (string | string | number);
 };
 
+/**
+ * @description Invalid input data
+*/
 export type CreateScoutSession400 = {
     /**
      * @type string

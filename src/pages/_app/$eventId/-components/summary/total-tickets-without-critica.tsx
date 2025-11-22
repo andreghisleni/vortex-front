@@ -18,8 +18,7 @@ export function TotalTicketWithoutCritica({ eventId }: { eventId: string }) {
 
   const {
     totalWithoutCritica,
-    totalWithoutCriticaCalabresa,
-    totalWithoutCriticaMista,
+    totalWithoutCriticaPerTicketEventRanges,
   } = data;
 
   return (
@@ -34,12 +33,11 @@ export function TotalTicketWithoutCritica({ eventId }: { eventId: string }) {
         <span className="font-bold text-2xl">
           {String(totalWithoutCritica).padStart(4, '0')}
         </span>
-        <p className="text-muted-foreground text-xs">
-          Calabresa: {String(totalWithoutCriticaCalabresa).padStart(4, '0')}
-        </p>
-        <p className="text-muted-foreground text-xs">
-          Mista: {String(totalWithoutCriticaMista).padStart(4, '0')}
-        </p>
+        {totalWithoutCriticaPerTicketEventRanges.map((range) => (
+          <p className="text-muted-foreground text-xs" key={range.type}>
+            {range.type}: {String(range.ticketCount).padStart(4, '0')}
+          </p>
+        ))}
       </CardContent>
     </Card>
   );

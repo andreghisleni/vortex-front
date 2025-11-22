@@ -4,6 +4,9 @@
 */
 
 
+/**
+ * @description List of all events
+*/
 export type GetAllEvents200 = {
     /**
      * @description Unique identifier for the event

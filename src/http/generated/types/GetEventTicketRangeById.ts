@@ -15,6 +15,9 @@ export type GetEventTicketRangeByIdPathParams = {
     id: string;
 };
 
+/**
+ * @description Schema for a ticket range
+*/
 export type GetEventTicketRangeById200 = {
     /**
      * @type string, uuid
@@ -38,6 +41,9 @@ export type GetEventTicketRangeById200 = {
     deletedAt: ((string | string | number) | null) | null;
 };
 
+/**
+ * @description Ticket range not found in this event
+*/
 export type GetEventTicketRangeById404 = {
     /**
      * @description Error message

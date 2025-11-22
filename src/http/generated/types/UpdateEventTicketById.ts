@@ -20,6 +20,9 @@ export type UpdateEventTicketByIdPathParams = {
 */
 export type UpdateEventTicketById201 = any;
 
+/**
+ * @description Ticket not found
+*/
 export type UpdateEventTicketById404 = {
     /**
      * @description Error message

@@ -64,6 +64,9 @@ export type GetEventMembersQueryParams = {
     "ob.session-name"?: (string | string);
 };
 
+/**
+ * @description Paginated list of event members
+*/
 export type GetEventMembers200 = {
     /**
      * @type array

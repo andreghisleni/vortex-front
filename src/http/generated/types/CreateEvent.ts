@@ -4,6 +4,9 @@
 */
 
 
+/**
+ * @description Schema representing an event with its details and ticket ranges
+*/
 export type CreateEvent200 = {
     /**
      * @description Unique identifier for the event
@@ -61,6 +64,9 @@ export type CreateEvent200 = {
     }[];
 };
 
+/**
+ * @description Creation failed
+*/
 export type CreateEvent404 = {
     /**
      * @type string

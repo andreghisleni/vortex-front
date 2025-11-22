@@ -15,6 +15,9 @@ export type UnassignTicketPathParams = {
     ticketId: string;
 };
 
+/**
+ * @description Ticket unassigned successfully
+*/
 export type UnassignTicket200 = {
     /**
      * @type boolean
@@ -26,6 +29,9 @@ export type UnassignTicket200 = {
     wasReturned: boolean;
 };
 
+/**
+ * @description Bad Request
+*/
 export type UnassignTicket400 = {
     /**
      * @type string
@@ -33,6 +39,9 @@ export type UnassignTicket400 = {
     error: string;
 };
 
+/**
+ * @description Forbidden
+*/
 export type UnassignTicket403 = {
     /**
      * @type string
@@ -40,6 +49,9 @@ export type UnassignTicket403 = {
     error: string;
 };
 
+/**
+ * @description Not Found
+*/
 export type UnassignTicket404 = {
     /**
      * @type string

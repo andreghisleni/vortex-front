@@ -12,8 +12,14 @@ export type UpdateUserLastEventIdPathParams = {
     eventId: string;
 };
 
+/**
+ * @description User last event updated successfully
+*/
 export type UpdateUserLastEventId201 = any;
 
+/**
+ * @description Event not found
+*/
 export type UpdateUserLastEventId400 = {
     /**
      * @type string

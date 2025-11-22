@@ -15,6 +15,9 @@ export type AssignTicketPathParams = {
     ticketId: string;
 };
 
+/**
+ * @description Ticket assigned successfully
+*/
 export type AssignTicket200 = {
     /**
      * @type boolean
@@ -22,6 +25,9 @@ export type AssignTicket200 = {
     success: boolean;
 };
 
+/**
+ * @description Invalid request
+*/
 export type AssignTicket400 = {
     /**
      * @type string
@@ -29,6 +35,9 @@ export type AssignTicket400 = {
     error: string;
 };
 
+/**
+ * @description Forbidden
+*/
 export type AssignTicket403 = {
     /**
      * @type string
@@ -36,6 +45,9 @@ export type AssignTicket403 = {
     error: string;
 };
 
+/**
+ * @description Ticket or Event not found
+*/
 export type AssignTicket404 = {
     /**
      * @type string

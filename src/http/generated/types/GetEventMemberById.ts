@@ -15,6 +15,9 @@ export type GetEventMemberByIdPathParams = {
     id: string;
 };
 
+/**
+ * @description Schema for a member
+*/
 export type GetEventMemberById200 = {
     /**
      * @type string, uuid
@@ -40,6 +43,7 @@ export type GetEventMemberById200 = {
     */
     isAllConfirmedButNotYetFullyPaid: boolean;
     /**
+     * @description Scout session associated with the member
      * @type object
     */
     session: {
@@ -123,6 +127,9 @@ export type GetEventMemberById200 = {
     }[];
 };
 
+/**
+ * @description Member not found
+*/
 export type GetEventMemberById404 = {
     /**
      * @description Error message

@@ -62,6 +62,9 @@ export type GetEventTicketsQueryParams = {
     "ob.createdAt"?: (string | string);
 };
 
+/**
+ * @description Response schema for getting tickets of an event
+*/
 export type GetEventTickets200 = {
     /**
      * @type array
@@ -147,6 +150,7 @@ export type GetEventTickets200 = {
         ticketRangeId: (string | null) | null;
     }[];
     /**
+     * @description Pagination metadata
      * @type object
     */
     meta: {
