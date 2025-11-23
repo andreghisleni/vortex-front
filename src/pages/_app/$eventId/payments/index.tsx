@@ -32,6 +32,9 @@ function RouteComponent() {
     'ob.name': parseAsString.withDefault(''), // Exemplo de ordenação
     'ob.register': parseAsString.withDefault(''), // Exemplo de ordenação
     'ob.session.name': parseAsString.withDefault(''), // Exemplo de ordenação
+    "ob.totalAmount": parseAsString.withDefault(""),
+    "ob.totalPayed": parseAsString.withDefault(""),
+    "ob.total": parseAsString.withDefault(""),
   });
   const { data: sessionsData } = useGetAllScoutSessions();
   const { data, isLoading } = useGetEventMembers(eventId, {
@@ -44,6 +47,9 @@ function RouteComponent() {
     'ob.name': rest['ob.name'] || undefined,
     'ob.register': rest['ob.register'] || undefined,
     'ob.session-name': rest['ob.session.name'] || undefined,
+    'ob.totalAmount': rest['ob.totalAmount'] || undefined,
+    'ob.totalPayed': rest['ob.totalPayed'] || undefined,
+    'ob.total': rest['ob.total'] || undefined,
   });
 
   const { totalPages, total, navigateToPage, setPageSize, showing } =
@@ -80,38 +86,7 @@ function RouteComponent() {
             : event?.ticketRanges || [],
         })}
         data={
-          data?.data.map((member) => {
-            const totalAmount = member.tickets.filter((ticket) => !ticket.returned).reduce((acc, ticket) => {
-              return acc + (event?.ticketRanges.find((range) => range.id === ticket.ticketRangeId)?.cost || 0);
-            }, 0);
-
-            const totalPayedWithPix = member.payments.filter((payment) => payment.type === 'PIX').reduce((acc, payment) => {
-              return acc + (payment.amount || 0);
-            }, 0);
-            const totalPayedWithCash = member.payments.filter((payment) => payment.type === 'CASH').reduce((acc, payment) => {
-              return acc + (payment.amount || 0);
-            }, 0);
-            const totalPayed = totalPayedWithPix + totalPayedWithCash;
-            return {
-              ...member,
-              totalTickets: member.tickets.length,
-              totalTicketsToDeliver: member.tickets.filter(
-                (ticket) => !ticket.deliveredAt
-              ).length,
-              totalReturned: member.tickets.filter((ticket) => ticket.returned)
-                .length,
-
-              totalAmount,
-
-              totalPayedWithPix,
-
-              totalPayedWithCash,
-
-              totalPayed,
-
-              total: totalPayed - totalAmount,
-            }
-          }) || []
+          data?.data || []
         }
         filterComponent={
           <FilterBase

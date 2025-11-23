@@ -85,6 +85,7 @@ export const columns = ({
       name: 'totalAmount',
       label: 'Valor Total',
       dataType: 'currency',
+      s: true,
     }),
     tdbNew({
       name: 'totalPayedWithPix',
@@ -100,11 +101,13 @@ export const columns = ({
       name: 'totalPayed',
       label: 'Pgto Total',
       dataType: 'currency',
+      s: true,
     }),
     tdbNew({
       name: 'total',
       label: 'Saldo',
       dataType: 'currency',
+      s: true,
     }),
 
     {

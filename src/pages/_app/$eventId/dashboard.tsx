@@ -7,7 +7,6 @@ import { TotalDeliveredTicketWithCritica } from './-components/summary/total-del
 import { TotalMembers } from './-components/summary/total-members';
 import { TotalPayedTicket } from './-components/summary/total-payed-tickets';
 import { TotalPredictedPayedTicket } from './-components/summary/total-predicted-to-payed-tickets';
-import { TotalTicketRanges } from './-components/summary/total-ticket-ranges';
 import { TotalTicket } from './-components/summary/total-tickets';
 import { TotalTicketsLinkedToMembers } from './-components/summary/total-tickets-linked-to-members';
 import { TotalTicketWithoutCritica } from './-components/summary/total-tickets-without-critica';
@@ -79,11 +78,6 @@ function DashboardPage() {
         <div className="col-span-2">
           <Suspense fallback={<Loading />}>
             <TotalTicketWithoutDelivered eventId={eventId} />
-          </Suspense>
-        </div>
-        <div className="col-span-2">
-          <Suspense fallback={<Loading />}>
-            <TotalTicketRanges eventId={eventId} />
           </Suspense>
         </div>
       </div>
