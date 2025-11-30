@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { DataTable } from '@/components/data-table';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { useGetEventMemberById } from '@/http/generated';
+import { useGetEventById, useGetEventMemberById } from '@/http/generated';
 import { AttachTicketToMemberDialog } from './-components/attach-ticket-to-member-dialog';
 import { PaymentsTable } from './-components/payment-table';
 import { ticketsColumns } from './-components/tickets-columns';
@@ -12,6 +12,7 @@ export const Route = createFileRoute('/_app/$eventId/member/$id/')({
 
 function MemberPage() {
   const eventId = Route.useParams().eventId as string;
+  const { data: event } = useGetEventById(eventId);
   const memberId = Route.useParams().id as string;
 
   const { data, isLoading } = useGetEventMemberById(eventId, memberId);
@@ -19,6 +20,10 @@ function MemberPage() {
   if (isLoading) {
     return <div>Loading...</div>;
   }
+
+  const totalAmount = data?.tickets.filter((ticket) => !ticket.returned).reduce((acc, ticket) => {
+    return acc + (event?.ticketRanges.find((range) => range.id === ticket.ticketRangeId)?.cost || 0);
+  }, 0) || 0;
 
   return (
     <div className="px-8 pt-8">
@@ -52,7 +57,7 @@ function MemberPage() {
               memberId={memberId}
               payments={data?.payments || []}
               toReceive={
-                (data?.tickets?.filter((t) => !t.returned).length || 0) * 50
+                totalAmount
               }
             />
           </CardContent>

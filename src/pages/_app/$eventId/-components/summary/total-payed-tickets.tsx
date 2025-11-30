@@ -18,8 +18,8 @@ export function TotalPayedTicket({ eventId }: { eventId: string }) {
   const {
     totalPayedTickets,
     totalPayedTicketsOnLastWeek,
-    totalCalabresaPayed,
-    totalMistaPayed,
+    // totalCalabresaPayed,
+    // totalMistaPayed,
   } = data;
 
   return (
@@ -38,10 +38,10 @@ export function TotalPayedTicket({ eventId }: { eventId: string }) {
           + {totalPayedTicketsOnLastWeek} nos últimos 7 dias
         </p>
         <p className="text-muted-foreground text-xs">
-          Calabresa: {String(totalCalabresaPayed).padStart(4, '0')}
+          Calabresa: -------
         </p>
         <p className="text-muted-foreground text-xs">
-          Mista: {String(totalMistaPayed).padStart(4, '0')}
+          Mista: -------
         </p>
       </CardContent>
     </Card>

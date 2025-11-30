@@ -17,9 +17,9 @@ export function TotalTicketWithoutDelivered({ eventId }: { eventId: string }) {
     return null;
   }
 
-  const { totalDeliveredTickets, totalTickets } = data;
+  const { totalDeliveredTickets, totalTicketsLinkedToMembers } = data;
 
-  const totalToDeliver = totalTickets - totalDeliveredTickets;
+  const totalToDeliver = totalTicketsLinkedToMembers - totalDeliveredTickets;
 
   return (
     <Card>
@@ -37,7 +37,7 @@ export function TotalTicketWithoutDelivered({ eventId }: { eventId: string }) {
           (Total de ingressos - Total de ingressos entregues)
         </p>
         <p className="text-muted-foreground text-xs">
-          ({totalTickets} - {totalDeliveredTickets})
+          ({totalTicketsLinkedToMembers} - {totalDeliveredTickets})
         </p>
       </CardContent>
     </Card>

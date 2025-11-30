@@ -18,6 +18,8 @@ import {
   getAllEventPaymentsQueryKey,
   getEventDashboardDataByIdQueryKey,
   getEventMemberByIdQueryKey,
+  getEventMembersQueryKey,
+  getEventTicketsQueryKey,
   useUpdateEventPaymentById,
 } from '@/http/generated';
 import { cn } from '@/lib/utils';
@@ -56,6 +58,12 @@ export function PaymentsTable({
         });
         await queryClient.invalidateQueries({
           queryKey: getEventDashboardDataByIdQueryKey(eventId),
+        });
+        await queryClient.invalidateQueries({
+          queryKey: getEventMembersQueryKey(eventId),
+        });
+        await queryClient.invalidateQueries({
+          queryKey: getEventTicketsQueryKey(eventId),
         });
 
         toast.success('Pagamento atualizado com sucesso');

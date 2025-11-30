@@ -20,8 +20,9 @@ export type GetEventTicketsQueryParams = {
     "f.memberId"?: (string | null) | null;
     /**
      * @description Filter has no member ID
+     * @type boolean | undefined
     */
-    "f.noMemberId"?: (boolean | string);
+    "f.noMemberId"?: boolean;
     /**
      * @description Filter by returned status (true/false)
      * @type string | undefined
@@ -30,13 +31,15 @@ export type GetEventTicketsQueryParams = {
     /**
      * @description Page number
      * @default 1
+     * @type number | undefined
     */
-    "p.page"?: (string | number);
+    "p.page"?: number;
     /**
      * @description Page size
      * @default 20
+     * @type number | undefined
     */
-    "p.pageSize"?: (string | number);
+    "p.pageSize"?: number;
     /**
      * @description Type of the order
     */

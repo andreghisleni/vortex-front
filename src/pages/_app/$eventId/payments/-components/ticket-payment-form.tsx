@@ -44,6 +44,8 @@ import {
   getAllEventPaymentsQueryKey,
   getEventDashboardDataByIdQueryKey,
   getEventMemberByIdQueryKey,
+  getEventMembersQueryKey,
+  getEventTicketsQueryKey,
   useCreateEventPayment,
 } from '@/http/generated';
 import { cn } from '@/lib/utils';
@@ -93,6 +95,12 @@ export function TicketPaymentForm({ memberId }: { memberId: string }) {
         });
         await queryClient.invalidateQueries({
           queryKey: getEventDashboardDataByIdQueryKey(eventId),
+        });
+        await queryClient.invalidateQueries({
+          queryKey: getEventMembersQueryKey(eventId),
+        });
+        await queryClient.invalidateQueries({
+          queryKey: getEventTicketsQueryKey(eventId),
         });
 
         toast.success('Pagamento cadastrado com sucesso');

@@ -230,6 +230,45 @@ function RouteComponent() {
                 )}
               />
 
+              <div className="mt-4">
+                <h3 className="mb-2 font-medium">
+                  Intervalos de Numeração (somente leitura)
+                </h3>
+
+                {isLoadingEvent ? (
+                  <div>Carregando intervalos...</div>
+                ) : (
+                  (eventData?.ticketRanges ?? []).map((r) => (
+                    <Card className="mb-3" key={r.id}>
+                      <CardContent>
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <div className="text-muted-foreground text-sm">
+                              Tipo
+                            </div>
+                            <div className="font-medium">{r.type}</div>
+                          </div>
+                          <div>
+                            <div className="text-muted-foreground text-sm">
+                              Faixa
+                            </div>
+                            <div className="font-medium">
+                              {r.start} — {r.end}
+                            </div>
+                          </div>
+                          <div>
+                            <div className="text-muted-foreground text-sm">
+                              Custo
+                            </div>
+                            <div className="font-medium">{r.cost}</div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))
+                )}
+              </div>
+
               <div className="flex items-center gap-2">
                 <Button
                   onClick={() => window.history.back()}
