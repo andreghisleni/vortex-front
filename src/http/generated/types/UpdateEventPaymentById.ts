@@ -20,6 +20,9 @@ export type UpdateEventPaymentByIdPathParams = {
 */
 export type UpdateEventPaymentById201 = any;
 
+/**
+ * @description Payment or Event not found
+*/
 export type UpdateEventPaymentById404 = {
     /**
      * @description Error message

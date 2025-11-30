@@ -25,15 +25,13 @@ export type GetEventMembersQueryParams = {
     /**
      * @description Page number
      * @default 1
-     * @type number | undefined
     */
-    "p.page"?: number;
+    "p.page"?: (string | number);
     /**
      * @description Page size
      * @default 20
-     * @type number | undefined
     */
-    "p.pageSize"?: number;
+    "p.pageSize"?: (string | number);
     /**
      * @description Type of the order
     */
@@ -62,6 +60,18 @@ export type GetEventMembersQueryParams = {
      * @description Type of the order
     */
     "ob.session-name"?: (string | string);
+    /**
+     * @description Type of the order
+    */
+    "ob.totalAmount"?: (string | string);
+    /**
+     * @description Type of the order
+    */
+    "ob.totalPayed"?: (string | string);
+    /**
+     * @description Type of the order
+    */
+    "ob.total"?: (string | string);
 };
 
 /**
@@ -194,6 +204,46 @@ export type GetEventMembers200 = {
             deletedAt: ((string | string | number) | null) | null;
             deletedBy: (string | null) | null;
         }[];
+        /**
+         * @description Total number of tickets associated with the member
+         * @type number
+        */
+        totalTickets: number;
+        /**
+         * @description Total number of tickets to be delivered for the member
+         * @type number
+        */
+        totalTicketsToDeliver: number;
+        /**
+         * @description Total number of tickets returned by the member
+         * @type number
+        */
+        totalReturned: number;
+        /**
+         * @description Total amount paid by the member
+         * @type number
+        */
+        totalAmount: number;
+        /**
+         * @description Total amount paid by the member using Pix
+         * @type number
+        */
+        totalPayedWithPix: number;
+        /**
+         * @description Total amount paid by the member using Cash
+         * @type number
+        */
+        totalPayedWithCash: number;
+        /**
+         * @description Total amount paid by the member
+         * @type number
+        */
+        totalPayed: number;
+        /**
+         * @description Total amount associated with the member
+         * @type number
+        */
+        total: number;
     }[];
     /**
      * @type object

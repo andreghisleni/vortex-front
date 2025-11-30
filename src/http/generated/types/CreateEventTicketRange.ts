@@ -16,6 +16,9 @@ export type CreateEventTicketRangePathParams = {
 */
 export type CreateEventTicketRange201 = any;
 
+/**
+ * @description Member does not belong to the specified event
+*/
 export type CreateEventTicketRange400 = {
     /**
      * @description Error message

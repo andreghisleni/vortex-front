@@ -17,6 +17,9 @@ export type DeleteEventTicketByIdPathParams = {
 
 export type DeleteEventTicketById204 = any;
 
+/**
+ * @description Ticket not found in this event
+*/
 export type DeleteEventTicketById404 = {
     /**
      * @description Error message

@@ -15,6 +15,9 @@ export type GetEventTicketByIdPathParams = {
     id: string;
 };
 
+/**
+ * @description Schema for the Ticket model
+*/
 export type GetEventTicketById200 = {
     /**
      * @type string, uuid
@@ -96,6 +99,9 @@ export type GetEventTicketById200 = {
     ticketRangeId: (string | null) | null;
 };
 
+/**
+ * @description Ticket not found
+*/
 export type GetEventTicketById404 = {
     /**
      * @description Error message

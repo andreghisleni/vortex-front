@@ -11,6 +11,9 @@ export type GetEventByIdPathParams = {
     id: string;
 };
 
+/**
+ * @description Schema representing an event with its details and ticket ranges
+*/
 export type GetEventById200 = {
     /**
      * @description Unique identifier for the event

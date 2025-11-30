@@ -1,0 +1,1 @@
+{"type":"object","properties":{"id":{"type":"string"},"identifier":{"type":"string"},"value":{"type":"string"},"expiresAt":{"type":"string"},"createdAt":{"type":"string","default":"Generated at runtime"},"updatedAt":{"type":"string","default":"Generated at runtime"}},"required":["identifier","value","expiresAt"],"x-readme-ref-name":"Verification"}

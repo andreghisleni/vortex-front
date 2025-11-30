@@ -20,6 +20,9 @@ export type UpdateEventMemberByIdPathParams = {
 */
 export type UpdateEventMemberById200 = any;
 
+/**
+ * @description Member or Event not found
+*/
 export type UpdateEventMemberById404 = {
     /**
      * @description Error message

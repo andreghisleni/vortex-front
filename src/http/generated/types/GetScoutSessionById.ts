@@ -11,6 +11,9 @@ export type GetScoutSessionByIdPathParams = {
     id: string;
 };
 
+/**
+ * @description Scout session details
+*/
 export type GetScoutSessionById200 = {
     /**
      * @description Unique identifier for the scout session

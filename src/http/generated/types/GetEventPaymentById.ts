@@ -15,6 +15,9 @@ export type GetEventPaymentByIdPathParams = {
     id: string;
 };
 
+/**
+ * @description Schema for a payment
+*/
 export type GetEventPaymentById200 = {
     /**
      * @type string, uuid

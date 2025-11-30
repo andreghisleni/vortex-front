@@ -52,6 +52,9 @@ export type GetAllEventTicketRangesQueryParams = {
     "ob.createdAt"?: (string | string);
 };
 
+/**
+ * @description Response schema for getting ticket ranges
+*/
 export type GetAllEventTicketRanges200 = {
     /**
      * @type array

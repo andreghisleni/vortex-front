@@ -16,6 +16,9 @@ export type CreateEventTicketPathParams = {
 */
 export type CreateEventTicket201 = any;
 
+/**
+ * @description Bad request
+*/
 export type CreateEventTicket400 = {
     /**
      * @description Error message

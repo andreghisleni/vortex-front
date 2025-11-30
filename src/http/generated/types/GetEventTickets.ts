@@ -20,9 +20,8 @@ export type GetEventTicketsQueryParams = {
     "f.memberId"?: (string | null) | null;
     /**
      * @description Filter has no member ID
-     * @type boolean | undefined
     */
-    "f.noMemberId"?: boolean;
+    "f.noMemberId"?: (boolean | string);
     /**
      * @description Filter by returned status (true/false)
      * @type string | undefined
@@ -31,15 +30,13 @@ export type GetEventTicketsQueryParams = {
     /**
      * @description Page number
      * @default 1
-     * @type number | undefined
     */
-    "p.page"?: number;
+    "p.page"?: (string | number);
     /**
      * @description Page size
      * @default 20
-     * @type number | undefined
     */
-    "p.pageSize"?: number;
+    "p.pageSize"?: (string | number);
     /**
      * @description Type of the order
     */
@@ -62,6 +59,9 @@ export type GetEventTicketsQueryParams = {
     "ob.createdAt"?: (string | string);
 };
 
+/**
+ * @description Response schema for getting tickets of an event
+*/
 export type GetEventTickets200 = {
     /**
      * @type array
@@ -147,6 +147,7 @@ export type GetEventTickets200 = {
         ticketRangeId: (string | null) | null;
     }[];
     /**
+     * @description Pagination metadata
      * @type object
     */
     meta: {

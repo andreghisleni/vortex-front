@@ -22,6 +22,10 @@ export type GetEventDashboardDataById200 = {
     /**
      * @type number
     */
+    totalTicketsLinkedToMembers: number;
+    /**
+     * @type number
+    */
     totalWithoutCritica: number;
     /**
      * @type number
@@ -42,14 +46,6 @@ export type GetEventDashboardDataById200 = {
     /**
      * @type number
     */
-    totalWithoutCriticaCalabresa: number;
-    /**
-     * @type number
-    */
-    totalWithoutCriticaMista: number;
-    /**
-     * @type number
-    */
     totalPayedTickets: number;
     /**
      * @type number
@@ -66,35 +62,59 @@ export type GetEventDashboardDataById200 = {
     /**
      * @type number
     */
-    totalCalabresaPayed: number;
-    /**
-     * @type number
-    */
-    totalMistaPayed: number;
-    /**
-     * @type number
-    */
-    possibleTotalTickets: number;
-    /**
-     * @type number
-    */
-    totalPredictedCalabresa: number;
-    /**
-     * @type number
-    */
-    totalPredictedMista: number;
-    /**
-     * @type number
-    */
     totalMembers: number;
     /**
-     * @type number
+     * @type array
     */
-    totalTicketRangeToGenerate: number;
+    totalTicketsPerRange: {
+        /**
+         * @type string
+        */
+        type: string;
+        /**
+         * @type number
+        */
+        ticketCount: number;
+    }[];
     /**
-     * @type number
+     * @type array
     */
-    totalNumbersToGenerate: number;
+    totalTicketsPerRangeLinkedToMembers: {
+        /**
+         * @type string
+        */
+        type: string;
+        /**
+         * @type number
+        */
+        ticketCount: number;
+    }[];
+    /**
+     * @type array
+    */
+    totalWithoutCriticaPerTicketEventRanges: {
+        /**
+         * @type string
+        */
+        type: string;
+        /**
+         * @type number
+        */
+        ticketCount: number;
+    }[];
+    /**
+     * @type array
+    */
+    totalWithCriticaPerTicketEventRanges: {
+        /**
+         * @type string
+        */
+        type: string;
+        /**
+         * @type number
+        */
+        ticketCount: number;
+    }[];
 };
 
 /**

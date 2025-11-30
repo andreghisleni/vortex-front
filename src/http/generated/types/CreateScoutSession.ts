@@ -4,6 +4,9 @@
 */
 
 
+/**
+ * @description Scout session details
+*/
 export type CreateScoutSession201 = {
     /**
      * @description Unique identifier for the scout session
