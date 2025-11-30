@@ -36,7 +36,6 @@ export type { GetEventTicketRangeByIdPathParams, GetEventTicketRangeById200, Get
 export type { GetEventTicketsPathParams, GetEventTicketsQueryParams, GetEventTickets200, GetEventTicketsQueryResponse, GetEventTicketsQuery } from "./GetEventTickets.ts";
 export type { GetScoutSessionByIdPathParams, GetScoutSessionById200, GetScoutSessionById404, GetScoutSessionByIdQueryResponse, GetScoutSessionByIdQuery } from "./GetScoutSessionById.ts";
 export type { HealthCheck200, HealthCheckQueryResponse, HealthCheckQuery } from "./HealthCheck.ts";
-<<<<<<< HEAD
 export type { ImpersonateUser200, ImpersonateUser400, ImpersonateUser401, ImpersonateUser403, ImpersonateUser404, ImpersonateUser429, ImpersonateUser500, ImpersonateUserMutationRequest, ImpersonateUserMutationResponse, ImpersonateUserMutation } from "./ImpersonateUser.ts";
 export type { ListUsersQueryParams, ListUsers200, ListUsers400, ListUsers401, ListUsers403, ListUsers404, ListUsers429, ListUsers500, ListUsersQueryResponse, ListUsersQuery } from "./ListUsers.ts";
 export type { ListUserSessions200, ListUserSessions400, ListUserSessions401, ListUserSessions403, ListUserSessions404, ListUserSessions429, ListUserSessions500, ListUserSessionsMutationRequest, ListUserSessionsMutationResponse, ListUserSessionsMutation } from "./ListUserSessions.ts";
@@ -68,8 +67,6 @@ export type { Session } from "./Session.ts";
 export type { SetRole200, SetRole400, SetRole401, SetRole403, SetRole404, SetRole429, SetRole500, SetRoleMutationRequest, SetRoleMutationResponse, SetRoleMutation } from "./SetRole.ts";
 export type { SetUserPassword200, SetUserPassword400, SetUserPassword401, SetUserPassword403, SetUserPassword404, SetUserPassword429, SetUserPassword500, SetUserPasswordMutationRequest, SetUserPasswordMutationResponse, SetUserPasswordMutation } from "./SetUserPassword.ts";
 export type { SocialSignIn200RedirectEnum, SocialSignIn200, SocialSignIn400, SocialSignIn401, SocialSignIn403, SocialSignIn404, SocialSignIn429, SocialSignIn500, SocialSignInMutationRequest, SocialSignInMutationResponse, SocialSignInMutation } from "./SocialSignIn.ts";
-=======
->>>>>>> main
 export type { ToggleReturnedStatusOfEventTicketByIdPathParams, ToggleReturnedStatusOfEventTicketById201, ToggleReturnedStatusOfEventTicketById403, ToggleReturnedStatusOfEventTicketById404, ToggleReturnedStatusOfEventTicketByIdMutationResponse, ToggleReturnedStatusOfEventTicketByIdMutation } from "./ToggleReturnedStatusOfEventTicketById.ts";
 export type { UnassignTicketPathParams, UnassignTicket200, UnassignTicket400, UnassignTicket403, UnassignTicket404, UnassignTicketMutationResponse, UnassignTicketMutation } from "./UnassignTicket.ts";
 export type { UnbanUser200, UnbanUser400, UnbanUser401, UnbanUser403, UnbanUser404, UnbanUser429, UnbanUser500, UnbanUserMutationRequest, UnbanUserMutationResponse, UnbanUserMutation } from "./UnbanUser.ts";

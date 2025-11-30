@@ -59,7 +59,6 @@ export type { GetScoutSessionByIdQueryKey } from "./useGetScoutSessionById.ts";
 export type { GetScoutSessionByIdSuspenseQueryKey } from "./useGetScoutSessionByIdSuspense.ts";
 export type { HealthCheckQueryKey } from "./useHealthCheck.ts";
 export type { HealthCheckSuspenseQueryKey } from "./useHealthCheckSuspense.ts";
-<<<<<<< HEAD
 export type { ImpersonateUserMutationKey } from "./useImpersonateUser.ts";
 export type { ListUsersQueryKey } from "./useListUsers.ts";
 export type { ListUserSessionsMutationKey } from "./useListUserSessions.ts";
@@ -91,8 +90,6 @@ export type { RevokeUserSessionsMutationKey } from "./useRevokeUserSessions.ts";
 export type { SetRoleMutationKey } from "./useSetRole.ts";
 export type { SetUserPasswordMutationKey } from "./useSetUserPassword.ts";
 export type { SocialSignInMutationKey } from "./useSocialSignIn.ts";
-=======
->>>>>>> main
 export type { ToggleReturnedStatusOfEventTicketByIdMutationKey } from "./useToggleReturnedStatusOfEventTicketById.ts";
 export type { UnassignTicketMutationKey } from "./useUnassignTicket.ts";
 export type { UnbanUserMutationKey } from "./useUnbanUser.ts";
@@ -166,7 +163,6 @@ export { getScoutSessionByIdQueryKey, getScoutSessionById, getScoutSessionByIdQu
 export { getScoutSessionByIdSuspenseQueryKey, getScoutSessionByIdSuspense, getScoutSessionByIdSuspenseQueryOptions, useGetScoutSessionByIdSuspense } from "./useGetScoutSessionByIdSuspense.ts";
 export { healthCheckQueryKey, healthCheck, healthCheckQueryOptions, useHealthCheck } from "./useHealthCheck.ts";
 export { healthCheckSuspenseQueryKey, healthCheckSuspense, healthCheckSuspenseQueryOptions, useHealthCheckSuspense } from "./useHealthCheckSuspense.ts";
-<<<<<<< HEAD
 export { impersonateUserMutationKey, impersonateUser, useImpersonateUser } from "./useImpersonateUser.ts";
 export { listUsersQueryKey, listUsers, listUsersQueryOptions, useListUsers } from "./useListUsers.ts";
 export { listUserSessionsMutationKey, listUserSessions, useListUserSessions } from "./useListUserSessions.ts";
@@ -198,8 +194,6 @@ export { revokeUserSessionsMutationKey, revokeUserSessions, useRevokeUserSession
 export { setRoleMutationKey, setRole, useSetRole } from "./useSetRole.ts";
 export { setUserPasswordMutationKey, setUserPassword, useSetUserPassword } from "./useSetUserPassword.ts";
 export { socialSignInMutationKey, socialSignIn, useSocialSignIn } from "./useSocialSignIn.ts";
-=======
->>>>>>> main
 export { toggleReturnedStatusOfEventTicketByIdMutationKey, toggleReturnedStatusOfEventTicketById, useToggleReturnedStatusOfEventTicketById } from "./useToggleReturnedStatusOfEventTicketById.ts";
 export { unassignTicketMutationKey, unassignTicket, useUnassignTicket } from "./useUnassignTicket.ts";
 export { unbanUserMutationKey, unbanUser, useUnbanUser } from "./useUnbanUser.ts";
