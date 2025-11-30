@@ -24,6 +24,7 @@ import { Route as AppEventIdTicketsIndexRouteImport } from './pages/_app/$eventI
 import { Route as AppEventIdPaymentsIndexRouteImport } from './pages/_app/$eventId/payments/index'
 import { Route as AppEventIdMembersIndexRouteImport } from './pages/_app/$eventId/members/index'
 import { Route as AppEventIdEventEditRouteImport } from './pages/_app/$eventId/event/edit'
+import { Route as AppEventIdTicketsCheckInIndexRouteImport } from './pages/_app/$eventId/tickets/check-in/index'
 import { Route as AppEventIdMembersImportIndexRouteImport } from './pages/_app/$eventId/members/import/index'
 import { Route as AppEventIdMembersExportIndexRouteImport } from './pages/_app/$eventId/members/export/index'
 import { Route as AppEventIdMemberIdIndexRouteImport } from './pages/_app/$eventId/member/$id/index'
@@ -101,6 +102,12 @@ const AppEventIdEventEditRoute = AppEventIdEventEditRouteImport.update({
   path: '/$eventId/event/edit',
   getParentRoute: () => AppLayoutRoute,
 } as any)
+const AppEventIdTicketsCheckInIndexRoute =
+  AppEventIdTicketsCheckInIndexRouteImport.update({
+    id: '/$eventId/tickets/check-in/',
+    path: '/$eventId/tickets/check-in/',
+    getParentRoute: () => AppLayoutRoute,
+  } as any)
 const AppEventIdMembersImportIndexRoute =
   AppEventIdMembersImportIndexRouteImport.update({
     id: '/$eventId/members/import/',
@@ -136,6 +143,7 @@ export interface FileRoutesByFullPath {
   '/$eventId/member/$id': typeof AppEventIdMemberIdIndexRoute
   '/$eventId/members/export': typeof AppEventIdMembersExportIndexRoute
   '/$eventId/members/import': typeof AppEventIdMembersImportIndexRoute
+  '/$eventId/tickets/check-in': typeof AppEventIdTicketsCheckInIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -154,6 +162,7 @@ export interface FileRoutesByTo {
   '/$eventId/member/$id': typeof AppEventIdMemberIdIndexRoute
   '/$eventId/members/export': typeof AppEventIdMembersExportIndexRoute
   '/$eventId/members/import': typeof AppEventIdMembersImportIndexRoute
+  '/$eventId/tickets/check-in': typeof AppEventIdTicketsCheckInIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -175,6 +184,7 @@ export interface FileRoutesById {
   '/_app/$eventId/member/$id/': typeof AppEventIdMemberIdIndexRoute
   '/_app/$eventId/members/export/': typeof AppEventIdMembersExportIndexRoute
   '/_app/$eventId/members/import/': typeof AppEventIdMembersImportIndexRoute
+  '/_app/$eventId/tickets/check-in/': typeof AppEventIdTicketsCheckInIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -195,6 +205,7 @@ export interface FileRouteTypes {
     | '/$eventId/member/$id'
     | '/$eventId/members/export'
     | '/$eventId/members/import'
+    | '/$eventId/tickets/check-in'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -213,6 +224,7 @@ export interface FileRouteTypes {
     | '/$eventId/member/$id'
     | '/$eventId/members/export'
     | '/$eventId/members/import'
+    | '/$eventId/tickets/check-in'
   id:
     | '__root__'
     | '/'
@@ -233,6 +245,7 @@ export interface FileRouteTypes {
     | '/_app/$eventId/member/$id/'
     | '/_app/$eventId/members/export/'
     | '/_app/$eventId/members/import/'
+    | '/_app/$eventId/tickets/check-in/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -348,6 +361,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppEventIdEventEditRouteImport
       parentRoute: typeof AppLayoutRoute
     }
+    '/_app/$eventId/tickets/check-in/': {
+      id: '/_app/$eventId/tickets/check-in/'
+      path: '/$eventId/tickets/check-in'
+      fullPath: '/$eventId/tickets/check-in'
+      preLoaderRoute: typeof AppEventIdTicketsCheckInIndexRouteImport
+      parentRoute: typeof AppLayoutRoute
+    }
     '/_app/$eventId/members/import/': {
       id: '/_app/$eventId/members/import/'
       path: '/$eventId/members/import'
@@ -384,6 +404,7 @@ interface AppLayoutRouteChildren {
   AppEventIdMemberIdIndexRoute: typeof AppEventIdMemberIdIndexRoute
   AppEventIdMembersExportIndexRoute: typeof AppEventIdMembersExportIndexRoute
   AppEventIdMembersImportIndexRoute: typeof AppEventIdMembersImportIndexRoute
+  AppEventIdTicketsCheckInIndexRoute: typeof AppEventIdTicketsCheckInIndexRoute
 }
 
 const AppLayoutRouteChildren: AppLayoutRouteChildren = {
@@ -398,6 +419,7 @@ const AppLayoutRouteChildren: AppLayoutRouteChildren = {
   AppEventIdMemberIdIndexRoute: AppEventIdMemberIdIndexRoute,
   AppEventIdMembersExportIndexRoute: AppEventIdMembersExportIndexRoute,
   AppEventIdMembersImportIndexRoute: AppEventIdMembersImportIndexRoute,
+  AppEventIdTicketsCheckInIndexRoute: AppEventIdTicketsCheckInIndexRoute,
 }
 
 const AppLayoutRouteWithChildren = AppLayoutRoute._addFileChildren(

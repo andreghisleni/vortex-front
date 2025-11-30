@@ -1,5 +1,6 @@
 export type { AssignTicketMutationKey } from "./useAssignTicket.ts";
 export type { BanUserMutationKey } from "./useBanUser.ts";
+export type { CheckInTicketMutationKey } from "./useCheckInTicket.ts";
 export type { CreateEventMutationKey } from "./useCreateEvent.ts";
 export type { CreateEventMemberMutationKey } from "./useCreateEventMember.ts";
 export type { CreateEventPaymentMutationKey } from "./useCreateEventPayment.ts";
@@ -104,6 +105,7 @@ export type { UpdateUserMutationKey } from "./useUpdateUser.ts";
 export type { UpdateUserLastEventIdMutationKey } from "./useUpdateUserLastEventId.ts";
 export { assignTicketMutationKey, assignTicket, useAssignTicket } from "./useAssignTicket.ts";
 export { banUserMutationKey, banUser, useBanUser } from "./useBanUser.ts";
+export { checkInTicketMutationKey, checkInTicket, useCheckInTicket } from "./useCheckInTicket.ts";
 export { createEventMutationKey, createEvent, useCreateEvent } from "./useCreateEvent.ts";
 export { createEventMemberMutationKey, createEventMember, useCreateEventMember } from "./useCreateEventMember.ts";
 export { createEventPaymentMutationKey, createEventPayment, useCreateEventPayment } from "./useCreateEventPayment.ts";

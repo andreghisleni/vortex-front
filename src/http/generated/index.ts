@@ -1,5 +1,6 @@
 export type { AssignTicketMutationKey } from "./hooks/useAssignTicket.ts";
 export type { BanUserMutationKey } from "./hooks/useBanUser.ts";
+export type { CheckInTicketMutationKey } from "./hooks/useCheckInTicket.ts";
 export type { CreateEventMutationKey } from "./hooks/useCreateEvent.ts";
 export type { CreateEventMemberMutationKey } from "./hooks/useCreateEventMember.ts";
 export type { CreateEventPaymentMutationKey } from "./hooks/useCreateEventPayment.ts";
@@ -105,6 +106,7 @@ export type { UpdateUserLastEventIdMutationKey } from "./hooks/useUpdateUserLast
 export type { Account } from "./types/Account.ts";
 export type { AssignTicketPathParams, AssignTicket200, AssignTicket400, AssignTicket403, AssignTicket404, AssignTicketMutationRequest, AssignTicketMutationResponse, AssignTicketMutation } from "./types/AssignTicket.ts";
 export type { BanUser200, BanUser400, BanUser401, BanUser403, BanUser404, BanUser429, BanUser500, BanUserMutationRequest, BanUserMutationResponse, BanUserMutation } from "./types/BanUser.ts";
+export type { CheckInTicketPathParams, CheckInTicket200, CheckInTicket403, CheckInTicket404, CheckInTicketMutationRequest, CheckInTicketMutationResponse, CheckInTicketMutation } from "./types/CheckInTicket.ts";
 export type { CreateEvent200, CreateEvent404, CreateEventMutationRequest, CreateEventMutationResponse, CreateEventMutation } from "./types/CreateEvent.ts";
 export type { CreateEventMemberPathParams, CreateEventMember201, CreateEventMemberMutationRequest, CreateEventMemberMutationResponse, CreateEventMemberMutation } from "./types/CreateEventMember.ts";
 export type { CreateEventPaymentPathParams, CreateEventPayment201, CreateEventPaymentMutationRequest, CreateEventPaymentMutationResponse, CreateEventPaymentMutation } from "./types/CreateEventPayment.ts";
@@ -187,6 +189,7 @@ export type { User } from "./types/User.ts";
 export type { Verification } from "./types/Verification.ts";
 export { assignTicketMutationKey, assignTicket, useAssignTicket } from "./hooks/useAssignTicket.ts";
 export { banUserMutationKey, banUser, useBanUser } from "./hooks/useBanUser.ts";
+export { checkInTicketMutationKey, checkInTicket, useCheckInTicket } from "./hooks/useCheckInTicket.ts";
 export { createEventMutationKey, createEvent, useCreateEvent } from "./hooks/useCreateEvent.ts";
 export { createEventMemberMutationKey, createEventMember, useCreateEventMember } from "./hooks/useCreateEventMember.ts";
 export { createEventPaymentMutationKey, createEventPayment, useCreateEventPayment } from "./hooks/useCreateEventPayment.ts";

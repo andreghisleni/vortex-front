@@ -1,6 +1,7 @@
 export type { Account } from "./Account.ts";
 export type { AssignTicketPathParams, AssignTicket200, AssignTicket400, AssignTicket403, AssignTicket404, AssignTicketMutationRequest, AssignTicketMutationResponse, AssignTicketMutation } from "./AssignTicket.ts";
 export type { BanUser200, BanUser400, BanUser401, BanUser403, BanUser404, BanUser429, BanUser500, BanUserMutationRequest, BanUserMutationResponse, BanUserMutation } from "./BanUser.ts";
+export type { CheckInTicketPathParams, CheckInTicket200, CheckInTicket403, CheckInTicket404, CheckInTicketMutationRequest, CheckInTicketMutationResponse, CheckInTicketMutation } from "./CheckInTicket.ts";
 export type { CreateEvent200, CreateEvent404, CreateEventMutationRequest, CreateEventMutationResponse, CreateEventMutation } from "./CreateEvent.ts";
 export type { CreateEventMemberPathParams, CreateEventMember201, CreateEventMemberMutationRequest, CreateEventMemberMutationResponse, CreateEventMemberMutation } from "./CreateEventMember.ts";
 export type { CreateEventPaymentPathParams, CreateEventPayment201, CreateEventPaymentMutationRequest, CreateEventPaymentMutationResponse, CreateEventPaymentMutation } from "./CreateEventPayment.ts";
