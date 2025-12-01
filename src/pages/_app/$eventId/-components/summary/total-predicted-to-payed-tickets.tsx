@@ -14,8 +14,7 @@ export function TotalPredictedPayedTicket({ eventId }: { eventId: string }) {
     return null;
   }
 
-  // const { totalPredictedCalabresa, totalPredictedMista, possibleTotalTickets } =
-  //   data;
+  const { possibleTotalTickets, totalPredictedTicketsPerType } = data;
 
   return (
     <Card>
@@ -27,14 +26,13 @@ export function TotalPredictedPayedTicket({ eventId }: { eventId: string }) {
       </CardHeader>
       <CardContent className="space-y-1">
         <span className="font-bold text-2xl">
-          {/* {String(possibleTotalTickets).padStart(4, '0')} */}------
+          {String(possibleTotalTickets).padStart(4, '0')}
         </span>
-        <p className="text-muted-foreground text-xs">
-          {/* Calabresa: {String(totalPredictedCalabresa).padStart(4, '0')} */}------
-        </p>
-        <p className="text-muted-foreground text-xs">
-          {/* Mista: {String(totalPredictedMista).padStart(4, '0')} */}------
-        </p>
+        {totalPredictedTicketsPerType.map((item) => (
+          <p className="text-muted-foreground text-xs" key={item.type}>
+            {item.type}: {String(item.ticketCount).padStart(4, '0')}
+          </p>
+        ))}
       </CardContent>
     </Card>
   );

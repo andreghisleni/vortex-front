@@ -60,6 +60,36 @@ export type GetEventDashboardDataById200 = {
     */
     totalValuePayedTicketsOnLastWeek: number;
     /**
+     * @type array
+    */
+    totalPayedTicketsPerType: {
+        /**
+         * @type string
+        */
+        type: string;
+        /**
+         * @type number
+        */
+        ticketCount: number;
+    }[];
+    /**
+     * @type number
+    */
+    possibleTotalTickets: number;
+    /**
+     * @type array
+    */
+    totalPredictedTicketsPerType: {
+        /**
+         * @type string
+        */
+        type: string;
+        /**
+         * @type number
+        */
+        ticketCount: number;
+    }[];
+    /**
      * @type number
     */
     totalMembers: number;

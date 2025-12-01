@@ -18,8 +18,7 @@ export function TotalPayedTicket({ eventId }: { eventId: string }) {
   const {
     totalPayedTickets,
     totalPayedTicketsOnLastWeek,
-    // totalCalabresaPayed,
-    // totalMistaPayed,
+    totalPayedTicketsPerType,
   } = data;
 
   return (
@@ -37,12 +36,11 @@ export function TotalPayedTicket({ eventId }: { eventId: string }) {
         <p className="text-muted-foreground text-xs">
           + {totalPayedTicketsOnLastWeek} nos últimos 7 dias
         </p>
-        <p className="text-muted-foreground text-xs">
-          Calabresa: -------
-        </p>
-        <p className="text-muted-foreground text-xs">
-          Mista: -------
-        </p>
+        {totalPayedTicketsPerType.map((item) => (
+          <p className="text-muted-foreground text-xs" key={item.type}>
+            {item.type}: {String(item.ticketCount).padStart(4, '0')}
+          </p>
+        ))}
       </CardContent>
     </Card>
   );
