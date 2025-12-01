@@ -17,7 +17,7 @@ export const Route = createFileRoute('/_app')({
 function ProductionBanner() {
   const { data } = useDbInfo();
 
-  if (!data?.isProduction && data?.nodeEnv === 'production') {
+  if (!data?.isProduction || data?.nodeEnv === 'production') {
     return null;
   }
 
