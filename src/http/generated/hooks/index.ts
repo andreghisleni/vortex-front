@@ -1,4 +1,4 @@
-export type { AssignTicketMutationKey } from "./useAssignTicket.ts";
+export type { AssignTicketsMutationKey } from "./useAssignTickets.ts";
 export type { BanUserMutationKey } from "./useBanUser.ts";
 export type { CheckInTicketMutationKey } from "./useCheckInTicket.ts";
 export type { CreateEventMutationKey } from "./useCreateEvent.ts";
@@ -103,7 +103,7 @@ export type { UpdateEventTicketRangeByIdMutationKey } from "./useUpdateEventTick
 export type { UpdateScoutSessionByIdMutationKey } from "./useUpdateScoutSessionById.ts";
 export type { UpdateUserMutationKey } from "./useUpdateUser.ts";
 export type { UpdateUserLastEventIdMutationKey } from "./useUpdateUserLastEventId.ts";
-export { assignTicketMutationKey, assignTicket, useAssignTicket } from "./useAssignTicket.ts";
+export { assignTicketsMutationKey, assignTickets, useAssignTickets } from "./useAssignTickets.ts";
 export { banUserMutationKey, banUser, useBanUser } from "./useBanUser.ts";
 export { checkInTicketMutationKey, checkInTicket, useCheckInTicket } from "./useCheckInTicket.ts";
 export { createEventMutationKey, createEvent, useCreateEvent } from "./useCreateEvent.ts";
