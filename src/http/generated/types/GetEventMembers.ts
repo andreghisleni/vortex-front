@@ -23,6 +23,66 @@ export type GetEventMembersQueryParams = {
     */
     "f.sessionId"?: string;
     /**
+     * @description Filter members with totalAmount greater than this value
+     * @type number | undefined
+    */
+    "f.totalAmount.gt"?: number;
+    /**
+     * @description Filter members with totalAmount less than this value
+     * @type number | undefined
+    */
+    "f.totalAmount.lt"?: number;
+    /**
+     * @description Filter members with totalAmount greater than or equal to this value
+     * @type number | undefined
+    */
+    "f.totalAmount.gte"?: number;
+    /**
+     * @description Filter members with totalAmount less than or equal to this value
+     * @type number | undefined
+    */
+    "f.totalAmount.lte"?: number;
+    /**
+     * @description Filter members with totalPayed greater than this value
+     * @type number | undefined
+    */
+    "f.totalPayed.gt"?: number;
+    /**
+     * @description Filter members with totalPayed less than this value
+     * @type number | undefined
+    */
+    "f.totalPayed.lt"?: number;
+    /**
+     * @description Filter members with totalPayed greater than or equal to this value
+     * @type number | undefined
+    */
+    "f.totalPayed.gte"?: number;
+    /**
+     * @description Filter members with totalPayed less than or equal to this value
+     * @type number | undefined
+    */
+    "f.totalPayed.lte"?: number;
+    /**
+     * @description Filter members with balance (total) greater than this value
+     * @type number | undefined
+    */
+    "f.total.gt"?: number;
+    /**
+     * @description Filter members with balance (total) less than this value
+     * @type number | undefined
+    */
+    "f.total.lt"?: number;
+    /**
+     * @description Filter members with balance (total) greater than or equal to this value
+     * @type number | undefined
+    */
+    "f.total.gte"?: number;
+    /**
+     * @description Filter members with balance (total) less than or equal to this value
+     * @type number | undefined
+    */
+    "f.total.lte"?: number;
+    /**
      * @description Page number
      * @default 1
      * @type number | undefined

@@ -1,7 +1,8 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, Link } from '@tanstack/react-router';
 import { parseAsInteger, parseAsString, useQueryStates } from 'nuqs';
 import { Suspense } from 'react';
 import z from 'zod';
+import { Button } from '@/components/ui/button';
 import { DataTable } from '@/components/data-table';
 import { FilterBase } from '@/components/filter-base';
 import { Pagination } from '@/components/pagination';
@@ -71,7 +72,11 @@ function RouteComponent() {
       <DataTable
         addComponent={
           <>
-            {/* <ExportButton /> */}
+            <Button variant="outline" asChild>
+              <Link to="/$eventId/payments/export" params={{ eventId }}>
+                Exportar Devedores
+              </Link>
+            </Button>
             {/* <Button variant="outline" asChild>
                 <Link to="/app/settings/tickets/payments/import">
                   Importar

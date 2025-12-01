@@ -91,6 +91,7 @@ export type { RevokeUserSessionsMutationKey } from "./useRevokeUserSessions.ts";
 export type { SetRoleMutationKey } from "./useSetRole.ts";
 export type { SetUserPasswordMutationKey } from "./useSetUserPassword.ts";
 export type { SocialSignInMutationKey } from "./useSocialSignIn.ts";
+export type { ToggleMemberConfirmedMutationKey } from "./useToggleMemberConfirmed.ts";
 export type { ToggleReturnedStatusOfEventTicketByIdMutationKey } from "./useToggleReturnedStatusOfEventTicketById.ts";
 export type { UnassignTicketMutationKey } from "./useUnassignTicket.ts";
 export type { UnbanUserMutationKey } from "./useUnbanUser.ts";
@@ -196,6 +197,7 @@ export { revokeUserSessionsMutationKey, revokeUserSessions, useRevokeUserSession
 export { setRoleMutationKey, setRole, useSetRole } from "./useSetRole.ts";
 export { setUserPasswordMutationKey, setUserPassword, useSetUserPassword } from "./useSetUserPassword.ts";
 export { socialSignInMutationKey, socialSignIn, useSocialSignIn } from "./useSocialSignIn.ts";
+export { toggleMemberConfirmedMutationKey, toggleMemberConfirmed, useToggleMemberConfirmed } from "./useToggleMemberConfirmed.ts";
 export { toggleReturnedStatusOfEventTicketByIdMutationKey, toggleReturnedStatusOfEventTicketById, useToggleReturnedStatusOfEventTicketById } from "./useToggleReturnedStatusOfEventTicketById.ts";
 export { unassignTicketMutationKey, unassignTicket, useUnassignTicket } from "./useUnassignTicket.ts";
 export { unbanUserMutationKey, unbanUser, useUnbanUser } from "./useUnbanUser.ts";
