@@ -1,7 +1,7 @@
 import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
 import { Header } from '@/components/navbar-components/header';
-import { auth } from '@/lib/auth';
 import { useDbInfo } from '@/http/generated';
+import { auth } from '@/lib/auth';
 
 export const Route = createFileRoute('/_app')({
   component: RouteComponent,
@@ -17,10 +17,12 @@ export const Route = createFileRoute('/_app')({
 function ProductionBanner() {
   const { data } = useDbInfo();
 
-  if (!data?.isProduction) return null;
+  if (!data?.isProduction && data?.nodeEnv === 'production') {
+    return null;
+  }
 
   return (
-    <div className="bg-red-600 text-white text-center py-2 px-4 text-sm font-medium">
+    <div className='bg-red-600 px-4 py-2 text-center font-medium text-sm text-white'>
       ⚠️ Atenção: Você está conectado ao banco de dados de PRODUÇÃO
     </div>
   );
