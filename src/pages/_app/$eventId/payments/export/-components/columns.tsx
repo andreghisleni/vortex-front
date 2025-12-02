@@ -3,6 +3,9 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { tdb } from "@/components/TableDataButton";
 import { tdbNew } from "@/components/table/TableDataButton";
 import type { Member } from "..";
+// import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
+// import { Button } from "@/components/ui/button";
+// import { ShowJson } from "@/components/show-json";
 
 type Props = {
   ticketRanges?: {
@@ -24,11 +27,11 @@ export const columns = ({ ticketRanges }: Props): ColumnDef<Member>[] => [
     accessorKey: `faixa-${range.id}`,
     header: range.type,
     cell: ({ row }: any) => {
-      const allocations = row.original.ticketAllocations || [];
-      const allocation = allocations.find(
-        (a: any) => a.eventTicketRangeId === range.id
+      const ticketsByRange = row.original.ticketsByRange || [];
+      const ticketByRange = ticketsByRange.find(
+        (ticketByRange: any) => ticketByRange.eventTicketRangeId === range.id
       );
-      return <span>{allocation?.quantity || "-"}</span>;
+      return <span>{ticketByRange?.quantity || "-"}</span>;
     },
   })) || []),
   tdbNew({
@@ -46,5 +49,30 @@ export const columns = ({ ticketRanges }: Props): ColumnDef<Member>[] => [
     label: "Saldo",
     dataType: "currency",
   }),
+  // tdbNew({
+  //   name: "ticketsByRange",
+  //   label: "Tickets",
+  //   dataType: "object",
+  // }),
+  // {
+  //   id: "actions",
+  //   header: "Ver",
+  //   cell: ({ row }) => {
+  //     const d = row.original;
+
+  //   if (!d) return <span>-</span>;
+
+  //   return (
+  //     <Dialog>
+  //       <DialogTrigger asChild>
+  //         <Button variant="outline">Ver</Button>
+  //       </DialogTrigger>
+  //       <DialogContent className="max-w-2xl">
+  //         <ShowJson data={typeof d === 'object' ? d : JSON.parse(d)} />
+  //       </DialogContent>
+  //     </Dialog>
+  //   );
+  //   },
+  // },
 ];
 

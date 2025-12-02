@@ -228,11 +228,7 @@ export type GetEventMembers200 = {
         /**
          * @type array
         */
-        ticketAllocations: {
-            /**
-             * @type string, uuid
-            */
-            id: string;
+        ticketsByRange: {
             /**
              * @type string, uuid
             */

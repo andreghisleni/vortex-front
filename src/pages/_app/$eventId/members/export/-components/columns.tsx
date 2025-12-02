@@ -34,16 +34,15 @@ export const columns = ({ ticketRanges }: Props): ColumnDef<Member>[] => [
   tdb('totalTickets', 'N° Tickets'),
   tdbNew({ name: 'numbers', label: 'Números', dataType: 'array' }),
   tdbNew({ name: 'ticketsARetirar', label: 'A retirar' }),
-  ...ticketRanges?.map((range) => ({
+  ...(ticketRanges?.map((range) => ({
     accessorKey: `faixa-${range.id}`,
     header: range.type,
     cell: ({ row }: any) => {
-      const member = row.original;
-      const n = member.numericNumbers
-      .filter((number: number) =>
-        Number(number) >= range.start && Number(number) <= range.end
+      const ticketsByRange = row.original.ticketsByRange || [];
+      const ticketByRange = ticketsByRange.find(
+        (ticketByRange: any) => ticketByRange.eventTicketRangeId === range.id
       );
-      return <span>{n.join(', ')}</span>;
+      return <span>{ticketByRange?.quantity || "-"}</span>;
     },
-  })) || [],
+  })) || []),
 ];

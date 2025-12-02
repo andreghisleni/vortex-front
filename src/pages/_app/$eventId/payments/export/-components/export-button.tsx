@@ -46,13 +46,14 @@ export function ExportButton({
             totalTickets: item.totalTickets,
             totalReturned: item.totalReturned,
             ...(ticketRanges?.reduce((acc, range) => {
-              const allocation = item.ticketAllocations?.find(
-                (a) => a.eventTicketRangeId === range.id
+              const ticketsByRange = item.ticketsByRange || [];
+              const ticketByRange = ticketsByRange.find(
+                (t: any) => t.eventTicketRangeId === range.id
               );
               return {
                 // biome-ignore lint/performance/noAccumulatingSpread: <explanation>
                 ...acc,
-                [range.type]: allocation?.quantity || 0,
+                [range.type]: ticketByRange?.quantity || 0,
               };
             }, {}) || {}),
             totalAmount: item.totalAmount,

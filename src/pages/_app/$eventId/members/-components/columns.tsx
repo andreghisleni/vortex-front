@@ -94,8 +94,8 @@ export const columns = ({
       },
     },
     ...(ticketRanges.length > 0 ? [{
-      id: 'ticketAllocations',
-      accessorKey: 'ticketAllocations',
+      id: 'ticketsByRange',
+      accessorKey: 'ticketsByRange',
       header() {
         return (
           <div className='flex flex-col'>
@@ -108,16 +108,16 @@ export const columns = ({
         );
       },
       cell: ({ row }: any) => {
-        const allocations = row.original.ticketAllocations || [];
-        if (allocations.length === 0) {
+        const ticketsByRange = row.original.ticketsByRange || [];
+        if (ticketsByRange.length === 0) {
           return <span>-</span>;
         }
         return (
           <div className="flex flex-col">
             {ticketRanges.map((range) => {
               return (<span key={range.id}>
-                {allocations.find(
-                  (allocation: any) => allocation.eventTicketRangeId === range.id
+                {ticketsByRange.find(
+                  (ticketByRange: any) => ticketByRange.eventTicketRangeId === range.id
                 )?.quantity}
               </span>)
             })}
