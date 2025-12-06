@@ -51,6 +51,14 @@ export type CheckInTicket200 = {
             name: string;
         };
     } | null) | null;
+    /**
+     * @type boolean
+    */
+    returned: boolean;
+    /**
+     * @type boolean
+    */
+    negativeBalance: boolean;
 };
 
 /**

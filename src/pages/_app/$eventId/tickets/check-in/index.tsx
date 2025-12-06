@@ -14,6 +14,8 @@ import {
 } from '@/components/ui/dialog';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
 import { useCheckInTicket } from '@/http/generated';
 
@@ -26,6 +28,13 @@ interface CheckInError {
   ticketNumber: string;
   previousCheckInAt?: string;
   memberName?: string;
+}
+
+interface CheckInWarning {
+  ticketNumber: string;
+  memberName?: string;
+  returned: boolean;
+  negativeBalance: boolean;
 }
 
 interface CheckInHistory {
@@ -43,8 +52,17 @@ function CheckInPage() {
   
   const [barcodeInput, setBarcodeInput] = useState('');
   const [errorDialog, setErrorDialog] = useState<CheckInError | null>(null);
+  const [warningDialog, setWarningDialog] = useState<CheckInWarning | null>(null);
   const [history, setHistory] = useState<CheckInHistory[]>([]);
   const [soundEnabled, setSoundEnabled] = useState(true);
+  const [showReturnedWarning, setShowReturnedWarning] = useState(() => {
+    const saved = localStorage.getItem('check-in-show-returned-warning');
+    return saved !== 'false';
+  });
+  const [showNegativeBalanceWarning, setShowNegativeBalanceWarning] = useState(() => {
+    const saved = localStorage.getItem('check-in-show-negative-balance-warning');
+    return saved !== 'false';
+  });
   const [lastSuccess, setLastSuccess] = useState<{ ticketNumber: string; memberName?: string; sessionName?: string } | null>(null);
 
   // Hook de mutação para check-in
@@ -118,9 +136,39 @@ function CheckInPage() {
     }
   }, [soundEnabled]);
 
+  const playWarningSound = useCallback(() => {
+    if (!soundEnabled) return;
+    
+    try {
+      const audioContext = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
+      
+      // Som de warning: três beeps médios
+      for (let i = 0; i < 3; i++) {
+        setTimeout(() => {
+          const oscillator = audioContext.createOscillator();
+          const gainNode = audioContext.createGain();
+          
+          oscillator.connect(gainNode);
+          gainNode.connect(audioContext.destination);
+          
+          oscillator.frequency.setValueAtTime(500, audioContext.currentTime);
+          oscillator.type = 'sine';
+          
+          gainNode.gain.setValueAtTime(0.5, audioContext.currentTime);
+          gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+          
+          oscillator.start(audioContext.currentTime);
+          oscillator.stop(audioContext.currentTime + 0.2);
+        }, i * 200);
+      }
+    } catch (e) {
+      console.warn('Não foi possível tocar o som de warning:', e);
+    }
+  }, [soundEnabled]);
+
   const processCheckIn = useCallback((ticketNumberStr: string) => {
     const trimmed = ticketNumberStr.trim();
-    if (!trimmed || checkInMutation.isPending) return;
+    if (!trimmed || checkInMutation.isPending || warningDialog) return;
     
     const ticketNumber = Number.parseInt(trimmed, 10);
     if (Number.isNaN(ticketNumber)) {
@@ -157,6 +205,21 @@ function CheckInPage() {
               memberName: data.member?.name,
               sessionName: data.member?.session?.name,
             }, ...prev].slice(0, 50));
+            setBarcodeInput('');
+            setTimeout(() => inputRef.current?.focus(), 100);
+          } else if (
+            (data.returned && showReturnedWarning) || 
+            (data.negativeBalance && showNegativeBalanceWarning)
+          ) {
+            // Mostra alerta de warning se returned ou negativeBalance for true e o alerta estiver habilitado
+            playWarningSound();
+            setWarningDialog({
+              ticketNumber: String(data.number),
+              memberName: data.member?.name,
+              returned: data.returned,
+              negativeBalance: data.negativeBalance,
+            });
+            // Não limpa o input nem foca - bloqueia até confirmação
           } else {
             // Sucesso no check-in!
             playSuccessSound();
@@ -179,10 +242,10 @@ function CheckInPage() {
               memberName: data.member?.name,
               sessionName: data.member?.session?.name,
             }, ...prev].slice(0, 50));
+            
+            setBarcodeInput('');
+            setTimeout(() => inputRef.current?.focus(), 100);
           }
-          
-          setBarcodeInput('');
-          setTimeout(() => inputRef.current?.focus(), 100);
         },
         onError: (error) => {
           playErrorSound();
@@ -211,15 +274,44 @@ function CheckInPage() {
         },
       }
     );
-  }, [eventId, checkInMutation, playErrorSound, playSuccessSound]);
+  }, [eventId, checkInMutation, playErrorSound, playSuccessSound, playWarningSound, showReturnedWarning, showNegativeBalanceWarning, warningDialog]);
 
   // Handler para o input do scanner
   const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && !warningDialog) {
       e.preventDefault();
       processCheckIn(barcodeInput);
     }
   };
+
+  // Handler para confirmar warning e continuar com o check-in
+  const handleConfirmWarning = useCallback(() => {
+    if (!warningDialog) return;
+    
+    // Processa o check-in como sucesso após confirmação
+    playSuccessSound();
+    setLastSuccess({ 
+      ticketNumber: warningDialog.ticketNumber, 
+      memberName: warningDialog.memberName,
+    });
+    
+    toast.success('Check-in realizado com sucesso!', {
+      description: warningDialog.memberName 
+        ? `Ingresso ${warningDialog.ticketNumber} - ${warningDialog.memberName}` 
+        : `Ingresso ${warningDialog.ticketNumber}`,
+    });
+    
+    setHistory(prev => [{
+      ticketNumber: warningDialog.ticketNumber,
+      success: true,
+      timestamp: new Date(),
+      memberName: warningDialog.memberName,
+    }, ...prev].slice(0, 50));
+    
+    setWarningDialog(null);
+    setBarcodeInput('');
+    setTimeout(() => inputRef.current?.focus(), 100);
+  }, [warningDialog, playSuccessSound]);
 
   // Foca automaticamente no input ao montar o componente
   useEffect(() => {
@@ -228,10 +320,19 @@ function CheckInPage() {
 
   // Re-foca no input quando o dialog de erro é fechado
   useEffect(() => {
-    if (!errorDialog) {
+    if (!errorDialog && !warningDialog) {
       setTimeout(() => inputRef.current?.focus(), 100);
     }
-  }, [errorDialog]);
+  }, [errorDialog, warningDialog]);
+
+  // Salva preferências de mostrar alertas
+  useEffect(() => {
+    localStorage.setItem('check-in-show-returned-warning', String(showReturnedWarning));
+  }, [showReturnedWarning]);
+
+  useEffect(() => {
+    localStorage.setItem('check-in-show-negative-balance-warning', String(showNegativeBalanceWarning));
+  }, [showNegativeBalanceWarning]);
 
   const formatDateTime = (dateString: string) => {
     try {
@@ -291,10 +392,11 @@ function CheckInPage() {
                 value={barcodeInput}
                 onChange={(e) => setBarcodeInput(e.target.value)}
                 onKeyDown={handleInputKeyDown}
-                disabled={checkInMutation.isPending}
+                disabled={checkInMutation.isPending || !!warningDialog}
                 className={cn(
                   "h-16 text-center font-mono text-2xl",
-                  checkInMutation.isPending && "animate-pulse"
+                  checkInMutation.isPending && "animate-pulse",
+                  warningDialog && "opacity-50 cursor-not-allowed"
                 )}
                 autoFocus
                 autoComplete="off"
@@ -321,6 +423,39 @@ function CheckInPage() {
                 </div>
               </div>
             )}
+
+            {/* Configurações de alertas */}
+            <div className="mt-4 space-y-2 rounded-lg border p-3">
+              <p className="text-sm font-medium text-muted-foreground mb-2">
+                Configurações de alertas
+              </p>
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="show-returned-warning"
+                  checked={showReturnedWarning}
+                  onCheckedChange={(checked) => setShowReturnedWarning(!!checked)}
+                />
+                <Label
+                  htmlFor="show-returned-warning"
+                  className="text-sm font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
+                >
+                  Mostrar alertas de ingresso devolvido
+                </Label>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Checkbox
+                  id="show-negative-balance-warning"
+                  checked={showNegativeBalanceWarning}
+                  onCheckedChange={(checked) => setShowNegativeBalanceWarning(!!checked)}
+                />
+                <Label
+                  htmlFor="show-negative-balance-warning"
+                  className="text-sm font-normal leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 cursor-pointer"
+                >
+                  Mostrar alertas de saldo negativo
+                </Label>
+              </div>
+            </div>
           </CardContent>
         </Card>
 
@@ -389,6 +524,72 @@ function CheckInPage() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Dialog de Warning */}
+      <Dialog open={!!warningDialog} onOpenChange={() => {}}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-500/20">
+              <AlertTriangle className="h-8 w-8 text-blue-600 dark:text-blue-400" />
+            </div>
+            <DialogTitle className="text-center text-2xl text-blue-600 dark:text-blue-400">
+              Atenção!
+            </DialogTitle>
+            <DialogDescription className="text-center">
+              Este ingresso possui informações importantes
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-4 py-4">
+            <div className="rounded-lg border bg-muted p-4">
+              <div className="text-center">
+                <p className="text-muted-foreground text-sm">Número do ingresso</p>
+                <p className="font-mono font-bold text-2xl">
+                  {warningDialog?.ticketNumber}
+                </p>
+              </div>
+            </div>
+            
+            {warningDialog?.memberName && (
+              <div className="rounded-lg border bg-muted p-4">
+                <div className="text-center">
+                  <p className="text-muted-foreground text-sm">Membro</p>
+                  <p className="font-semibold text-lg">
+                    {warningDialog.memberName}
+                  </p>
+                </div>
+              </div>
+            )}
+            
+            <div className="space-y-2 rounded-lg border border-blue-500/30 bg-blue-500/10 p-4">
+              {warningDialog?.returned && (
+                <div className="text-center">
+                  <p className="font-semibold text-blue-600 dark:text-blue-400">
+                    ⚠️ Ingresso Devolvido
+                  </p>
+                </div>
+              )}
+              {warningDialog?.negativeBalance && (
+                <div className="text-center">
+                  <p className="font-semibold text-blue-600 dark:text-blue-400">
+                    ⚠️ Saldo Negativo
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <DialogFooter>
+            <Button 
+              onClick={handleConfirmWarning}
+              className="w-full"
+              variant="default"
+            >
+              Confirmar e continuar
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       {/* Dialog de Erro */}
       <Dialog open={!!errorDialog} onOpenChange={() => setErrorDialog(null)}>
