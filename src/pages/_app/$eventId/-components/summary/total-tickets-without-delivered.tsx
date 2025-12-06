@@ -1,6 +1,6 @@
-import { BarChart } from 'lucide-react';
+import { PackageSearch } from 'lucide-react';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useGetEventDashboardDataById } from '@/http/generated';
 import { Loading } from './loading';
 
@@ -24,10 +24,15 @@ export function TotalTicketWithoutDelivered({ eventId }: { eventId: string }) {
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="font-medium text-base">
-          Total de ingressos a entregar
-        </CardTitle>
-        <BarChart className="h-4 w-4 text-muted-foreground" />
+        <div>
+          <CardTitle className="font-medium text-base">
+            Total de ingressos a entregar
+          </CardTitle>
+          <CardDescription className="text-xs">
+            Diferença entre total de ingressos vinculados a membros e total de ingressos entregues
+          </CardDescription>
+        </div>
+        <PackageSearch className="h-4 w-4 text-muted-foreground" />
       </CardHeader>
       <CardContent className="space-y-1">
         <span className="font-bold text-2xl">

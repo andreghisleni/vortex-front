@@ -16,165 +16,204 @@ export type GetEventDashboardDataByIdPathParams = {
 */
 export type GetEventDashboardDataById200 = {
     /**
+     * @description Total de ingressos do evento (todos os ingressos, independente de estarem vinculados a membros)
      * @type number
     */
     totalTickets: number;
     /**
+     * @description Total de ingressos vinculados a membros (memberId não nulo)
      * @type number
     */
     totalTicketsLinkedToMembers: number;
     /**
+     * @description Total de ingressos não devolvidos (returned = false) e vinculados a membros
      * @type number
     */
     totalWithoutCritica: number;
     /**
+     * @description Total de ingressos entregues (deliveredAt não nulo) e vinculados a membros
      * @type number
     */
     totalDeliveredTickets: number;
     /**
+     * @description Total de ingressos criados após importação (created = \'AFTERIMPORT\') e vinculados a membros
      * @type number
     */
     totalTicketsAfterImport: number;
     /**
+     * @description Total de ingressos devolvidos (returned = true) e vinculados a membros
      * @type number
     */
     totalWithCritica: number;
     /**
+     * @description Total de ingressos devolvidos (returned = true) e entregues (deliveredAt não nulo) vinculados a membros
      * @type number
     */
     totalWithCriticaAndDelivered: number;
     /**
+     * @description Total de ingressos pagos (contagem de ingressos de membros quitados, onde totalPaymentsMade >= totalCostExpected)
      * @type number
     */
     totalPayedTickets: number;
     /**
+     * @description Total de ingressos pagos na última semana (ingressos de membros quitados cujo último pagamento foi nos últimos 7 dias)
      * @type number
     */
     totalPayedTicketsOnLastWeek: number;
     /**
+     * @description Valor total pago em ingressos (soma de todos os pagamentos não deletados de membros do evento)
      * @type number
     */
     totalValuePayedTickets: number;
     /**
+     * @description Valor total pago em ingressos na última semana (soma de pagamentos não deletados realizados nos últimos 7 dias)
      * @type number
     */
     totalValuePayedTicketsOnLastWeek: number;
     /**
+     * @description Array com a contagem de ingressos pagos agrupados por tipo de faixa de preço
      * @type array
     */
     totalPayedTicketsPerType: {
         /**
+         * @description Tipo da faixa de preço do ingresso
          * @type string
         */
         type: string;
         /**
+         * @description Quantidade de ingressos pagos deste tipo (de membros quitados)
          * @type number
         */
         ticketCount: number;
     }[];
     /**
+     * @description Total de ingressos não pagos (contagem de ingressos de membros que ainda não quitaram, onde totalPaymentsMade < totalCostExpected)
      * @type number
     */
     totalUnpaidTickets: number;
     /**
+     * @description Array com a contagem de ingressos não pagos agrupados por tipo de faixa de preço
      * @type array
     */
     totalUnpaidTicketsPerType: {
         /**
+         * @description Tipo da faixa de preço do ingresso
          * @type string
         */
         type: string;
         /**
+         * @description Quantidade de ingressos não pagos deste tipo (de membros não quitados)
          * @type number
         */
         ticketCount: number;
     }[];
     /**
+     * @description Total de ingressos confirmados mas não quitados (ingressos de membros com isAllConfirmedButNotYetFullyPaid = true e que ainda não quitaram)
      * @type number
     */
     totalConfirmedButUnpaidTickets: number;
     /**
+     * @description Array com a contagem de ingressos confirmados mas não quitados agrupados por tipo de faixa de preço
      * @type array
     */
     totalConfirmedButUnpaidTicketsPerType: {
         /**
+         * @description Tipo da faixa de preço do ingresso
          * @type string
         */
         type: string;
         /**
+         * @description Quantidade de ingressos confirmados mas não pagos deste tipo
          * @type number
         */
         ticketCount: number;
     }[];
     /**
+     * @description Total possível de ingressos (soma de ingressos de membros quitados OU com isAllConfirmedButNotYetFullyPaid = true)
      * @type number
     */
     possibleTotalTickets: number;
     /**
+     * @description Array com a contagem de ingressos previstos agrupados por tipo de faixa de preço (quitados ou confirmados)
      * @type array
     */
     totalPredictedTicketsPerType: {
         /**
+         * @description Tipo da faixa de preço do ingresso
          * @type string
         */
         type: string;
         /**
+         * @description Quantidade de ingressos previstos deste tipo (de membros quitados ou confirmados)
          * @type number
         */
         ticketCount: number;
     }[];
     /**
+     * @description Total de membros do evento
      * @type number
     */
     totalMembers: number;
     /**
+     * @description Array com a contagem total de ingressos agrupados por faixa de preço (todos os ingressos, independente de estarem vinculados a membros)
      * @type array
     */
     totalTicketsPerRange: {
         /**
+         * @description Tipo da faixa de preço do ingresso
          * @type string
         */
         type: string;
         /**
+         * @description Quantidade total de ingressos desta faixa de preço
          * @type number
         */
         ticketCount: number;
     }[];
     /**
+     * @description Array com a contagem de ingressos vinculados a membros agrupados por faixa de preço
      * @type array
     */
     totalTicketsPerRangeLinkedToMembers: {
         /**
+         * @description Tipo da faixa de preço do ingresso
          * @type string
         */
         type: string;
         /**
+         * @description Quantidade de ingressos desta faixa de preço vinculados a membros
          * @type number
         */
         ticketCount: number;
     }[];
     /**
+     * @description Array com a contagem de ingressos não devolvidos e entregues agrupados por faixa de preço
      * @type array
     */
     totalWithoutCriticaPerTicketEventRanges: {
         /**
+         * @description Tipo da faixa de preço do ingresso
          * @type string
         */
         type: string;
         /**
+         * @description Quantidade de ingressos não devolvidos (returned = false) e entregues (deliveredAt não nulo) desta faixa de preço vinculados a membros
          * @type number
         */
         ticketCount: number;
     }[];
     /**
+     * @description Array com a contagem de ingressos devolvidos e entregues agrupados por faixa de preço
      * @type array
     */
     totalWithCriticaPerTicketEventRanges: {
         /**
+         * @description Tipo da faixa de preço do ingresso
          * @type string
         */
         type: string;
         /**
+         * @description Quantidade de ingressos devolvidos (returned = true) e entregues (deliveredAt não nulo) desta faixa de preço vinculados a membros
          * @type number
         */
         ticketCount: number;

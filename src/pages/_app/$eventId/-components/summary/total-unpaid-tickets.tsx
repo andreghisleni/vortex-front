@@ -1,8 +1,9 @@
-import { BarChart } from 'lucide-react';
+import { AlertCircle } from 'lucide-react';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useGetEventDashboardDataById } from '@/http/generated';
 import { Loading } from './loading';
+import { DASHBOARD_FIELD_DESCRIPTIONS } from './dashboard-field-descriptions';
 
 export function TotalUnpaidTicket({ eventId }: { eventId: string }) {
   const { data, isLoading } = useGetEventDashboardDataById(eventId);
@@ -23,10 +24,15 @@ export function TotalUnpaidTicket({ eventId }: { eventId: string }) {
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="font-medium text-base">
-          Total de ingressos não pagos
-        </CardTitle>
-        <BarChart className="h-4 w-4 text-muted-foreground" />
+        <div>
+          <CardTitle className="font-medium text-base">
+            Total de ingressos não pagos
+          </CardTitle>
+          <CardDescription className="text-xs">
+            {DASHBOARD_FIELD_DESCRIPTIONS.totalUnpaidTickets}
+          </CardDescription>
+        </div>
+        <AlertCircle className="h-4 w-4 text-muted-foreground" />
       </CardHeader>
       <CardContent className="space-y-1">
         <span className="font-bold text-2xl">
