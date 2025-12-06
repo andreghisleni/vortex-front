@@ -38,12 +38,65 @@ export type GetEventExportData200 = {
              * @type number
             */
             number: number;
+            ticketRangeId: (string | null) | null;
             deliveredAt: ((string | string | number) | null) | null;
             /**
              * @type boolean
             */
             returned: boolean;
         }[];
+        /**
+         * @type array
+        */
+        payments: {
+            /**
+             * @type string, uuid
+            */
+            id: string;
+            /**
+             * @type number
+            */
+            amount: number;
+            type: (string | string);
+            payedAt: (string | string | number);
+        }[];
+        /**
+         * @type array
+        */
+        ticketsByRange: {
+            /**
+             * @type string, uuid
+            */
+            eventTicketRangeId: string;
+            /**
+             * @type number
+            */
+            quantity: number;
+            /**
+             * @type number
+            */
+            totalValue: number;
+        }[];
+        /**
+         * @type number
+        */
+        totalAmount: number;
+        /**
+         * @type number
+        */
+        totalPayed: number;
+        /**
+         * @type number
+        */
+        totalPayedWithPix: number;
+        /**
+         * @type number
+        */
+        totalPayedWithCash: number;
+        /**
+         * @type number
+        */
+        total: number;
     }[];
     /**
      * @type array
