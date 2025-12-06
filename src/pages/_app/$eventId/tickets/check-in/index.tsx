@@ -526,7 +526,7 @@ function CheckInPage() {
       </div>
 
       {/* Dialog de Warning */}
-      <Dialog open={!!warningDialog} onOpenChange={() => {}}>
+      <Dialog open={!!warningDialog} onOpenChange={() => {setWarningDialog(null)}}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-500/20">
